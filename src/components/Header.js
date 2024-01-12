@@ -30,17 +30,21 @@ export default function HeaderDefault() {
 
             <Dropdown>
               <DropdownTrigger>
-                <Button variant="bordered">Open Menu</Button>
+                <Button variant="bordered">Shop</Button>
               </DropdownTrigger>
               <DropdownMenu aria-label="Static Actions">
-                <DropdownItem key="cookies">Cookies</DropdownItem>
-                <DropdownItem key="Macaron">Macaron</DropdownItem>
+                <DropdownItem key="cookies">
+                  <Link href="/Cookies.js">Cookies</Link>
+                </DropdownItem>
+                <DropdownItem key="Macaron">
+                  <Link href="/Macaron.js">Macaron</Link>
+                </DropdownItem>
                 <DropdownItem
                   key="Birthday Cake"
                   className="text-danger"
                   color="danger"
                 >
-                  Birthday Cake
+                  <Link href="/Birthday_Cake.js">Birthday Cake</Link>
                 </DropdownItem>
               </DropdownMenu>
             </Dropdown>
