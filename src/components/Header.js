@@ -3,13 +3,22 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
+import {
+  Dropdown,
+  DropdownTrigger,
+  DropdownMenu,
+  DropdownItem,
+  Button,
+} from "@nextui-org/react";
 
 export default function HeaderDefault() {
   const pathname = usePathname();
   return (
     <div>
       <div className="w-full flex flex-row justify-between items-center bg-background">
-        <div>LOGO COMPANY</div>
+        <div className="logo">
+          <img src="https://skins.minimog.co/cdn/shop/files/cake_logo.png"></img>
+        </div>
         <div>
           <div className="flex flex-row justify-between gap-2 bg-purple-950 text-white">
             <Link
@@ -18,12 +27,29 @@ export default function HeaderDefault() {
             >
               Home
             </Link>
-            <Link
+
+            <Dropdown>
+              <DropdownTrigger>
+                <Button variant="bordered">Open Menu</Button>
+              </DropdownTrigger>
+              <DropdownMenu aria-label="Static Actions">
+                <DropdownItem key="cookies">Cookies</DropdownItem>
+                <DropdownItem key="Macaron">Macaron</DropdownItem>
+                <DropdownItem
+                  key="Birthday Cake"
+                  className="text-danger"
+                  color="danger"
+                >
+                  Birthday Cake
+                </DropdownItem>
+              </DropdownMenu>
+            </Dropdown>
+            {/* <Link
               className={`p-3 ${pathname === "/shop" ? "bg-slate-600" : ""}`}
               href="/shop"
             >
               Shop
-            </Link>
+            </Link> */}
             <Link
               className={`p-3 ${pathname === "/contact" ? "bg-slate-600" : ""}`}
               href="/contact"
