@@ -11,13 +11,8 @@ export default function RootLayout({ children }) {
     <>
       <html lang="en" suppressHydrationWarning>
         <head />
-        <body>
-          <Providers
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
+        <body suppressHydrationWarning={true}>
+          <Providers attribute="class" defaultTheme="dark">
             <HeaderDefault />
             {children}
             <FooterDefault />
