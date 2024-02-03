@@ -48,8 +48,81 @@
     --ring: 20.5 90.2% 48.2%;
   }
 }
+body {
+  background-color: #fffdf1;
+}
+/*page*/
 h4 {
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
   font-weight: bold;
   color: #57352d;
+}
+
+/*banner*/
+/* .banner {
+  background-color: #e1d9c6;
+} */
+
+.heading-title {
+  font-family: var(--font-lilita-one);
+  font-weight: bold;
+  font-size: 40px;
+  line-height: 35px;
+  /* color: var(--color-heading-text); */
+  padding-bottom: 20px;
+}
+
+.swiper-slide {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+.swiper-slide-transform {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.swiper-slide-transform > div {
+  display: flex;
+  flex-direction: column;
+  width: 35%;
+  padding: 25px;
+}
+
+/* banner_bottom */
+.banner_bottom {
+  padding-top: 30px;
+}
+
+.banner-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.banner-content {
+  padding-left: 30px;
+  padding-top: 130px;
+  color: #57352d;
+  text-align: center;
+  font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+.banner_button {
+  padding-top: 40px;
+}
+
+.banner_button > button {
+  background-color: orange;
+}
+
+.banner_button_content {
+  font-size: large;
+  font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }

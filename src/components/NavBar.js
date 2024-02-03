@@ -1,5 +1,14 @@
 import React from "react";
 import {
+  Dropdown,
+  NextUILink,
+  DropdownTrigger,
+  DropdownMenu,
+  DropdownItem,
+  NextUIButton,
+} from "@nextui-org/react";
+
+import {
   Navbar,
   NavbarBrand,
   NavbarMenuToggle,
@@ -59,13 +68,38 @@ export default function NavBar() {
             Home
           </Link>
         </NavbarItem>
+
         <NavbarItem>
           <Link href="/about">About</Link>
         </NavbarItem>
+
         <NavbarItem>
           <Link color="foreground" href="/contact">
             Contact
           </Link>
+        </NavbarItem>
+
+        <NavbarItem>
+          <Dropdown backdrop="blur">
+            <DropdownTrigger>
+              <Button
+                variant="default" // or variant="plain"
+              >
+                Category
+              </Button>
+            </DropdownTrigger>
+            <DropdownMenu variant="faded" aria-label="Static Actions">
+              <DropdownItem key="delete" className="text-danger" color="danger">
+                <Link href="./shop/birthday-cake">Birthday Cakes</Link>
+              </DropdownItem>
+              <DropdownItem key="delete" className="text-danger" color="danger">
+                <Link href="./shop/cookies">Cookies</Link>
+              </DropdownItem>
+              <DropdownItem key="delete" className="text-danger" color="danger">
+                <Link href="./shop/macaron">Macaron</Link>
+              </DropdownItem>
+            </DropdownMenu>
+          </Dropdown>
         </NavbarItem>
       </NavbarContent>
 
