@@ -1,8 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { Image } from "@nextui-org/react";
 import React from "react";
-import { Button } from "@nextui-org/react";
 
 export default function BirthdayCakePage() {
   const [data, setData] = useState([]);
@@ -12,7 +10,8 @@ export default function BirthdayCakePage() {
       {
         id: 1,
         name: "Strawberry Shortcake Truffle Dozen Box",
-        imageUrl: "./image/cake1.jpg",
+        imageUrl:
+          "https://skins.minimog.co/cdn/shop/products/7_93e9fa05-6552-4f57-b264-e94430da2c77.jpg",
         price: "$32.00",
       },
       {

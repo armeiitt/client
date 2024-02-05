@@ -126,3 +126,36 @@ h4 {
   font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
     "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
+
+/* cart */
+.your_bag_title {
+  font-weight: 700;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+}
+.main_title {
+  padding-top: 30px;
+  display: flex;
+  justify-content: space-between;
+}
+.shopping_bag > h3 {
+  font-weight: bold;
+  color: #57352d;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+}
+.main_cart {
+  display: flex;
+  flex-direction: row;
+  padding-top: 30px;
+}
+.product_cart {
+  flex: 1;
+}
+.order_summary {
+  flex: 1;
+}
+.order {
+  display: flex;
+  justify-content: space-between;
+}
