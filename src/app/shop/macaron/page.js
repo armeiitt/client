@@ -6,7 +6,7 @@ export default function MacaronPage() {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    const products = [
+    const macarons = [
       {
         id: 1,
         name: "Strawberry Shortcake Truffle Dozen Box",

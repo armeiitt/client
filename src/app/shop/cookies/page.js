@@ -6,7 +6,7 @@ export default function CookiesPage() {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    const products = [
+    const cookies = [
       {
         id: 1,
         name: "Strawberry Shortcake Truffle Dozen Box",

@@ -6,7 +6,7 @@ export default function BirthdayCakePage() {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    const products = [
+    const cakes = [
       {
         id: 1,
         name: "Strawberry Shortcake Truffle Dozen Box",
