@@ -1,114 +1,83 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Image } from "@nextui-org/react";
 import Banner from "@/components/Banner";
 import React from "react";
 import { Button } from "@nextui-org/react";
 
+import { Card, CardBody, CardFooter, Image } from "@nextui-org/react";
+
+import { useRouter } from "next/navigation";
+
 export default function Home() {
-  const [data, setData] = useState([]);
-
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState();
+  const { push } = useRouter();
   useEffect(() => {
-    const products = [
-      {
-        id: 1,
-        name: "Strawberry Shortcake Truffle Dozen Box",
-        imageUrl:
-          "https://skins.minimog.co/cdn/shop/products/8_46124baa-b484-4afe-b916-7dfbb2e56007.jpg",
-        price: "$32.00",
-      },
-      {
-        id: 2,
-        name: "B'day Truffle Dozen Box",
-        imageUrl:
-          "https://skins.minimog.co/cdn/shop/products/7_93e9fa05-6552-4f57-b264-e94430da2c77.jpg",
-        price: "$32.00",
-      },
-      {
-        id: 3,
-        name: "Chocolate B'day Truffle Dozen Box",
-        imageUrl:
-          "https://skins.minimog.co/cdn/shop/products/6_aca54fc4-6e3b-4a2d-81c8-6266fbb1a2a2.jpg",
-        price: "$32.00",
-      },
-      {
-        id: 4,
-        name: "Milk Bar® Pie",
-        imageUrl:
-          "https://skins.minimog.co/cdn/shop/products/4_17de000d-8fa7-4349-846f-e754bf4fa7bd.jpg",
-        price: "$32.00",
-      },
-      {
-        id: 5,
-        name: "Summer Splash",
-        imageUrl:
-          "https://skins.minimog.co/cdn/shop/products/12_140052e8-2f69-41fe-8cde-c3074e9ea6ca.jpg",
-        price: "$32.00",
-      },
-      {
-        id: 6,
-        name: "Birthday Cake Ice Cream",
-        imageUrl:
-          "https://skins.minimog.co/cdn/shop/products/11_90c3e4f2-aa8e-430c-bb48-3d536186f19a.jpg",
-        price: "$32.00",
-      },
-    ];
-    setData(products);
+    const fetchData = async () => {
+      try {
+        const res = await fetch(
+          "http://localhost:1337/api/products?populate=*",
+          {
+            method: "GET",
+            headers: {
+              Authorization:
+                "Bearer e955830f4caa7e9baa1870ef7d20144622215b4139d4170733184bf0a7824269404199106e090e6f191e94f76a143376823c385d900102df221d0013141eef48c5353b027b17745f5ee5167b4eecf80732fdaab09287993408293cd89f948b3336756ad4f41cbc51225c526f142dfcc9043eccbb8ed4bd5d436ddf4576f356e9",
+            },
+          }
+        );
+        const data = await res.json();
+        console.log(data);
+        setData(data.data);
+        setLoading(false);
+      } catch (error) {
+        setLoading(false);
+        setError(error.message);
+      }
+    };
+    fetchData();
   }, []);
-
   return (
-    <div>
-      <div>
-        <Banner />
-        <div className="">
-          <div className="heading_container">
-            <h4>More cake, cookies, pie</h4>
-          </div>
-          <div className="grid grid-cols-3 gap-4 px-4 w-full">
-            {data.map((v, i) => {
+    <main>
+      <section>
+        {loading ? (
+          <>Loading...</>
+        ) : error ? (
+          <div>{error}</div>
+        ) : (
+          <div className="grid grid-cols-3 gap-4 px-2 py-3">
+            {data.map((value, index) => {
               return (
-                <div key={v.id + 1000} className="">
-                  <div>
-                    <img src={v.imageUrl} />
-                  </div>
-                  <div>
-                    <div>{v.name}</div>
-                    <div>{v.price}</div>
-                  </div>
-                </div>
+                <Card
+                  shadow="sm"
+                  key={value.id}
+                  isPressable
+                  onPress={() => push(`/product/${value.attributes.slug}`)}
+                >
+                  <CardBody className="overflow-visible p-0">
+                    <img
+                      className="w-full h-auto"
+                      alt={value.attributes.name}
+                      src={
+                        `http://localhost:1337` +
+                        value.attributes.image.data.attributes.url
+                      }
+                    />
+                  </CardBody>
+                  <CardFooter className="text-small justify-between gap-2">
+                    <b className="truncate">{value.attributes.name}</b>
+                    <p className="text-default-500">
+                      ${value.attributes.regular_price}
+                    </p>
+                  </CardFooter>
+                </Card>
               );
             })}
           </div>
-        </div>
-      </div>
-
-      <div class="banner_bottom">
-        <div class="banner-container">
-          <div class="banner-media">
-            <img
-              src="https://skins.minimog.co/cdn/shop/files/cake_image_card.jpg?v=1659954235&width=940"
-              alt=""
-              srcset=""
-            />
-          </div>
-          <div class="banner-content">
-            <div class="heading-title">Don’t let summer float away</div>
-            <div>
-              <p>
-                Snag some cool treats now! And we’ll deliver them straight to
-                you in temperature controlled packaging, so they’re cold and
-                ready to eat.You don’t ehave to get out of the pool ;
-              </p>
-            </div>
-            <div class="banner_button">
-              <Button color="primary" variant="shadow">
-                <span className="banner_button_content"> About us</span>
-              </Button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+        )}
+      </section>
+      <section>Banner</section>
+    </main>
   );
 }

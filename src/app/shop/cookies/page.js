@@ -71,7 +71,7 @@ export default function CookiesPage() {
         price: "$32.00",
       },
     ];
-    setData(products);
+    setData(cookies);
   }, []);
 
   return (

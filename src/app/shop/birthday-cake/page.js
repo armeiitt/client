@@ -71,7 +71,7 @@ export default function BirthdayCakePage() {
         price: "$32.00",
       },
     ];
-    setData(products);
+    setData(cakes);
   }, []);
   return (
     <div>

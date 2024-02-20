@@ -101,7 +101,6 @@ h4 {
 
 .banner-container {
   display: flex;
-  flex-direction: row;
 }
 
 .banner-content {
@@ -111,10 +110,6 @@ h4 {
   text-align: center;
   font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
     "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-}
-
-.banner_button {
-  padding-top: 40px;
 }
 
 .banner_button > button {
@@ -146,7 +141,7 @@ h4 {
 }
 .main_cart {
   display: flex;
-  flex-direction: row;
+  /* flex-direction: row; */
   padding-top: 30px;
 }
 .product_cart {
@@ -158,4 +153,15 @@ h4 {
 .order {
   display: flex;
   justify-content: space-between;
+}
+
+/* about */
+.about {
+  display: flex;
+}
+.about_content {
+  padding: 40px 10px 40px 20px;
+}
+.about_text {
+  padding-bottom: 20px;
 }
