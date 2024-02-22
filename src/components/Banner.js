@@ -1,10 +1,20 @@
-import React from "react";
-// import function to register Swiper custom elements
+import React, { useState, useEffect } from "react";
 import { register } from "swiper/element/bundle";
-// register Swiper custom elements
 
+// register Swiper custom elements
 register();
+
 export default function Banner() {
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+    return () => setIsMounted(false);
+  }, []);
+
+  if (!isMounted) {
+    return null; // Không render gì nếu component chưa được mount
+  }
   return (
     <div>
       <swiper-container>

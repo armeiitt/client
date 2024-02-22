@@ -18,7 +18,7 @@ export default function Home() {
     const fetchData = async () => {
       try {
         const res = await fetch(
-          "http://localhost:1337/api/products?populate=*",
+          "http://localhost:1337/api/products?populate=*&pagination[pageSize]=6",
           {
             method: "GET",
             headers: {
@@ -40,6 +40,7 @@ export default function Home() {
   }, []);
   return (
     <main>
+      <Banner />
       <section>
         {loading ? (
           <>Loading...</>
