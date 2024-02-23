@@ -1,4 +1,6 @@
 import React from "react";
+import { Button } from "@nextui-org/react";
+import AddToCartButton from "@/components/AddToCartButton";
 
 const fetchData = async (pathname) => {
   try {
@@ -40,6 +42,15 @@ export default async function page({ params }) {
               <div>{data?.attributes.name}</div>
               <div>{data?.attributes.regular_price}</div>
               <div>{data?.attributes.description}</div>
+              <div>
+                <AddToCartButton
+                  variant="bordered"
+                  color="secondary"
+                  data={data}
+                >
+                  Add To Cart
+                </AddToCartButton>
+              </div>
             </div>
           </div>
         </div>

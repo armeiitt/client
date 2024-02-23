@@ -8,6 +8,7 @@ import { Button } from "@nextui-org/react";
 import { Card, CardBody, CardFooter, Image } from "@nextui-org/react";
 
 import { useRouter } from "next/navigation";
+import AddToCartButton from "@/components/AddToCartButton";
 
 export default function Home() {
   const [data, setData] = useState(null);
@@ -66,11 +67,22 @@ export default function Home() {
                       }
                     />
                   </CardBody>
-                  <CardFooter className="text-small justify-between gap-2">
-                    <b className="truncate">{value.attributes.name}</b>
-                    <p className="text-default-500">
-                      ${value.attributes.regular_price}
-                    </p>
+                  <CardFooter className="text-small flex-col gap-2">
+                    <div className="flex felx-row justify-between gap-2 w-full">
+                      <b className="truncate">{value.attributes.name}</b>
+                      <p className="text-default-500">
+                        ${value.attributes.regular_price}
+                      </p>
+                    </div>
+                    <div className="flex flex-row w-full justify-end">
+                      <AddToCartButton
+                        variant="bordered"
+                        color="secondary"
+                        data={value}
+                      >
+                        Add To Cart
+                      </AddToCartButton>
+                    </div>
                   </CardFooter>
                 </Card>
               );

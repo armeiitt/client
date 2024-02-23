@@ -1,7 +1,52 @@
-import React from "react";
+"use client";
+import React, { useState, useEffect } from "react";
 import { Button } from "@nextui-org/react";
 
 export default function Cart() {
+  const [items, setItems] = useState([]);
+  const [subTotal, setSubTotal] = useState(0);
+
+  useEffect(() => {
+    const storedItems = localStorage.getItem("cart");
+    if (storedItems) {
+      setItems(JSON.parse(storedItems));
+    }
+  }, []);
+
+  useEffect(() => {
+    const subtotal = items.reduce(
+      (acc, item) => acc + item.price * item.quantity,
+      0
+    );
+    setSubTotal(subtotal);
+  }, [items]);
+
+  const updateLocalStorage = (updatedItems) => {
+    localStorage.setItem("cart", JSON.stringify(updatedItems));
+  };
+
+  const increaseQuantity = (id) => {
+    const updatedItems = items.map((item) =>
+      item.id === id ? { ...item, quantity: item.quantity + 1 } : item
+    );
+    setItems(updatedItems);
+    updateLocalStorage(updatedItems);
+  };
+
+  const decreaseQuantity = (id) => {
+    const updatedItems = items
+      .map((item) =>
+        item.id === id
+          ? item.quantity > 1
+            ? { ...item, quantity: item.quantity - 1 }
+            : null // Nếu quantity = 0, trả về null
+          : item
+      )
+      .filter((item) => item !== null); // Lọc bỏ các phần tử null
+    setItems(updatedItems);
+    updateLocalStorage(updatedItems);
+  };
+
   return (
     <div>
       <div className="title_cart">
@@ -20,7 +65,7 @@ export default function Cart() {
             </Button>
           </div>
           <div className="shopping_bag">
-            <h3>Shopping Bags (2) </h3>
+            <h3>Shopping Bags ({items.length}) </h3>
           </div>
           <div className="checkout">
             <Button
@@ -32,26 +77,36 @@ export default function Cart() {
           </div>
         </div>
       </div>
-      <div className="main_cart">
-        <div className="product_cart">ten ten</div>
+      <div className="main_cart flex gap-3">
+        <div className="product_cart">
+          {items.map((item, index) => {
+            return (
+              <div key={index} className="flex flex-row justify-between">
+                <div className="w-[40%]">{item.name}</div>
+                <div>
+                  <Button onClick={() => decreaseQuantity(item.id)}>- </Button>
+                  {item.quantity}
+                  <Button onClick={() => increaseQuantity(item.id)}> +</Button>
+                </div>
+                <div>${item.price * item.quantity}</div>
+              </div>
+            );
+          })}
+        </div>
         <div className="order_summary">
-          <div class="border-2 border-indigo-600 ...">
+          <div className="border-2 border-indigo-600 ...">
             <h3>ORDER SUMMARY</h3>
             <div className="order">
               <div>Subtotal</div>
-              <div>$80</div>
+              <div>${subTotal}</div>
             </div>
             <div className="order">
-              <div>Subtotal</div>
-              <div>$80</div>
-            </div>
-            <div className="order">
-              <div>Shipping Discount</div>
-              <div>$80</div>
+              <div>Shipping</div>
+              <div>Free</div>
             </div>
             <div className="order">
               <div>Total</div>
-              <div>$80</div>
+              <div>${subTotal}</div>
             </div>
           </div>
         </div>

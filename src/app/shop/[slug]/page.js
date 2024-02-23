@@ -1,9 +1,10 @@
 "use client";
 import React, { useState, useEffect } from "react";
-
+import { Button } from "@nextui-org/react";
 import { usePathname } from "next/navigation";
 import { Card, CardBody, CardFooter, Image } from "@nextui-org/react";
 import { useRouter } from "next/navigation";
+import AddToCartButton from "@/components/AddToCartButton";
 export default function page() {
   const [data, setData] = useState(null);
   const pathname = usePathname();
@@ -60,6 +61,15 @@ export default function page() {
                 <p className="text-default-500">
                   ${value.attributes.regular_price}
                 </p>
+                <div className="flex flex-row w-full justify-end">
+                  <AddToCartButton
+                    variant="bordered"
+                    color="secondary"
+                    data={value}
+                  >
+                    Add To Cart
+                  </AddToCartButton>
+                </div>
               </CardFooter>
             </Card>
           );
