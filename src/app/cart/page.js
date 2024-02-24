@@ -51,30 +51,30 @@ export default function Cart() {
     <div>
       <div className="title_cart">
         <div>
-          <h2 className="your_bag_title">
+          <h1 className="your_bag_title">
             <center>YOUR BAG</center>
-          </h2>
+          </h1>
         </div>
         <div className="main_title">
-          <div className="continue_shopping">
+          {/* <div className="continue_shopping">
             <Button
               radius="full"
               className="bg-gradient-to-tr from-pink-500 to-yellow-500 text-white shadow-lg"
             >
               CONTINUE SHOPPING
             </Button>
-          </div>
+          </div> */}
           <div className="shopping_bag">
             <h3>Shopping Bags ({items.length}) </h3>
           </div>
-          <div className="checkout">
+          {/* <div className="checkout">
             <Button
               radius="full"
               className="bg-gradient-to-tr from-pink-500 to-yellow-500 text-white shadow-lg"
             >
               CHECKOUT NOW
             </Button>
-          </div>
+          </div> */}
         </div>
       </div>
       <div className="main_cart flex gap-3">
@@ -83,10 +83,26 @@ export default function Cart() {
             return (
               <div key={index} className="flex flex-row justify-between">
                 <div className="w-[40%]">{item.name}</div>
-                <div>
-                  <Button onClick={() => decreaseQuantity(item.id)}>- </Button>
+                <div className="button_cart">
+                  {/* <Button onClick={() => decreaseQuantity(item.id)}> - </Button> */}
+                  <Button
+                    color="primary"
+                    variant="light"
+                    onClick={() => decreaseQuantity(item.id)}
+                  >
+                    {" "}
+                    -
+                  </Button>
                   {item.quantity}
-                  <Button onClick={() => increaseQuantity(item.id)}> +</Button>
+                  {/* <Button onClick={() => increaseQuantity(item.id)}> + </Button> */}
+                  <Button
+                    color="primary"
+                    variant="light"
+                    onClick={() => increaseQuantity(item.id)}
+                  >
+                    {" "}
+                    +
+                  </Button>
                 </div>
                 <div>${item.price * item.quantity}</div>
               </div>
@@ -94,8 +110,12 @@ export default function Cart() {
           })}
         </div>
         <div className="order_summary">
-          <div className="border-2 border-indigo-600 ...">
-            <h3>ORDER SUMMARY</h3>
+          <div>
+            <div className="order_summary_title">
+              <h3>
+                <center>ORDER SUMMARY</center>
+              </h3>
+            </div>
             <div className="order">
               <div>Subtotal</div>
               <div>${subTotal}</div>

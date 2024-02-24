@@ -105,7 +105,7 @@ export default function NavBar() {
         <NavbarItem>
           <Dropdown>
             <DropdownTrigger>
-              <Button variant="bordered">Open Menu</Button>
+              <Button variant="bordered">Categories</Button>
             </DropdownTrigger>
             <DropdownMenu aria-label="Dynamic Actions" items={data}>
               {(item) => (
@@ -132,9 +132,9 @@ export default function NavBar() {
           <Link href="/cart">Cart</Link>
         </NavbarItem>
         <NavbarItem>
-          <Button as={Link} color="warning" href="#" variant="flat">
+          {/* <Button as={Link} color="warning" href="#" variant="flat">
             Sign Up
-          </Button>
+          </Button> */}
         </NavbarItem>
       </NavbarContent>
 
