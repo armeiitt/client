@@ -7,6 +7,12 @@ function classNames(...classes) {
 import React, { useState } from "react";
 export default function page() {
   const [agreed, setAgreed] = useState(false);
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    alert(
+      "We have received your information, the store will contact you later via your phone number. Thank you!"
+    );
+  };
 
   return (
     <div className="isolate bg-white px-6 py-5 lg:px-8">
@@ -19,6 +25,7 @@ export default function page() {
       <form
         action="#"
         method="POST"
+        onSubmit={handleSubmit}
         className="mx-auto mt-16 max-w-xl sm:mt-20"
       >
         <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
@@ -171,6 +178,7 @@ export default function page() {
             </label>
           </div> */}
         </div>
+
         <div className="mt-10">
           <button
             type="submit"

@@ -125,6 +125,12 @@ export default function NavBar() {
             </DropdownMenu>
           </Dropdown>
         </NavbarItem>
+
+        <NavbarItem>
+          <Link color="foreground" href="/designed_cake">
+            Designed Cake
+          </Link>
+        </NavbarItem>
       </NavbarContent>
 
       <NavbarContent justify="end">

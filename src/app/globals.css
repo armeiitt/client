@@ -187,3 +187,44 @@ h4 {
 /* Product_detail */
 .product_detail {
 }
+
+/* designed_page */
+.main_designed_cake {
+  display: flex;
+}
+
+.selected_items {
+  flex: 1.5;
+}
+
+.detail_designed_cake {
+  padding-left: 50px;
+  flex: 1;
+  color: #57352d;
+}
+.title_designed_cake {
+  font-size: xx-large;
+  font-weight: bolder;
+}
+.information_designed_cake {
+  padding-top: 50px;
+  padding-right: 50px;
+}
+.body_designed_cake {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 70px;
+}
+.decoration_container {
+  padding-top: 70px;
+}
+.container_image_designed_cake {
+  flex-wrap: nowrap;
+}
+.name_designed_cake {
+  font-weight: 1000;
+}
+.image_footer_designed_cake {
+  padding-top: 70px;
+
+}
