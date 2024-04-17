@@ -1,17 +1,51 @@
 "use client";
-
+import React, { useState } from "react";
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-import React, { useState } from "react";
-export default function page() {
-  const [agreed, setAgreed] = useState(false);
+// import React, { useState } from "react";
+
+export default function Page() {
+  // Khởi tạo trạng thái ban đầu với giá trị mặc định rỗng cho các trường dữ liệu
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    phoneNumber: "",
+    email: "",
+    gender: "",
+    dayOfBirth: ""
+  });
+
+  // Hàm xử lý khi người dùng thay đổi các trường nhập liệu
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    // Cập nhật trạng thái mới với giá trị mới của trường dữ liệu tương ứng
+    setFormData({
+      ...formData,
+      [name]: value
+    });
+  };
+
+  // Hàm xử lý khi form được gửi đi
   const handleSubmit = (event) => {
     event.preventDefault();
+    // Thực hiện xử lý dữ liệu ở đây, ví dụ: gửi dữ liệu đến server
+    console.log("Form data:", formData);
+    // Hiển thị thông báo
     alert(
       "We have received your information, the store will contact you later via your phone number. Thank you!"
     );
+    // Đặt lại giá trị của trạng thái sau khi form được gửi
+    // Điều này giúp làm sạch các trường nhập liệu sau khi form được gửi đi
+    setFormData({
+      firstName: "",
+      lastName: "",
+      phoneNumber: "",
+      email: "",
+      gender: "",
+      dayOfBirth: ""
+    });
   };
 
   return (
@@ -39,10 +73,12 @@ export default function page() {
             <div className="mt-2.5">
               <input
                 type="text"
-                name="first-name"
+                name="firstName"
                 id="first-name"
                 autoComplete="given-name"
                 className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                value={formData.firstName} // Hiển thị giá trị của trường firstName
+                onChange={handleChange}
               />
             </div>
           </div>
@@ -56,44 +92,12 @@ export default function page() {
             <div className="mt-2.5">
               <input
                 type="text"
-                name="last-name"
+                name="lastName"
                 id="last-name"
                 autoComplete="family-name"
                 className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-              />
-            </div>
-          </div>
-          {/* <div className="sm:col-span-2">
-            <label
-              htmlFor="company"
-              className="block text-sm font-semibold leading-6 text-gray-900"
-            >
-              Company
-            </label>
-            <div className="mt-2.5">
-              <input
-                type="text"
-                name="company"
-                id="company"
-                autoComplete="organization"
-                className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-              />
-            </div>
-          </div> */}
-          <div className="sm:col-span-2">
-            <label
-              htmlFor="email"
-              className="block text-sm font-semibold leading-6 text-gray-900"
-            >
-              Email
-            </label>
-            <div className="mt-2.5">
-              <input
-                type="email"
-                name="email"
-                id="email"
-                autoComplete="email"
-                className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                onChange={handleChange}
+                value={formData.lastName}
               />
             </div>
           </div>
@@ -125,60 +129,98 @@ export default function page() {
               </div>
               <input
                 type="tel"
-                name="phone-number"
+                name="phoneNumber"
                 id="phone-number"
                 autoComplete="tel"
                 className="block w-full rounded-md border-0 px-3.5 py-2 pl-20 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                onChange={handleChange}
+                value={formData.phoneNumber}
               />
             </div>
           </div>
           <div className="sm:col-span-2">
             <label
-              htmlFor="message"
+              htmlFor="email"
               className="block text-sm font-semibold leading-6 text-gray-900"
             >
-              Message
+              Email
             </label>
             <div className="mt-2.5">
-              <textarea
-                name="message"
-                id="message"
-                rows={4}
+              <input
+                type="email"
+                name="email"
+                id="email"
+                autoComplete="email"
                 className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                defaultValue={""}
+                onChange={handleChange}
+                value={formData.email}
               />
             </div>
           </div>
-          {/* <div className="flex gap-x-4 sm:col-span-2">
-            <div className="flex h-6 items-center">
-              <div
-                checked={agreed}
-                onChange={setAgreed}
-                className={classNames(
-                  agreed ? "bg-indigo-600" : "bg-gray-200",
-                  "flex w-8 flex-none cursor-pointer rounded-full p-px ring-1 ring-inset ring-gray-900/5 transition-colors duration-200 ease-in-out focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                )}
-              >
-                <span className="sr-only">Agree to policies</span>
-                <span
-                  aria-hidden="true"
-                  className={classNames(
-                    agreed ? "translate-x-3.5" : "translate-x-0",
-                    "h-4 w-4 transform rounded-full bg-white shadow-sm ring-1 ring-gray-900/5 transition duration-200 ease-in-out"
-                  )}
-                />
-              </div>
-            </div>
-            <label className="text-sm leading-6 text-gray-600">
-              By selecting this, you agree to our{" "}
-              <a href="#" className="font-semibold text-indigo-600">
-                privacy&nbsp;policy
-              </a>
-              .
+          <div className="sm:col-span-2">
+            <label
+              htmlFor="gender"
+              className="block text-sm font-semibold leading-6 text-gray-900"
+            >
+              Gender
             </label>
-          </div> */}
-        </div>
+            <div className="mt-2.5 flex items-center space-x-4">
+              <label htmlFor="male" className="flex items-center space-x-2">
+                <input
+                  type="radio"
+                  id="male"
+                  name="gender"
+                  value="male"
+                  className="text-indigo-600 focus:ring-indigo-600"
+                  onChange={handleChange}
+                  checked={formData.gender === "male"}
+                />
+                <span className="text-sm font-medium text-gray-900">Male</span>
+              </label>
+              <label htmlFor="female" className="flex items-center space-x-2">
+                <input
+                  type="radio"
+                  id="female"
+                  name="gender"
+                  value="female"
+                  className="text-indigo-600 focus:ring-indigo-600"
+                  onChange={handleChange}
+                  checked={formData.gender === "female"}
+                />
+                <span className="text-sm font-medium text-gray-900">Female</span>
+              </label>
+              <label htmlFor="other" className="flex items-center space-x-2">
+                <input
+                  type="radio"
+                  id="other"
+                  name="gender"
+                  value="other"
+                  className="text-indigo-600 focus:ring-indigo-600"
+                  onChange={handleChange}
+                  checked={formData.gender === "other"}
+                />
+                <span className="text-sm font-medium text-gray-900">Other</span>
+              </label>
+            </div>
+            <div className="sm:col-span-2">
+            <label
+              htmlFor="day-of-birth"
+              className="block text-sm font-semibold leading-6 text-gray-900"
+            >
+              Date of Birth
+            </label>
+            <input
+              type="date"
+              name="dayOfBirth"
+              id="day-of-birth"
+              className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              value={formData.dayOfBirth}
+              onChange={handleChange}
+            />
+          </div>
+          </div>
 
+        </div>
         <div className="mt-10">
           <button
             type="submit"
