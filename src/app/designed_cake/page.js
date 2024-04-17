@@ -17,13 +17,13 @@ import React, { useState } from "react";
 export default function Designed_Cake() {
   const [selectedShape, setSelectedShape] = React.useState(new Set(["Shape"]));
 
-  const [selectFruits, setSelectFruits] = useState("");
+  const [selectFruits, setSelectFruits] = useState([]);
 
-  const [selectAnimals, setSelectAnimals] = useState("");
+  const [selectAnimals, setSelectAnimals] = useState([]);
 
-  const [selectSex, setSelectSex] = useState("");
+  const [selectSex, setSelectSex] = useState([]);
 
-  const [selectCandles, setSelectCandles] = useState("");
+  const [selectCandles, setSelectCandles] = useState([]);
   const selectedShapeValue = React.useMemo(
     () => Array.from(selectedShape).join(", ").replaceAll("_", " "),
     [selectedShape]
@@ -49,6 +49,30 @@ export default function Designed_Cake() {
 
   const handleChange = (event) => {
     setUserInput(event.target.value);
+  };
+
+  const handleFruitSelectionChange = (newSelection) => {
+    if (newSelection.length <= 2) {
+      setSelectFruits(newSelection);
+    }
+  };
+
+  const handleAnimalSelectionChange = (newSelection) => {
+    if (newSelection.length <= 1) {
+      setSelectAnimals(newSelection);
+    }
+  };
+
+  const handleSexSelectionChange = (newSelection) => {
+    if (newSelection.length <= 1) {
+      setSelectSex(newSelection);
+    }
+  };
+
+  const handleCandleSelectionChange = (newSelection) => {
+    if (newSelection.length <= 1) {
+      setSelectCandles(newSelection);
+    }
   };
 
   return (
@@ -82,7 +106,7 @@ export default function Designed_Cake() {
               <div>
                 <label
                   htmlFor="shape"
-                  className="block text-sm font-semibold leading-6 text-gray-900"
+                  className="title_designed_cake_left block text-sm font-semibold leading-6 text-gray-900"
                 >
                   Shape
                 </label>
@@ -113,7 +137,7 @@ export default function Designed_Cake() {
               <div>
                 <label
                   htmlFor="size"
-                  className="block text-sm font-semibold leading-6 text-gray-900"
+                  className="title_designed_cake_left block text-sm font-semibold leading-6 text-gray-900"
                 >
                   Size
                 </label>
@@ -145,7 +169,7 @@ export default function Designed_Cake() {
               <div className="sm:col-span-2">
                 <label
                   htmlFor="taste"
-                  className="block text-sm font-semibold leading-6 text-gray-900"
+                  className="title_designed_cake_left block text-sm font-semibold leading-6 text-gray-900"
                 >
                   Taste
                 </label>
@@ -190,7 +214,7 @@ export default function Designed_Cake() {
               <div className="sm:col-span-2">
                 <label
                   htmlFor="sticker"
-                  className="block text-sm font-semibold leading-6                     text-gray-900"
+                  className="title_designed_cake_left block text-sm font-semibold leading-6                     text-gray-900"
                 >
                   Decorations
                 </label>
@@ -203,7 +227,9 @@ export default function Designed_Cake() {
                       orientation="horizontal"
                       color="secondary"
                       defaultValue={[]}
-                      onChange={(e) => setSelectFruits(e)}
+                      value={selectFruits}
+                      onChange={handleFruitSelectionChange}
+                    // onChange={(e) => setSelectFruits(e)}
                     >
                       <Checkbox value=" Strawberry">
                         <Image
@@ -257,7 +283,9 @@ export default function Designed_Cake() {
                       orientation="horizontal"
                       color="secondary"
                       defaultValue={[]}
-                      onChange={(e) => setSelectAnimals(e)}
+                      value={selectAnimals}
+                      onChange={handleAnimalSelectionChange}
+                    // onChange={(e) => setSelectAnimals(e)}
                     >
                       <Checkbox value=" Duck">
                         <Image
@@ -312,7 +340,9 @@ export default function Designed_Cake() {
                       orientation="horizontal"
                       color="secondary"
                       defaultValue={[]}
-                      onChange={(e) => setSelectSex(e)}
+                      value={selectSex}
+                      onChange={handleSexSelectionChange}
+                    // onChange={(e) => setSelectSex(e)}
                     >
                       <Checkbox value=" Boy">
                         <Image
@@ -370,18 +400,20 @@ export default function Designed_Cake() {
               <div className="sm:col-span-2">
                 <label
                   htmlFor="sticker"
-                  className="block text-sm font-semibold leading-6                     text-gray-900"
+                // className="block text-sm font-semibold leading-6                     text-gray-900"
                 >
-                  Candles
+                  Candles (Accessory)
                 </label>
                 <div className="relative mt-1.5">
                   <div>
                     <CheckboxGroup
+                      className="container_image_designed_cake"
                       orientation="horizontal"
                       color="secondary"
                       defaultValue={[]}
-                      onChange={(e) => setSelectCandles(e)}
-                      selectionMode="single"
+                      value={selectCandles}
+                      onChange={handleCandleSelectionChange}
+                    // onChange={(e) => setSelectCandles(e)}
                     >
                       <Checkbox value=" Number Candles">
                         <Image
@@ -414,7 +446,7 @@ export default function Designed_Cake() {
               <div className="sm:col-span-2">
                 <label
                   htmlFor="message"
-                  className="block text-sm font-semibold leading-6 text-gray-900"
+                  className="title_designed_cake_left block text-sm font-semibold leading-6 text-gray-900"
                 >
                   Message
                 </label>
@@ -501,9 +533,52 @@ export default function Designed_Cake() {
             <Image
               src="/images/logo2.jpg"
               alt="picture"
-              width={500}
+              width={400}
               height={80}
             />
+            <div>
+            <div className="sketchfab-embed-wrapper">
+  <iframe
+    title="Cylinder"
+    frameBorder="0"
+    allowFullScreen
+    mozAllowFullScreen="true"
+    webkitAllowFullScreen="true"
+    allow="autoplay; fullscreen; xr-spatial-tracking"
+    xr-spatial-tracking
+    src="https://sketchfab.com/models/084f375201f147e7a674e2a5c0a19776/embed"
+  ></iframe>
+  <p style={{ fontSize: '13px', fontWeight: 'normal', margin: '5px', color: '#4A4A4A' }}>
+    <a
+      href="https://sketchfab.com/3d-models/cylinder-084f375201f147e7a674e2a5c0a19776?utm_medium=embed&utm_campaign=share-popup&utm_content=084f375201f147e7a674e2a5c0a19776"
+      target="_blank"
+      rel="nofollow"
+      style={{ fontWeight: 'bold', color: '#1CAAD9' }}
+    >
+      Cylinder
+    </a>{' '}
+    by{' '}
+    <a
+      href="https://sketchfab.com/guardianofsnow?utm_medium=embed&utm_campaign=share-popup&utm_content=084f375201f147e7a674e2a5c0a19776"
+      target="_blank"
+      rel="nofollow"
+      style={{ fontWeight: 'bold', color: '#1CAAD9' }}
+    >
+      GuardianofSnow
+    </a>{' '}
+    on{' '}
+    <a
+      href="https://sketchfab.com?utm_medium=embed&utm_campaign=share-popup&utm_content=084f375201f147e7a674e2a5c0a19776"
+      target="_blank"
+      rel="nofollow"
+      style={{ fontWeight: 'bold', color: '#1CAAD9' }}
+    >
+      Sketchfab
+    </a>
+  </p>
+</div>
+
+            </div>
           </center>
         </div>
       </div>

@@ -30,7 +30,7 @@ export default function FooterDefault() {
             <img src="https://skins.minimog.co/cdn/shop/files/cake_logo.png"></img>
           </div>
           <div className="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
-            <div>
+            {/* <div>
               <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">
                 Resources
               </h2>
@@ -41,7 +41,7 @@ export default function FooterDefault() {
                   </a>
                 </li>
               </ul>
-            </div>
+            </div> */}
             <div>
               <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">
                 Follow us
@@ -71,13 +71,13 @@ export default function FooterDefault() {
               </h2>
               <ul className="text-gray-500 dark:text-gray-400 font-medium">
                 <li className="mb-4">
-                  <a href="#" className="hover:underline">
-                    Privacy Policy
+                  <a href="/policy" className="hover:underline">
+                    Policy
                   </a>
                 </li>
                 <li>
                   <a href="#" className="hover:underline">
-                    Terms &amp; Conditions
+                    Delivery
                   </a>
                 </li>
               </ul>
@@ -87,15 +87,15 @@ export default function FooterDefault() {
         <hr className="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
         <div className="sm:flex sm:items-center sm:justify-between">
           <span className="text-sm text-gray-500 sm:text-center dark:text-gray-400">
-            © 2023{" "}
-            <a href="https://flowbite.com/" className="hover:underline">
+            © 2024{" "}
+            {/* <a href="https://flowbite.com/" className="hover:underline">
               Flowbite™
-            </a>
+            </a> */}
             . All Rights Reserved.
           </span>
           <div className="flex mt-4 sm:justify-center sm:mt-0">
             <a
-              href="#"
+              href="https://www.facebook.com/profile.php?id=100076150984948"
               className="text-gray-500 hover:text-gray-900 dark:hover:text-white"
             >
               <svg
@@ -114,7 +114,7 @@ export default function FooterDefault() {
               <span className="sr-only">Facebook page</span>
             </a>
             <a
-              href="#"
+              href="https://discord.gg/NHgddQ3j"
               className="text-gray-500 hover:text-gray-900 dark:hover:text-white ms-5"
             >
               <svg
@@ -128,7 +128,7 @@ export default function FooterDefault() {
               </svg>
               <span className="sr-only">Discord community</span>
             </a>
-            <a
+            {/* <a
               href="#"
               className="text-gray-500 hover:text-gray-900 dark:hover:text-white ms-5"
             >
@@ -146,9 +146,9 @@ export default function FooterDefault() {
                 />
               </svg>
               <span className="sr-only">Twitter page</span>
-            </a>
+            </a> */}
             <a
-              href="#"
+              href="https://github.com/armeiitt/"
               className="text-gray-500 hover:text-gray-900 dark:hover:text-white ms-5"
             >
               <svg
@@ -166,7 +166,7 @@ export default function FooterDefault() {
               </svg>
               <span className="sr-only">GitHub account</span>
             </a>
-            <a
+            {/* <a
               href="#"
               className="text-gray-500 hover:text-gray-900 dark:hover:text-white ms-5"
             >
@@ -184,7 +184,7 @@ export default function FooterDefault() {
                 />
               </svg>
               <span className="sr-only">Dribbble account</span>
-            </a>
+            </a> */}
           </div>
         </div>
       </div>

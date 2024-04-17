@@ -46,16 +46,16 @@ export default function NavBar() {
   }, []);
 
   const menuItems = [
-    "Profile",
-    "Dashboard",
-    "Activity",
-    "Analytics",
-    "System",
-    "Deployments",
-    "My Settings",
-    "Team Settings",
-    "Help & Feedback",
-    "Log Out",
+    "Home",
+    "About",
+    "Contact",
+    "Categories",
+    "Designed Cake",
+    "Cart",
+    // "My Settings",
+    // "Team Settings",
+    // "Help & Feedback",
+    // "Log Out",
   ];
 
   return (
@@ -156,7 +156,19 @@ export default function NavBar() {
                   ? "danger"
                   : "foreground"
               }
-              href="#"
+              href={
+                item === "Home"
+                  ? "/"
+                  : item === "Contact"
+                  ? "/contact"
+                  : item === "About"
+                  ? "/about"
+                  : item === "Cart"
+                  ? "/cart"
+                  : item === "Designed Cake"
+                  ? "/designed_cake"
+                  : `/${item.toLowerCase()}`
+              }
               size="lg"
             >
               {item}
