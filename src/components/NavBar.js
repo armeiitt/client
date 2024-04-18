@@ -97,8 +97,8 @@ export default function NavBar() {
         </NavbarItem>
 
         <NavbarItem>
-          <Link color="foreground" href="/contact">
-            Contact
+          <Link color="foreground" href="/register">
+            Register
           </Link>
         </NavbarItem>
 
@@ -138,9 +138,9 @@ export default function NavBar() {
           <Link href="/cart">Cart</Link>
         </NavbarItem>
         <NavbarItem>
-          {/* <Button as={Link} color="warning" href="#" variant="flat">
+          <Button as={Link} color="warning" href="/sign_up" variant="flat">
             Sign Up
-          </Button> */}
+          </Button>
         </NavbarItem>
       </NavbarContent>
 
