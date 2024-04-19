@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from 'react';
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
@@ -7,49 +7,75 @@ function classNames(...classes) {
 // import React, { useState } from "react";
 
 export default function Page() {
-  // Khởi tạo trạng thái ban đầu với giá trị mặc định rỗng cho các trường dữ liệu
-  const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    phoneNumber: "",
-    email: "",
-    gender: "",
-    dayOfBirth: "",
-    address: ""
-  });
+  const initialFormData = {
+    firstName: '',
+    lastName: '',
+    phoneNumber: '',
+    email: '',
+    gender: '',
+    dayOfBirth: '',
+    address: ''
+  };
 
-  // Hàm xử lý khi người dùng thay đổi các trường nhập liệu
+  const [formData, setFormData] = useState(initialFormData);
+
+  // Load dữ liệu từ localStorage vào formData khi component được render lần đầu
+  useEffect(() => {
+    const storedFormData = localStorage.getItem('formData');
+    if (storedFormData) {
+      setFormData(JSON.parse(storedFormData));
+    }
+  }, []);
+
+  // Lưu dữ liệu từ formData vào localStorage khi formData thay đổi
+  useEffect(() => {
+    localStorage.setItem('formData', JSON.stringify(formData));
+  }, [formData]);
+  // useEffect(() => {
+  //   const storedFormData = localStorage.getItem('formData');
+  //   if (storedFormData) {
+  //     setFormData(JSON.parse(storedFormData));
+  //   }
+  //   console.log('Loaded formData from localStorage:', formData); // Log giá trị formData sau khi load từ localStorage
+  // }, []);
+  
+  // useEffect(() => {
+  //   localStorage.setItem('formData', JSON.stringify(formData));
+  //   console.log('Saved formData to localStorage:', formData); // Log giá trị formData sau khi lưu vào localStorage
+  // }, [formData]);
+  
   const handleChange = (event) => {
     const { name, value } = event.target;
-    // Cập nhật trạng thái mới với giá trị mới của trường dữ liệu tương ứng
     setFormData({
       ...formData,
       [name]: value
     });
   };
-
-  // Hàm xử lý khi form được gửi đi
+  // const handleChange = (event) => {
+  //   const { name, value } = event.target;
+  //   setFormData({
+  //     ...formData,
+  //     [name]: value
+  //   });
+  //   console.log('Updated formData:', formData); // Log giá trị formData sau khi cập nhật
+  // };
+  
   const handleSubmit = (event) => {
     event.preventDefault();
-    // Thực hiện xử lý dữ liệu ở đây, ví dụ: gửi dữ liệu đến server
-    console.log("Form data:", formData);
-    // Hiển thị thông báo
+    console.log('Form data:', formData);
     alert(
-      "We have received your information, the store will contact you later via your phone number. Thank you!"
+      'We have received your information, the store will contact you later via your phone number. Thank you!'
     );
-    // Đặt lại giá trị của trạng thái sau khi form được gửi
-    // Điều này giúp làm sạch các trường nhập liệu sau khi form được gửi đi
-    setFormData({
-      firstName: "",
-      lastName: "",
-      phoneNumber: "",
-      email: "",
-      gender: "",
-      dayOfBirth: "",
-      address: ""
-    });
+    setFormData(initialFormData); // Reset formData sau khi submit
   };
-
+  // const handleSubmit = (event) => {
+  //   event.preventDefault();
+  //   console.log('Form data submitted:', formData); // Log giá trị formData khi form được gửi đi
+  //   alert('We have received your information, the store will contact you later via your phone number. Thank you!');
+  //   setFormData(initialFormData); // Reset formData sau khi submit
+  //   console.log('FormData reset to initial:', formData); // Log giá trị formData sau khi reset
+  // };
+  
   return (
     <div className="isolate bg-white px-6 py-5 lg:px-8">
       <div className="mx-auto max-w-2xl text-center">
