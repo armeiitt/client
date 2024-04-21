@@ -47,6 +47,36 @@ export default function Cart() {
     updateLocalStorage(updatedItems);
   };
 
+  const [formData, setFormData] = useState({}); // State để lưu thông tin người dùng từ localStorage
+
+  useEffect(() => {
+    console.log('Fetching formData from localStorage...');
+    const storedFormData = localStorage.getItem('formData');
+    if (storedFormData) {
+      const parsedFormData = JSON.parse(storedFormData);
+      console.log('Parsed formData:', parsedFormData);
+      const updatedFormData = {
+        firstName: parsedFormData.firstName || '',
+        lastName: parsedFormData.lastName || '',
+        phoneNumber: parsedFormData.phoneNumber || '',
+        email: parsedFormData.email || '',
+        gender: parsedFormData.gender || '',
+        dayOfBirth: parsedFormData.dayOfBirth || '',
+        address: parsedFormData.address || ''
+      };
+      console.log('Setting formData:', updatedFormData);
+      setFormData(updatedFormData);
+    }
+  }, []);
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: value
+    }));
+  };
+
+
   return (
     <div>
       <div>
@@ -147,16 +177,9 @@ export default function Cart() {
         </div>
       </div>
       <div className="isolate bg-white px-6 py-5 lg:px-8">
-        <div className="mx-auto max-w-2xl text-center">
-          <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-            Customer Information
-          </h2>
-          <p className="mt-2 text-lg leading-8 text-gray-600"></p>
-        </div>
-        <form
+        {/* <form
           action="#"
           method="POST"
-          // onSubmit={handleSubmit}
           className="mx-auto mt-16 max-w-xl sm:mt-20"
         >
           <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
@@ -249,10 +272,6 @@ export default function Cart() {
                     <option>CA</option>
                     <option>EU</option>
                   </select>
-                  {/* <ChevronDownIcon
-                  className="pointer-events-none absolute right-3 top-0 h-full w-5 text-gray-400"
-                  aria-hidden="true"
-                /> */}
                 </div>
                 <input
                   type="tel"
@@ -280,34 +299,7 @@ export default function Cart() {
                 />
               </div>
             </div>
-            {/* <div className="flex gap-x-4 sm:col-span-2">
-            <div className="flex h-6 items-center">
-              <div
-                checked={agreed}
-                onChange={setAgreed}
-                className={classNames(
-                  agreed ? "bg-indigo-600" : "bg-gray-200",
-                  "flex w-8 flex-none cursor-pointer rounded-full p-px ring-1 ring-inset ring-gray-900/5 transition-colors duration-200 ease-in-out focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                )}
-              >
-                <span className="sr-only">Agree to policies</span>
-                <span
-                  aria-hidden="true"
-                  className={classNames(
-                    agreed ? "translate-x-3.5" : "translate-x-0",
-                    "h-4 w-4 transform rounded-full bg-white shadow-sm ring-1 ring-gray-900/5 transition duration-200 ease-in-out"
-                  )}
-                />
-              </div>
-            </div>
-            <label className="text-sm leading-6 text-gray-600">
-              By selecting this, you agree to our{" "}
-              <a href="#" className="font-semibold text-indigo-600">
-                privacy&nbsp;policy
-              </a>
-              .
-            </label>
-          </div> */}
+          
           </div>
 
           <div className="mt-10">
@@ -318,7 +310,47 @@ export default function Cart() {
               Order
             </button>
           </div>
-        </form>
+        </form> */}
+      </div>
+      <div>
+
+        {items.map((item, index) => (
+          <div key={index}>
+
+            <input
+              type="text"
+              name="firstName"
+              value={formData.firstName || ''}
+              onChange={handleInputChange}
+            />
+
+            <input
+              type="text"
+              name="lastName"
+              value={formData.lastName || ''}
+              onChange={handleInputChange}
+            />
+            <input
+              type="text"
+              name="phoneNumber"
+              value={formData.phoneNumber || ''}
+              onChange={handleInputChange}
+            />
+            <input
+              type="text"
+              name="email"
+              value={formData.email || ''}
+              onChange={handleInputChange}
+            />
+            <input
+              type="text"
+              name="address"
+              value={formData.address || ''}
+              onChange={handleInputChange}
+            />
+
+          </div>
+        ))}
       </div>
     </div>
   );
