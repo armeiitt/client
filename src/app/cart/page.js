@@ -47,35 +47,17 @@ export default function Cart() {
     updateLocalStorage(updatedItems);
   };
 
-  const [formData, setFormData] = useState({}); // State để lưu thông tin người dùng từ localStorage
+  const [formData, setFormData] = useState({});
+  useEffect(() => {
+    localStorage.setItem("formData", JSON.stringify(formData));
+  }, [formData]);
 
   useEffect(() => {
-    console.log('Fetching formData from localStorage...');
-    const storedFormData = localStorage.getItem('formData');
+    const storedFormData = localStorage.getItem("formData");
     if (storedFormData) {
-      const parsedFormData = JSON.parse(storedFormData);
-      console.log('Parsed formData:', parsedFormData);
-      const updatedFormData = {
-        firstName: parsedFormData.firstName || '',
-        lastName: parsedFormData.lastName || '',
-        phoneNumber: parsedFormData.phoneNumber || '',
-        email: parsedFormData.email || '',
-        gender: parsedFormData.gender || '',
-        dayOfBirth: parsedFormData.dayOfBirth || '',
-        address: parsedFormData.address || ''
-      };
-      console.log('Setting formData:', updatedFormData);
-      setFormData(updatedFormData);
+      setFormData(JSON.parse(storedFormData));
     }
   }, []);
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      [name]: value
-    }));
-  };
-
 
   return (
     <div>
@@ -313,45 +295,30 @@ export default function Cart() {
         </form> */}
       </div>
       <div>
+        <h2>Shipping Information</h2>
+        <div>
+          {formData.firstName && (
+            <div>
+              <label>First Name: {formData.firstName}</label>
+            </div>
+          )}
 
-        {items.map((item, index) => (
-          <div key={index}>
-
-            <input
-              type="text"
-              name="firstName"
-              value={formData.firstName || ''}
-              onChange={handleInputChange}
-            />
-
-            <input
-              type="text"
-              name="lastName"
-              value={formData.lastName || ''}
-              onChange={handleInputChange}
-            />
-            <input
-              type="text"
-              name="phoneNumber"
-              value={formData.phoneNumber || ''}
-              onChange={handleInputChange}
-            />
-            <input
-              type="text"
-              name="email"
-              value={formData.email || ''}
-              onChange={handleInputChange}
-            />
-            <input
-              type="text"
-              name="address"
-              value={formData.address || ''}
-              onChange={handleInputChange}
-            />
-
-          </div>
-        ))}
+        </div>
+        <div>
+          <label>Last Name: {formData.lastName}</label>
+        </div>
+        <div>
+          <label>Email: {formData.email}</label>
+        </div>
+        <div>
+          <label>Phone Number: {formData.phoneNumber}</label>
+        </div>
+        <div>
+          <label>Address: {formData.address}</label>
+        </div>
+        {/* Các thông tin khác của người dùng */}
       </div>
+
     </div>
   );
 }
