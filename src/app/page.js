@@ -17,16 +17,16 @@ export default function Home() {
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
-				let url = "http://localhost:3000/api/categories";
+				// let url = "http://localhost:3000/api/categories";
 				const res = await fetch(
-					url,
-					// "http://localhost:1337/api/products?populate=*&pagination[pageSize]=6",
+					
+					"http://localhost:1337/api/products?populate=*&pagination[pageSize]=6",
 					{
 						method: "GET",
-						// headers: {
-						// 	Authorization:
-						// 		"Bearer e955830f4caa7e9baa1870ef7d20144622215b4139d4170733184bf0a7824269404199106e090e6f191e94f76a143376823c385d900102df221d0013141eef48c5353b027b17745f5ee5167b4eecf80732fdaab09287993408293cd89f948b3336756ad4f41cbc51225c526f142dfcc9043eccbb8ed4bd5d436ddf4576f356e9",
-						// },
+						headers: {
+							Authorization:
+								"Bearer e955830f4caa7e9baa1870ef7d20144622215b4139d4170733184bf0a7824269404199106e090e6f191e94f76a143376823c385d900102df221d0013141eef48c5353b027b17745f5ee5167b4eecf80732fdaab09287993408293cd89f948b3336756ad4f41cbc51225c526f142dfcc9043eccbb8ed4bd5d436ddf4576f356e9",
+						},
 					}
 				);
 				const data = await res.json();
