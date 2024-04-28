@@ -5,6 +5,7 @@ import { Button } from "@nextui-org/react";
 export default function Cart() {
   const [items, setItems] = useState([]);
   const [subTotal, setSubTotal] = useState(0);
+  const [formData, setFormData] = useState({});
 
   useEffect(() => {
     const storedItems = localStorage.getItem("cart");
@@ -47,10 +48,10 @@ export default function Cart() {
     updateLocalStorage(updatedItems);
   };
 
-  const [formData, setFormData] = useState({});
-  useEffect(() => {
-    localStorage.setItem("formData", JSON.stringify(formData));
-  }, [formData]);
+
+  // useEffect(() => {
+  //   localStorage.getItem("formData"); 
+  // }, [formData]);   //lay formdata tu local bang json
 
   useEffect(() => {
     const storedFormData = localStorage.getItem("formData");
@@ -316,7 +317,6 @@ export default function Cart() {
         <div>
           <label>Address: {formData.address}</label>
         </div>
-        {/* Các thông tin khác của người dùng */}
       </div>
 
     </div>

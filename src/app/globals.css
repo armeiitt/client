@@ -130,6 +130,24 @@ h4 {
     "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
+/* banner2 */
+.title_banner2 {
+  font-size: xx-large;
+}
+
+/* YourComponent.module.css */
+
+.imageContainer {
+  position: relative;
+  overflow: hidden;
+}
+
+.imageContainer:hover img {
+  transform: scale(1.1); /* Increase scale on hover */
+  transition: transform 0.3s ease; /* Add transition for smooth effect */
+}
+
+
 /* cart */
 .your_bag_title {
   font-weight: 700;
@@ -274,7 +292,7 @@ h4 {
 }
 
 .image_footer_designed_cake {
-  padding-top: 70px;
+  padding-top: 30px;
 }
 
 .fruit-checkbox {
@@ -290,9 +308,24 @@ h4 {
 }
 
 .price_of_designed_cake {
-  padding-top: 50px;
+  padding-top: 30px;
+  padding-right: 50px;
 }
 
+#title_designed_cake_price {
+  font-weight: bolder;
+  display: flex;
+  flex-direction: row;
+}
+
+.text_title_designed_cake_price {
+  flex: 1;
+}
+
+.fruit_price {
+  display: flex;
+  flex-direction: column;
+}
 
 /* policy page */
 .policy {

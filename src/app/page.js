@@ -1,6 +1,11 @@
 "use client";
+// Import Swiper React components
+import { Swiper, SwiperSlide } from 'swiper/react';
 
+// Import Swiper styles
+import 'swiper/css';
 import Banner from "@/components/Banner";
+import Banner2 from "@/components/Banner2";
 import { useEffect, useState } from "react";
 
 import { Card, CardBody, CardFooter } from "@nextui-org/react";
@@ -19,7 +24,7 @@ export default function Home() {
 			try {
 				// let url = "http://localhost:3000/api/categories";
 				const res = await fetch(
-					
+
 					"http://localhost:1337/api/products?populate=*&pagination[pageSize]=6",
 					{
 						method: "GET",
@@ -91,7 +96,8 @@ export default function Home() {
 					</div>
 				)}
 			</section>
-			<section></section>
+			<section><Banner2 />
+			</section>
 		</main>
 	);
 }

@@ -60,7 +60,7 @@ export default function Banner() {
         </swiper-slide>
         <swiper-slide>
           <div>
-            <div class="swiper-slide">
+            <div class="swiper-slide">  
               <img src="https://skins.minimog.co/cdn/shop/files/cake_slide_3.jpg" />
               <div class="swiper-slide-transform">
                 <div>

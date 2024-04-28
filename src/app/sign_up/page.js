@@ -7,6 +7,7 @@ function classNames(...classes) {
 // import React, { useState } from "react";
 
 export default function Page() {
+  //tao class
   const initialFormData = {
     firstName: '',
     lastName: '',
@@ -18,31 +19,6 @@ export default function Page() {
   };
 
   const [formData, setFormData] = useState(initialFormData);
-
-  // Load dữ liệu từ localStorage vào formData khi component được render lần đầu
-  useEffect(() => {
-    const storedFormData = localStorage.getItem('formData');
-    if (storedFormData) {
-      setFormData(JSON.parse(storedFormData));
-    }
-  }, []);
-
-  // Lưu dữ liệu từ formData vào localStorage khi formData thay đổi
-  useEffect(() => {
-    localStorage.setItem('formData', JSON.stringify(formData));
-  }, [formData]);
-  // useEffect(() => {
-  //   const storedFormData = localStorage.getItem('formData');
-  //   if (storedFormData) {
-  //     setFormData(JSON.parse(storedFormData));
-  //   }
-  //   console.log('Loaded formData from localStorage:', formData); // Log giá trị formData sau khi load từ localStorage
-  // }, []);
-  
-  // useEffect(() => {
-  //   localStorage.setItem('formData', JSON.stringify(formData));
-  //   console.log('Saved formData to localStorage:', formData); // Log giá trị formData sau khi lưu vào localStorage
-  // }, [formData]);
   
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -51,32 +27,17 @@ export default function Page() {
       [name]: value
     });
   };
-  // const handleChange = (event) => {
-  //   const { name, value } = event.target;
-  //   setFormData({
-  //     ...formData,
-  //     [name]: value
-  //   });
-  //   console.log('Updated formData:', formData); // Log giá trị formData sau khi cập nhật
-  // };
-  
+
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log('Form data:', formData);
-    localStorage.setItem('formData', JSON.stringify(formData));
+    localStorage.setItem('formData', JSON.stringify(formData)); //luu vo localStorage
     alert(
       'We have received your information, the store will contact you later via your phone number. Thank you!'
     );
     setFormData(initialFormData); // Reset formData sau khi submit
   };
-  // const handleSubmit = (event) => {
-  //   event.preventDefault();
-  //   console.log('Form data submitted:', formData); // Log giá trị formData khi form được gửi đi
-  //   alert('We have received your information, the store will contact you later via your phone number. Thank you!');
-  //   setFormData(initialFormData); // Reset formData sau khi submit
-  //   console.log('FormData reset to initial:', formData); // Log giá trị formData sau khi reset
-  // };
-  
+
   return (
     <div className="isolate bg-white px-6 py-5 lg:px-8">
       <div className="mx-auto max-w-2xl text-center">

@@ -52,7 +52,7 @@ export default function FooterDefault() {
                     href="https://github.com/themesberg/flowbite"
                     className="hover:underline "
                   >
-                    Github
+                    Contact us
                   </a>
                 </li>
                 <li>
@@ -91,7 +91,7 @@ export default function FooterDefault() {
             {/* <a href="https://flowbite.com/" className="hover:underline">
               Flowbite™
             </a> */}
-            . All Rights Reserved.
+            . Sweeties Cake All Rights Reserved.
           </span>
           <div className="flex mt-4 sm:justify-center sm:mt-0">
             <a
@@ -164,7 +164,7 @@ export default function FooterDefault() {
                   clipRule="evenodd"
                 />
               </svg>
-              <span className="sr-only">GitHub account</span>
+              {/* <span className="sr-only">GitHub account</span> */}
             </a>
             {/* <a
               href="#"
