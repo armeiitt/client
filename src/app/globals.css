@@ -133,6 +133,8 @@ h4 {
 /* banner2 */
 .title_banner2 {
   font-size: xx-large;
+  font-weight: bolder;
+  padding-left: 15px;
 }
 
 /* YourComponent.module.css */
@@ -143,16 +145,17 @@ h4 {
 }
 
 .imageContainer:hover img {
-  transform: scale(1.1); /* Increase scale on hover */
-  transition: transform 0.3s ease; /* Add transition for smooth effect */
+  transform: scale(1.1);
+  /* Increase scale on hover */
+  transition: transform 0.3s ease;
+  /* Add transition for smooth effect */
 }
 
 
 /* cart */
-.your_bag_title {
-  font-weight: 700;
-  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
-    "Lucida Sans", Arial, sans-serif;
+.cart_title {
+
+  font-weight: bolder;
 }
 
 .products-container {
@@ -209,6 +212,7 @@ h4 {
 .order_summary {
   flex: 1;
   color: #57352d;
+  padding-bottom: 20px;
 }
 
 .order_summary_title {
@@ -223,6 +227,92 @@ h4 {
 
 .button_cart>button {
   color: #05090e;
+}
+
+.main_shipping_title {
+  display: flex;
+  flex-direction: row;
+}
+
+form {
+  max-width: 400px;
+  /* Đặt độ rộng tối đa của form */
+  margin: 0 auto;
+  /* Để căn giữa form */
+  padding: 20px;
+  /* Để tạo khoảng cách xung quanh form */
+}
+
+
+/* Để tạo một khoảng cách giữa các input và label */
+.main_shipping_title {
+  display: flex;
+  /* Sử dụng flexbox */
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+label {
+  flex: 1;
+  width: 120px;
+  font-weight: bold;
+  margin-right: 20px;
+  /* Điều chỉnh khoảng cách bên phải của nhãn */
+}
+
+.form_cart{
+  display: flex;
+  flex-direction: row;
+}
+.form_shipping {
+  flex: 3;
+}
+.img_between_forms{
+  flex: 1;
+  padding-top: 5%;
+}
+.form_feedback{
+  flex: 3;
+}
+.infor_ship {
+  flex-grow: 1;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
+}
+
+button {
+  margin-right: 5px;
+}
+
+/* Thêm khoảng cách giữa nút "Choose File" và hình ảnh */
+.file-upload-button {
+  margin-right: 100px;
+  /* Điều chỉnh khoảng cách phù hợp với mong muốn của bạn */
+}
+
+.img-preview {
+  width: 170px;
+  height: auto;
+  border-radius: 8px;
+  transition: transform 0.3s ease;
+}
+
+.img-preview:hover {
+  transform: scale(1.1);
+  /* Giữ nguyên hiệu ứng phóng to khi rê chuột vào */
+}
+
+.img-container {
+  max-width: 100%;
+  overflow: hidden;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 /* about */
