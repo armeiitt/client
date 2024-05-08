@@ -4,7 +4,6 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-// import React, { useState } from "react";
 
 export default function Page() {
   //tao class
@@ -19,7 +18,7 @@ export default function Page() {
   };
 
   const [formData, setFormData] = useState(initialFormData);
-  
+
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormData({
@@ -37,6 +36,22 @@ export default function Page() {
     );
     setFormData(initialFormData); // Reset formData sau khi submit
   };
+  useEffect(() => {
+    fetch('https://jsonplaceholder.typicode.com/posts', {
+      method: 'POST',
+      body: JSON.stringify({
+        title: 'foo',
+        body: 'bar',
+        userId: 1,
+      }),
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+      },
+    })
+      .then((response) => response.json())
+      .then((json) => console.log(json));
+  }, []);
+
 
   return (
     <div className="isolate bg-white px-6 py-5 lg:px-8">
@@ -197,42 +212,42 @@ export default function Page() {
               </label>
             </div>
             <div className="sm:col-span-2 pt-5 ">
-            <label
-              htmlFor="day-of-birth"
-              className="block text-sm font-semibold leading-6 text-gray-900 pb-2"
-            >
-              Date of Birth
-            </label>
-            <input
-              type="date"
-              name="dayOfBirth"
-              id="day-of-birth"
-              className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-              value={formData.dayOfBirth}
-              onChange={handleChange}
-            />
-          </div>
+              <label
+                htmlFor="day-of-birth"
+                className="block text-sm font-semibold leading-6 text-gray-900 pb-2"
+              >
+                Date of Birth
+              </label>
+              <input
+                type="date"
+                name="dayOfBirth"
+                id="day-of-birth"
+                className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                value={formData.dayOfBirth}
+                onChange={handleChange}
+              />
+            </div>
           </div>
           <div className="sm:col-span-2">
-              <label
-                htmlFor="message"
-                className="block text-sm font-semibold leading-6 text-gray-900"
-              >
-                Address
-              </label>
-              <div className="mt-2.5">
-                <textarea
-                  name="address"
-                  id="address"
-                  rows={4}
-                  className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  defaultValue={""}
-                  value={formData.address}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
+            <label
+              htmlFor="message"
+              className="block text-sm font-semibold leading-6 text-gray-900"
+            >
+              Address
+            </label>
+            <div className="mt-2.5">
+              <textarea
+                name="address"
+                id="address"
+                rows={4}
+                className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                defaultValue={""}
+                value={formData.address}
+                onChange={handleChange}
+                required
+              />
             </div>
+          </div>
         </div>
         <div className="mt-10">
           <button

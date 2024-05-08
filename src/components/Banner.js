@@ -20,14 +20,12 @@ export default function Banner() {
       <swiper-container>
         <swiper-slide>
           <div>
-            <div class="swiper-slide">
-              <img src="https://skins.minimog.co/cdn/shop/files/cake_slide_1.jpg" />
-              <div class="swiper-slide-transform">
-                <div>
-                  <h4 class="heading-title">
-                    Little bliss in
-                    <br />
-                    Every bite
+            <div className="swiper-slide">
+              <img className="slide-image" src="https://skins.minimog.co/cdn/shop/files/cake_slide_1.jpg" alt="Cake slide" s />
+              <div className="swiper-slide-transform">
+                <div className="slide-content">
+                  <h4 className="heading-title">
+                    Little bliss in every bite
                   </h4>
                   <p>
                     Special fluffiness for your loved one! A thoughtful
@@ -40,14 +38,12 @@ export default function Banner() {
         </swiper-slide>
         <swiper-slide>
           <div>
-            <div class="swiper-slide">
-              <img src="https://skins.minimog.co/cdn/shop/files/cake_slide_2.jpg" />
-              <div class="swiper-slide-transform">
-                <div>
-                  <h4 class="heading-title">
-                    Little bliss in
-                    <br />
-                    Every bite
+            <div className="swiper-slide">
+              <img className="slide-image" src="https://skins.minimog.co/cdn/shop/files/cake_slide_2.jpg" />
+              <div className="swiper-slide-transform">
+                <div className="slide-content">
+                  <h4 className="heading-title">
+                    Little bliss in every bite
                   </h4>
                   <p>
                     Special fluffiness for your loved one! A thoughtful
@@ -60,14 +56,12 @@ export default function Banner() {
         </swiper-slide>
         <swiper-slide>
           <div>
-            <div class="swiper-slide">  
-              <img src="https://skins.minimog.co/cdn/shop/files/cake_slide_3.jpg" />
-              <div class="swiper-slide-transform">
-                <div>
-                  <h4 class="heading-title">
-                    Little bliss in
-                    <br />
-                    Every bite
+            <div className="swiper-slide">
+              <img className="slide-image" src="https://skins.minimog.co/cdn/shop/files/cake_slide_3.jpg" />
+              <div className="swiper-slide-transform">
+                <div className="slide-content">
+                  <h4 className="heading-title">
+                    Little bliss in every bite
                   </h4>
                   <p>
                     Special fluffiness for your loved one! A thoughtful

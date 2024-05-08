@@ -4,7 +4,7 @@ import { Button, cn } from "@nextui-org/react";
 
 export default function AddToCartButton({ children, data, ...props }) {
   const handleAddToCart = () => {
-    if (data && data.id) {
+    if (data && data.prod.id) {
       // Lấy mảng đã lưu từ localStorage
       const storedItems = localStorage.getItem("cart");
       // Nếu mảng đã lưu tồn tại, chuyển đổi thành mảng JavaScript

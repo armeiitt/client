@@ -63,6 +63,7 @@ h4 {
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
   font-weight: bold;
   color: #57352d;
+  font-size: x-large;
 }
 
 /*banner*/
@@ -70,14 +71,50 @@ h4 {
   background-color: #e1d9c6;
 } */
 
-.heading-title {
+/* .heading-title {
   font-family: var(--font-lilita-one);
   font-weight: bold;
-  font-size: 40px;
-  line-height: 35px;
-  /* color: var(--color-heading-text); */
-  padding-bottom: 20px;
+  /* font-size: 40px;
+  line-height: 35px; */
+/* color: var(--color-heading-text); */
+/* padding-bottom: 20px; */
+*/ .heading-title {
+  font-size: 100px;
+  position: absolute;
+  top: 50%;
+  left: 70%;
+  transform: translate(-50%, -50%);
+  color: #57352d;
+  text-align: center;
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
 }
+
+
+
+.slide-container {
+  position: relative;
+}
+
+.slide-image {
+  width: 100%;
+  /* Đảm bảo hình ảnh đầy đủ chiều rộng */
+}
+
+.slide-content {
+  position: absolute;
+  top: 50%;
+  left: 20%;
+  /* Điều chỉnh vị trí sang trái ở đây */
+  transform: translate(-50%, -50%);
+  color: #57352d;
+  text-align: center;
+  width: 100%;
+  /* Đảm bảo văn bản căn giữa theo chiều ngang */
+}
+
 
 .swiper-slide {
   width: 100%;
@@ -87,13 +124,14 @@ h4 {
   position: relative;
 }
 
-.swiper-slide-transform {
+/* .swiper-slide-transform {
   position: absolute;
   width: 100%;
   height: 100%;
   display: flex;
   align-items: center;
-}
+} */
+
 
 .swiper-slide-transform>div {
   display: flex;
@@ -151,6 +189,52 @@ h4 {
   /* Add transition for smooth effect */
 }
 
+/* feedback  o home */
+/* CSS for each feedback item */
+.feedback-list {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.feedback-item {
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  padding: 20px;
+  margin-right: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  flex: 0 0 calc(20% - 20px);
+  /* Set width to 20% with 20px margin */
+  max-width: calc(20% - 20px);
+  /* Max width for responsiveness */
+}
+
+.feedback-text {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.feedback-product-name {
+  font-weight: bold;
+  margin-bottom: 6px;
+}
+
+.feedback-comment {
+  color: #555;
+}
+
+.feedback-rating {
+  font-style: italic;
+  color: #777;
+}
+
+.star {
+  color: gold;
+  /* Đặt màu của sao thành vàng */
+}
 
 /* cart */
 .cart_title {
@@ -260,20 +344,24 @@ label {
   /* Điều chỉnh khoảng cách bên phải của nhãn */
 }
 
-.form_cart{
+.form_cart {
   display: flex;
   flex-direction: row;
 }
+
 .form_shipping {
   flex: 3;
 }
-.img_between_forms{
+
+.img_between_forms {
   flex: 1;
   padding-top: 5%;
 }
-.form_feedback{
+
+.form_feedback {
   flex: 3;
 }
+
 .infor_ship {
   flex-grow: 1;
   padding: 8px;

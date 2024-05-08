@@ -40,6 +40,7 @@ import React, { useState, useEffect } from "react";
 
 export default function Home() {
     const [feedbackList, setFeedbackList] = useState([]);
+    const [newFeedback, setNewFeedback] = useState({ productName: "", comment: "", rating: 0 });
 
     useEffect(() => {
         // Load feedback list from localStorage
@@ -49,20 +50,48 @@ export default function Home() {
         }
     }, []);
 
-    const limitedFeedbackList = feedbackList.slice(0, 5); // Chỉ lấy 5 phản hồi đầu tiên
+    // Function to handle form submission for feedback
+    const handleSubmitFeedback = (event) => {
+        event.preventDefault();
+        // Add the new feedback to the list
+        const newFeedbackList = [...feedbackList, newFeedback];
+        setFeedbackList(newFeedbackList);
+        // Update localStorage with the new feedback list
+        localStorage.setItem("feedbackList", JSON.stringify(newFeedbackList));
+        // Reset the form after submission
+        setNewFeedback({ productName: "", comment: "", rating: 0 });
+    };
+
+    const handleInputChange = (event) => {
+        const { name, value } = event.target;
+        setNewFeedback({ ...newFeedback, [name]: value });
+    };
+
+    // Get the 5 most recent feedback items
+    const recentFeedbackList = feedbackList.slice(-5);
 
     return (
         <div>
-            <div className="title_banner2"><span class="bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500">Feedback</span></div>
-            <ul>
-                {limitedFeedbackList.map((feedback, index) => (
-                    <li key={index}>
-                        <p>Product Name: {feedback.productName}</p>
-                        <p>Comment: {feedback.comment}</p>
-                        <p>Rating: {feedback.rating}</p>
+            <div className="title_banner2"><span className="bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500">Feedback</span></div>
+            <ul className="feedback-list">
+                {recentFeedbackList.map((feedback, index) => (
+                    <li key={index} className="feedback-item">
+                        <p className="feedback-product-name">Product Name: {feedback.productName}</p>
+                        <p className="feedback-comment">Comment: {feedback.comment}</p>
+                        <p className="feedback-rating">Rating: {getStarRating(feedback.rating)}</p>
                     </li>
                 ))}
             </ul>
         </div>
     );
 }
+
+// Function to get star rating based on numeric rating
+const getStarRating = (rating) => {
+    const stars = [];
+    for (let i = 0; i < rating; i++) {
+        stars.push(<span key={i} className="star">&#9733;</span>);
+    }
+    return stars;
+};
+
