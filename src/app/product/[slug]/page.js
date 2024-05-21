@@ -5,7 +5,7 @@ import AddToCartButton from "@/components/AddToCartButton";
 const fetchData = async (pathname) => {
   try {
     const res = await fetch(
-      `http://localhost:1337/api/products?filters[slug][$eq]=${pathname}&populate=*`,
+      `http://10.30.232.103:3000/api/products?filters[slug][$eq]=${pathname}&populate=*`,
       {
         method: "GET",
         headers: {
@@ -32,7 +32,7 @@ export default async function page({ params }) {
             <div>
               <img
                 src={
-                  `http://localhost:1337` +
+                  `http://10.30.232.103:3000` +
                   data?.attributes.image.data.attributes.url
                 }
                 className="w-full h-[500px]"

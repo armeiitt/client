@@ -28,7 +28,7 @@ export default function Home() {
       try {
         const res = await fetch(
           // "http://localhost:1337/api/products?populate=*&pagination[pageSize]=6",
-          "http://10.30.221.82:3000/api/products",
+          "http://10.30.232.103:3000/api/products",
           {
             method: "GET",
             // headers: {
@@ -66,7 +66,7 @@ export default function Home() {
   }, []);
 
   function getProdPhotoURL(nameImg) {
-    return `http://10.30.221.82:3000/api/prod_photo/${nameImg}`;
+    return `http://10.30.232.103:3000/api/prod_photo/${nameImg}`;
   }
 
   return (
@@ -128,10 +128,10 @@ export default function Home() {
             ))}
           </ul> */}
           {/* Hiển thị dữ liệu phản hồi */}
-          <h2>User Feedback:</h2>
+          {/* <h2>User Feedback:</h2>
           <p>Product Name: {feedbackData.productName}</p>
           <p>Comment: {feedbackData.comment}</p>
-          <p>Rating: {feedbackData.rating}</p>
+          <p>Rating: {feedbackData.rating}</p> */}
         </div>
       </section>
     </main>

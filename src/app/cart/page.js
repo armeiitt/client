@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { Button } from "@nextui-org/react";
 import Image from "next/image";
-import StarRating from '../star_rating/page';
+import StarRating from "../star_rating/page";
 
 export default function Cart() {
   const [items, setItems] = useState([]);
@@ -24,6 +24,27 @@ export default function Cart() {
       setItems(JSON.parse(storedItems));
     }
   }, []);
+
+  async function handleSendMail({ to, subject, html }) {
+    const response = await fetch("/api/nodemailer", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        to: formData.email,
+        subject: "Order Confirm",
+        html: `<p>THANKS FOR BUYING CAKES</p></p><p> Hello <b>${formData.firstName} ${formData.lastName}</b></p><p>Your order has complete </p><p>Payment Address </p><p>Name: ${formData.firstName} ${formData.lastName}</p><p>Address: ${formData.address}</p><p>Phone: ${formData.phoneNumber}</p><p>Email: ${formData.email}</p><p>Thank you for purchasing from us</p> <p>Sweeties Cake</p>`,
+      }),
+    });
+
+    const data = await response.json();
+    if (response.ok) {
+      console.log("Email sent successfully:", data.messageId);
+    } else {
+      console.error("Failed to send email:", data.error);
+    }
+  }
 
   // Effect to calculate subtotal
   useEffect(() => {
@@ -70,7 +91,6 @@ export default function Cart() {
     updateLocalStorage(updatedItems);
   };
 
-
   useEffect(() => {
     if (selectedFile) {
       const fileReader = new FileReader();
@@ -92,9 +112,9 @@ export default function Cart() {
     event.preventDefault();
     if (selectedFile) {
       // Xử lý file ở đây, ví dụ: tải lên server, lưu vào trạng thái, etc.
-      console.log('Selected file:', selectedFile);
+      console.log("Selected file:", selectedFile);
     } else {
-      console.log('No file selected.');
+      console.log("No file selected.");
     }
   };
 
@@ -110,7 +130,6 @@ export default function Cart() {
     const { name, value } = event.target;
     setFeedbackData({ ...feedbackData, [name]: value });
   };
-
 
   const handleRatingChange = (newRating) => {
     setFeedbackData({ ...feedbackData, rating: newRating });
@@ -141,7 +160,6 @@ export default function Cart() {
     handleSubmitFeedback(event); // Call the function to handle feedback submission
     setShowFeedbackList(false); // Set showFeedbackList to true after submitting feedback
   };
-  
 
   useEffect(() => {
     const storedFormData = localStorage.getItem("formData");
@@ -156,9 +174,11 @@ export default function Cart() {
         <div className="title_cart">
           <div>
             <h1 className="cart_title">
-              <center><span class="bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500">
-                YOUR BAG
-              </span></center>
+              <center>
+                <span class="bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500">
+                  YOUR BAG
+                </span>
+              </center>
             </h1>
           </div>
           <div className="main_title">
@@ -251,12 +271,10 @@ export default function Cart() {
           </div>
         </div>
       </div>
-      <div className="isolate bg-white px-6 py-5 lg:px-8">
-
-      </div>
+      <div className="isolate bg-white px-6 py-5 lg:px-8"></div>
       <div className="form_cart">
         <div className="form_shipping ">
-          <form >
+          <form>
             <div className="cart_title">
               <center>
                 <span className="bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500">
@@ -310,6 +328,7 @@ export default function Cart() {
             <div className="mt-6 flex items-center justify-end gap-x-6">
               <button
                 type="submit"
+                onClick={handleSendMail}
                 className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
                 ORDER
@@ -366,7 +385,10 @@ export default function Cart() {
                   </div>
 
                   <div className="col-span-full">
-                    <label htmlFor="about" className="block text-sm font-medium leading-6 text-gray-900">
+                    <label
+                      htmlFor="about"
+                      className="block text-sm font-medium leading-6 text-gray-900"
+                    >
                       Your comment
                     </label>
                     <div className="mt-2">
@@ -380,11 +402,16 @@ export default function Cart() {
                         onChange={handleFeedbackChange}
                       />
                     </div>
-                    <p className="mt-3 text-sm leading-6 text-gray-600">Write a few sentences about cakes.</p>
+                    <p className="mt-3 text-sm leading-6 text-gray-600">
+                      Write a few sentences about cakes.
+                    </p>
                   </div>
                   <div className="star-rating">
                     <label>Rate this cake:</label>
-                    <StarRating initialValue={feedbackData.rating} onChange={handleRatingChange} />
+                    <StarRating
+                      initialValue={feedbackData.rating}
+                      onChange={handleRatingChange}
+                    />
                   </div>
 
                   <div className="img_feedback">
@@ -406,9 +433,15 @@ export default function Cart() {
                     <div className="imgOfFeedback">
                       {previewUrl && (
                         <div className="mt-4">
-                          <img src={previewUrl} alt="Preview" className="max-w-full h-auto img-preview" />
+                          <img
+                            src={previewUrl}
+                            alt="Preview"
+                            className="max-w-full h-auto img-preview"
+                          />
                         </div>
-                      )}</div></div>
+                      )}
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -442,7 +475,7 @@ export default function Cart() {
             </div>
           </form>
         </div>
-      </div >
-    </div >
+      </div>
+    </div>
   );
 }

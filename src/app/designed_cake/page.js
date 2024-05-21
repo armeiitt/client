@@ -1,4 +1,5 @@
 "use client";
+import { useRouter } from "next/router";
 import Image from "next/image";
 import { CheckboxGroup, Checkbox } from "@nextui-org/react";
 import {
@@ -75,51 +76,63 @@ export default function Designed_Cake() {
     }
   };
   const fruits = [
-    { name: 'Strawberry', imageSrc: '/images/strawberry2.jpg', price: 4 },
-    { name: 'Avocado', imageSrc: '/images/avocado2.jpg', price: 4 },
-    { name: 'Peach', imageSrc: '/images/peace2.jpg', price: 4 },
-    { name: 'Blueberry', imageSrc: '/images/blueberry.jpg', price: 4 },
-    { name: 'Grape', imageSrc: '/images/grape.jpg', price: 4 },
+    { name: "Strawberry", imageSrc: "/images/strawberry2.jpg", price: 4 },
+    { name: "Avocado", imageSrc: "/images/avocado2.jpg", price: 4 },
+    { name: "Peach", imageSrc: "/images/peace2.jpg", price: 4 },
+    { name: "Blueberry", imageSrc: "/images/blueberry.jpg", price: 4 },
+    { name: "Grape", imageSrc: "/images/grape.jpg", price: 4 },
   ];
   const animals = [
-    { name: 'Duck', imageSrc: '/images/duck.jpg', price: 10 },
-    { name: 'Bear', imageSrc: '/images/bear2.jpg', price: 15 },
-    { name: 'Monkey', imageSrc: '/images/monkey.jpg', price: 12 },
-    { name: 'Sheep', imageSrc: '/images/sheep.jpg', price: 8 },
-    { name: 'Lion', imageSrc: '/images/lion.jpg', price: 14 },
+    { name: "Duck", imageSrc: "/images/duck.jpg", price: 10 },
+    { name: "Bear", imageSrc: "/images/bear2.jpg", price: 15 },
+    { name: "Monkey", imageSrc: "/images/monkey.jpg", price: 12 },
+    { name: "Sheep", imageSrc: "/images/sheep.jpg", price: 8 },
+    { name: "Lion", imageSrc: "/images/lion.jpg", price: 14 },
   ];
 
   const sexOptions = [
-    { name: 'Boy', imageSrc: '/images/boy.jpg', price: 20 },
-    { name: 'Girl', imageSrc: '/images/girl.jpg', price: 18 },
-    { name: 'Man', imageSrc: '/images/man.jpg', price: 25 },
-    { name: 'Woman', imageSrc: '/images/woman.jpg', price: 22 },
-    { name: 'Grandfather', imageSrc: '/images/grandfather2.jpg', price: 30 },
-    { name: 'Grandmother', imageSrc: '/images/grandmother2.jpg', price: 28 },
+    { name: "Boy", imageSrc: "/images/boy.jpg", price: 20 },
+    { name: "Girl", imageSrc: "/images/girl.jpg", price: 18 },
+    { name: "Man", imageSrc: "/images/man.jpg", price: 25 },
+    { name: "Woman", imageSrc: "/images/woman.jpg", price: 22 },
+    { name: "Grandfather", imageSrc: "/images/grandfather2.jpg", price: 30 },
+    { name: "Grandmother", imageSrc: "/images/grandmother2.jpg", price: 28 },
   ];
 
   const candleOptions = [
-    { name: 'Number Candles', imageSrc: '/images/number_candle2.jpg', price: 15 },
-    { name: 'Alphabet Candles', imageSrc: '/images/alphabet_candle.jpg', price: 20 },
-    { name: 'Straight Candles', imageSrc: '/images/straight_candle.jpg', price: 10 },
+    {
+      name: "Number Candles",
+      imageSrc: "/images/number_candle2.jpg",
+      price: 15,
+    },
+    {
+      name: "Alphabet Candles",
+      imageSrc: "/images/alphabet_candle.jpg",
+      price: 20,
+    },
+    {
+      name: "Straight Candles",
+      imageSrc: "/images/straight_candle.jpg",
+      price: 10,
+    },
   ];
   const calculateShapePrice = () => {
     let price = 0;
     switch (selectedShapeValue) {
-      case 'Heart':
-        price = 10;
+      case "Heart":
+        price = 6.5;
         break;
-      case 'Circle':
-        price = 8;
+      case "Circle":
+        price = 9.9;
         break;
-      case 'Rectangle':
+      case "Rectangle":
+        price = 5.5;
+        break;
+      case "Square":
+        price = 11.9;
+        break;
+      case "Triangle":
         price = 12;
-        break;
-      case 'Square':
-        price = 9;
-        break;
-      case 'Triangle':
-        price = 6;
         break;
       default:
         price = 0;
@@ -132,21 +145,21 @@ export default function Designed_Cake() {
   const calculateSizePrice = () => {
     let price = 0;
     switch (selectedSizeValue) {
-      case '12':
-        price = 8;
+      case "Small":
+        price = 5;
         break;
-      case '14':
+      case "Medium":
         price = 10;
         break;
-      case '16':
-        price = 12;
+      case "Large":
+        price = 15;
         break;
-      case '18':
-        price = 14;
-        break;
-      case '20':
-        price = 16;
-        break;
+      // case "18":
+      //   price = 14;
+      //   break;
+      // case "20":
+      //   price = 16;
+      //   break;
       default:
         price = 0;
         break;
@@ -159,19 +172,19 @@ export default function Designed_Cake() {
     let price = 0;
     selectedTaste.forEach((taste) => {
       switch (taste) {
-        case 'Strawberry':
+        case "Strawberry":
           price += 5;
           break;
-        case 'Blackberry':
+        case "Blackberry":
           price += 6;
           break;
-        case 'Chocolate':
+        case "Chocolate":
           price += 4;
           break;
-        case 'Mango':
+        case "Mango":
           price += 3;
           break;
-        case 'Blueberry':
+        case "Blueberry":
           price += 5;
           break;
         default:
@@ -192,7 +205,6 @@ export default function Designed_Cake() {
     });
     return totalPrice;
   };
-
 
   // Hàm tính giá cho động vật
   const calculateAnimalPrice = () => {
@@ -240,17 +252,23 @@ export default function Designed_Cake() {
 
     // Tổng giá tiền của các thành phần đã chọn
     const totalPrice =
-      shapePrice + sizePrice + tastePrice + fruitPrice + animalPrice + sexPrice + candlePrice;
+      shapePrice +
+      sizePrice +
+      tastePrice +
+      fruitPrice +
+      animalPrice +
+      sexPrice +
+      candlePrice;
 
     return totalPrice;
   };
   const [totalPrice, setTotalPrice] = useState(0);
 
   const TotalPrice = async () => {
-    const response = await fetch('/api/cake/price', {
-      method: 'POST',
+    const response = await fetch("/api/cake/price", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         selectedShape,
@@ -259,8 +277,8 @@ export default function Designed_Cake() {
         selectFruits,
         selectAnimals,
         selectSex,
-        selectCandles
-      })
+        selectCandles,
+      }),
     });
 
     const data = await response.json();
@@ -316,20 +334,20 @@ export default function Designed_Cake() {
                       selectedKeys={selectedShape}
                       onSelectionChange={setSelectedShape}
                     >
-                      <DropdownItem key="Heart" data-price="10">
-                        Heart - $10
+                      <DropdownItem key="Heart" data-price="2.5">
+                        Heart - $2.5
                       </DropdownItem>
-                      <DropdownItem key="Circle" data-price="8">
-                        Circle - $8
+                      <DropdownItem key="Circle" data-price="9.9">
+                        Circle - $9.9
                       </DropdownItem>
-                      <DropdownItem key="Rectangle" data-price="12">
-                        Rectangle - $12
+                      <DropdownItem key="Rectangle" data-price="5.5">
+                        Rectangle - $5.5
                       </DropdownItem>
-                      <DropdownItem key="Square" data-price="9">
-                        Square - $9
+                      <DropdownItem key="Square" data-price="11.9">
+                        Square - $11.9
                       </DropdownItem>
-                      <DropdownItem key="Triangle" data-price="6">
-                        Triangle - $6
+                      <DropdownItem key="Triangle" data-price="12">
+                        Triangle - $12
                       </DropdownItem>
                     </DropdownMenu>
                   </Dropdown>
@@ -357,11 +375,21 @@ export default function Designed_Cake() {
                       selectedKeys={selectedSize}
                       onSelectionChange={setSelectedSize}
                     >
-                      <DropdownItem key="12" data-price="8">Size 12 - $8</DropdownItem>
-                      <DropdownItem key="14" data-price="10">Size 14 - $10</DropdownItem>
-                      <DropdownItem key="16" data-price="12">Size 16 - $12</DropdownItem>
-                      <DropdownItem key="18" data-price="14">Size 18 - $14</DropdownItem>
-                      <DropdownItem key="20" data-price="16">Size 20 - $16</DropdownItem>
+                      <DropdownItem key="Small" data-price="5">
+                        Size Small - $5
+                      </DropdownItem>
+                      <DropdownItem key="Medium" data-price="10">
+                        Size Medium - $10
+                      </DropdownItem>
+                      <DropdownItem key="Large" data-price="15">
+                        Size Large - $15
+                      </DropdownItem>
+                      {/* <DropdownItem key="18" data-price="14">
+                        Size 18 - $14
+                      </DropdownItem>
+                      <DropdownItem key="20" data-price="16">
+                        Size 20 - $16
+                      </DropdownItem> */}
                     </DropdownMenu>
                   </Dropdown>
                 </div>
@@ -445,7 +473,7 @@ export default function Designed_Cake() {
                               width={80}
                               height={100}
                             />
-                            {fruit.name}
+                            {/* {fruit.name} */}
                           </div>
                         </Checkbox>
                       ))}
@@ -472,7 +500,7 @@ export default function Designed_Cake() {
                               width={70}
                               height={70}
                             />
-                            {animal.name}
+                            {/* {animal.name} */}
                           </div>
                         </Checkbox>
                       ))}
@@ -502,7 +530,7 @@ export default function Designed_Cake() {
                               width={70}
                               height={70}
                             />
-                            {sex.name}
+                            {/* {sex.name} */}
                           </div>
                         </Checkbox>
                       ))}
@@ -515,7 +543,7 @@ export default function Designed_Cake() {
               <div className="sm:col-span-2">
                 <label
                   htmlFor="sticker"
-                // className="block text-sm font-semibold leading-6                     text-gray-900"
+                  // className="block text-sm font-semibold leading-6                     text-gray-900"
                 >
                   Candles (Accessory)
                 </label>
@@ -538,7 +566,7 @@ export default function Designed_Cake() {
                               width={70}
                               height={70}
                             />
-                            {candle.name}
+                            {/* {candle.name} */}
                           </div>
                         </Checkbox>
                       ))}
@@ -587,17 +615,24 @@ export default function Designed_Cake() {
         <div className="information_designed_cake">
           <div className="body_designed_cake">
             <div className="name_designed_cake">Shape:</div>
-            <div>{selectedShape} - ${calculateShapePrice()}</div>
+            <div>
+              {selectedShape} - ${calculateShapePrice()}
+            </div>
           </div>
           <div style={{ borderBottom: "2px solid #000" }}></div>
           <div className="body_designed_cake">
             <div className="name_designed_cake">Size: </div>
-            <div> {selectedSize} - ${calculateSizePrice()}</div>
+            <div>
+              {" "}
+              {selectedSize} - ${calculateSizePrice()}
+            </div>
           </div>
           <div style={{ borderBottom: "2px solid #000" }}></div>
           <div className="body_designed_cake">
             <div className="name_designed_cake">Taste:</div>
-            <div>{selectedTasteValue} - ${calculateTastePrice()}</div>
+            <div>
+              {selectedTasteValue} - ${calculateTastePrice()}
+            </div>
           </div>
           <div style={{ borderBottom: "2px solid #000" }}></div>
           <div className="name_designed_cake decoration_container">
@@ -615,11 +650,11 @@ export default function Designed_Cake() {
                   <div className="fruit_price">
                     <div>
                       <span key={index}>
-                        {value} - ${fruits.find((item) => item.name === value)?.price}{' '}
+                        {value} - $
+                        {fruits.find((item) => item.name === value)?.price}{" "}
                       </span>
                     </div>
                   </div>
-
                 ))}
                 {/* <div>
                   <span>Price of fruit decorations: ${calculateFruitPrice()}</span>
@@ -629,20 +664,31 @@ export default function Designed_Cake() {
               "Loading..."
             )}
           </div>
-
           <div>
             {selectAnimals
-              ? selectAnimals.map((value, index) => <span>{value} - ${calculateAnimalPrice()}</span>)
+              ? selectAnimals.map((value, index) => (
+                  <span>
+                    {value} - ${calculateAnimalPrice()}
+                  </span>
+                ))
               : " "}
           </div>
           <div>
             {selectSex
-              ? selectSex.map((value, index) => <span>{value} - ${calculateSexPrice()}</span>)
+              ? selectSex.map((value, index) => (
+                  <span>
+                    {value} - ${calculateSexPrice()}
+                  </span>
+                ))
               : " "}
           </div>
           <div>
             {selectCandles
-              ? selectCandles.map((value, index) => <span>{value} - ${calculateCandlePrice()}</span>)
+              ? selectCandles.map((value, index) => (
+                  <span>
+                    {value} - ${calculateCandlePrice()}
+                  </span>
+                ))
               : " "}
           </div>
           <div style={{ borderBottom: "2px solid #000" }}></div>
@@ -693,11 +739,19 @@ export default function Designed_Cake() {
           {/* </div> */}
           <div style={{ borderBottom: "2px solid #000" }}></div>
           <div className="total_price" id="title_designed_cake_price">
-
             <div className="text_title_designed_cake_price">Total Price</div>
-            <div >${calculateTotalPrice()}</div>
+            <div>${calculateTotalPrice()}</div>
           </div>
         </div>
+        <div className="add-to-cart-button">
+          <button
+            style={{ backgroundColor: "#4a90e2", color: "#ffffff" }}
+            onClick={TotalPrice}
+          >
+            Add to Cart
+          </button>
+        </div>
+
         <div className="image_footer_designed_cake">
           {" "}
           <center>
@@ -707,49 +761,6 @@ export default function Designed_Cake() {
               width={200}
               height={80}
             />
-            <div>
-              {/* <div className="sketchfab-embed-wrapper">
-                  <iframe
-                    title="Cylinder"
-                    frameBorder="0"
-                    allowFullScreen
-                    mozAllowFullScreen="true"
-                    webkitAllowFullScreen="true"
-                    allow="autoplay; fullscreen; xr-spatial-tracking"
-                    xr-spatial-tracking
-                    src="https://sketchfab.com/models/084f375201f147e7a674e2a5c0a19776/embed"
-                  ></iframe>
-                  <p style={{ fontSize: '13px', fontWeight: 'normal', margin: '5px', color: '#4A4A4A' }}>
-                    <a
-                      href="https://sketchfab.com/3d-models/cylinder-084f375201f147e7a674e2a5c0a19776?utm_medium=embed&utm_campaign=share-popup&utm_content=084f375201f147e7a674e2a5c0a19776"
-                      target="_blank"
-                      rel="nofollow"
-                      style={{ fontWeight: 'bold', color: '#1CAAD9' }}
-                    >
-                      Cylinder
-                    </a>{' '}
-                    by{' '}
-                    <a
-                      href="https://sketchfab.com/guardianofsnow?utm_medium=embed&utm_campaign=share-popup&utm_content=084f375201f147e7a674e2a5c0a19776"
-                      target="_blank"
-                      rel="nofollow"
-                      style={{ fontWeight: 'bold', color: '#1CAAD9' }}
-                    >
-                      GuardianofSnow
-                    </a>{' '}
-                    on{' '}
-                    <a
-                      href="https://sketchfab.com?utm_medium=embed&utm_campaign=share-popup&utm_content=084f375201f147e7a674e2a5c0a19776"
-                      target="_blank"
-                      rel="nofollow"
-                      style={{ fontWeight: 'bold', color: '#1CAAD9' }}
-                    >
-                      Sketchfab
-                    </a>
-                  </p>
-                </div> */}
-
-            </div>
           </center>
         </div>
       </div>

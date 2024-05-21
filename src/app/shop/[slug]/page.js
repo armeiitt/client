@@ -11,7 +11,7 @@ export default function shopPage() {
   const pathname = usePathname();
   const { push } = useRouter();
   function getProdPhotoURL(nameImg) {
-    return `http://10.30.221.82:3000/api/prod_photo/${nameImg}`;
+    return `http://10.30.232.103:3000/api/prod_photo/${nameImg}`;
   }
 
   // useEffect(() => {
@@ -52,7 +52,7 @@ export default function shopPage() {
     const fetchData = async () => {
       try {
         const res = await fetch(
-          `http://10.30.221.82:3000/api/products/category/${cate}`
+          `http://10.30.232.103:3000/api/products/category/${cate}`
         );
         const dataCate = await res.json();
         console.log(dataCate.data);
@@ -74,7 +74,7 @@ export default function shopPage() {
     fetchData();
   }, [pathname]);
   function getProdPhotoURL(nameImg) {
-    return `http://10.30.221.82:3000/api/prod_photo/${nameImg}`;
+    return `http://10.30.232.103:3000/api/prod_photo/${nameImg}`;
   }
 
   return (
