@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from "react";
 
 const StarRating = ({ initialValue, onChange }) => {
     const [rating, setRating] = useState(initialValue);
@@ -14,7 +14,7 @@ const StarRating = ({ initialValue, onChange }) => {
                 <span
                     key={value}
                     onClick={() => handleClick(value)}
-                    style={{ cursor: 'pointer', color: value <= rating ? 'gold' : 'gray' }}
+                    style={{ cursor: "pointer", color: value <= rating ? "gold" : "gray" }}
                 >
                     ★
                 </span>
