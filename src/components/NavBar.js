@@ -49,7 +49,7 @@ export default function NavBar() {
   const menuItems = [
     "Home",
     "About",
-    "Contact",
+    // "Contact",
     "Categories",
     "Designed Cake",
     "Cart",
@@ -97,11 +97,11 @@ export default function NavBar() {
           </Link>
         </NavbarItem>
 
-        <NavbarItem>
+        {/* <NavbarItem>
           <Link color="foreground" href="/register">
             Register
           </Link>
-        </NavbarItem>
+        </NavbarItem> */}
 
         <NavbarItem>
           <Dropdown>
