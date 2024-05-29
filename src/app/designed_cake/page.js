@@ -12,40 +12,90 @@ import {
 } from "@nextui-org/react";
 import Image from "next/image";
 import environment from "@/app/environtment/environment";
+import apiService from "../shared/sharedService";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
 export default function Designed_Cake() {
+  const [decors, setDecors] = useState([]);
+  const [fruits, setFruits] = useState([]);
+  const [animals, setAnimals] = useState([]);
+  const [sex, setSex] = useState([]);
+  const [candles, setCandles] = useState([]);
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const api_url = `http://${environment.API_DOMAIN}:${environment.API_PORT}/api/decors`;
-        const res = await fetch(api_url, { method: "GET" });
-        const dataDecor = await res.json();
-        setData(
-          dataDecor.data.map((product) => ({
-            ...product,
-            src: getDecorPhotoURL(product.image),
-          }))
-        );
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-    fetchData();
+    fetchDecors();
   }, []);
+
+  async function fetchDecors() {
+    try {
+      let temp = await apiService.getData("decors");
+      console.log(temp.data);
+      let tempFruits = temp.data.filter((item) => item.type === "fruits");
+      let tempAnimals = temp.data.filter((item) => item.type === "animals");
+      let tempSex = temp.data.filter((item) => item.type === "sex");
+      let tempCandles = temp.data.filter((item) => item.type === "candles");
+      for (let item of tempFruits) {
+        item.imageSrc = apiService.getDecorPhotoURL(item.image);
+      }
+      for (let item of tempAnimals) {
+        item.imageSrc = apiService.getDecorPhotoURL(item.image);
+      }
+      for (let item of tempSex) {
+        item.imageSrc = apiService.getDecorPhotoURL(item.image);
+      }
+      for (let item of tempCandles) {
+        item.imageSrc = apiService.getDecorPhotoURL(item.image);
+      }
+      setFruits(tempFruits);
+      setAnimals(tempAnimals);
+      setSex(tempSex);
+      setCandles(tempCandles);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const getDesProd = () => {};
 
   function getDecorPhotoURL(nameImg) {
     return `http://${environment.API_DOMAIN}:${environment.API_PORT}/api/decor_photo/${nameImg}`;
   }
+  // let desProd = {
+  //   cus_id: 1,
+  //   category_id: 1,
+  //   size_id: 1,
+  //   shape_id: 1,
+  //   flavour_id: 1,
+  //   name: "thinh",
+  //   price: data.price, // Giả sử price là thuộc tính của data chứa giá trị bạn muốn gán
+  // };
+
+  const postDesProd = async (desProd) => {
+    try {
+      let api_url = `http://${environment.API_DOMAIN}:${environment.API_PORT}/api/des_products`;
+      let rest_api = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(desProd),
+      };
+
+      const res = await fetch(api_url, rest_api);
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const [selectedShape, setSelectedShape] = React.useState(new Set(["Shape"]));
   const [selectFruits, setSelectFruits] = useState([]);
   const [selectAnimals, setSelectAnimals] = useState([]);
   const [selectSex, setSelectSex] = useState([]);
   const [selectCandles, setSelectCandles] = useState([]);
+
   const selectedShapeValue = React.useMemo(
     () => Array.from(selectedShape).join(", ").replaceAll("_", " "),
     [selectedShape]
@@ -59,7 +109,7 @@ export default function Designed_Cake() {
   );
   const [selectedTaste, setSelectedTaste] = React.useState([]);
   const handleSelectionChange = (newKeys) => {
-    if (newKeys.size <= 3) {
+    if (newKeys.size <= 1) {
       setSelectedTaste(newKeys);
     }
   };
@@ -96,47 +146,49 @@ export default function Designed_Cake() {
       setSelectCandles(newSelection);
     }
   };
-  const fruits = [
-    { name: "Strawberry", imageSrc: "/images/strawberry2.jpg", price: 4 },
-    { name: "Avocado", imageSrc: "/images/avocado2.jpg", price: 4 },
-    { name: "Peach", imageSrc: "/images/peace2.jpg", price: 4 },
-    { name: "Blueberry", imageSrc: "/images/blueberry.jpg", price: 4 },
-    { name: "Grape", imageSrc: "/images/grape.jpg", price: 4 },
-  ];
-  const animals = [
-    { name: "Duck", imageSrc: "/images/duck.jpg", price: 10 },
-    { name: "Bear", imageSrc: "/images/bear2.jpg", price: 15 },
-    { name: "Monkey", imageSrc: "/images/monkey.jpg", price: 12 },
-    { name: "Sheep", imageSrc: "/images/sheep.jpg", price: 8 },
-    { name: "Lion", imageSrc: "/images/lion.jpg", price: 14 },
-  ];
+  // const fruits = [
+  //   { name: "Strawberry", imageSrc: "/images/strawberry2.jpg", price: 4 },
+  //   { name: "Avocado", imageSrc: "/images/avocado2.jpg", price: 4 },
+  //   { name: "Peach", imageSrc: "/images/peace2.jpg", price: 4 },
+  //   { name: "Blueberry", imageSrc: "/images/blueberry.jpg", price: 4 },
+  //   { name: "Grape", imageSrc: "/images/grape.jpg", price: 4 },
+  // ];
 
-  const sexOptions = [
-    { name: "Boy", imageSrc: "/images/boy.jpg", price: 20 },
-    { name: "Girl", imageSrc: "/images/girl.jpg", price: 18 },
-    { name: "Man", imageSrc: "/images/man.jpg", price: 25 },
-    { name: "Woman", imageSrc: "/images/woman.jpg", price: 22 },
-    { name: "Grandfather", imageSrc: "/images/grandfather2.jpg", price: 30 },
-    { name: "Grandmother", imageSrc: "/images/grandmother2.jpg", price: 28 },
-  ];
+  // const animals = [
+  //   { name: "Duck", imageSrc: "/images/duck.jpg", price: 10 },
+  //   { name: "Bear", imageSrc: "/images/bear2.jpg", price: 15 },
+  //   { name: "Monkey", imageSrc: "/images/monkey.jpg", price: 12 },
+  //   { name: "Sheep", imageSrc: "/images/sheep.jpg", price: 8 },
+  //   { name: "Lion", imageSrc: "/images/lion.jpg", price: 14 },
+  // ];
 
-  const candleOptions = [
-    {
-      name: "Number Candles",
-      imageSrc: "/images/number_candle2.jpg",
-      price: 15,
-    },
-    {
-      name: "Alphabet Candles",
-      imageSrc: "/images/alphabet_candle.jpg",
-      price: 20,
-    },
-    {
-      name: "Straight Candles",
-      imageSrc: "/images/straight_candle.jpg",
-      price: 10,
-    },
-  ];
+  // const sexOptions = [
+  //   { name: "Boy", imageSrc: "/images/boy.jpg", price: 20 },
+  //   { name: "Girl", imageSrc: "/images/girl.jpg", price: 18 },
+  //   { name: "Man", imageSrc: "/images/man.jpg", price: 25 },
+  //   { name: "Woman", imageSrc: "/images/woman.jpg", price: 22 },
+  //   { name: "Grandfather", imageSrc: "/images/grandfather2.jpg", price: 30 },
+  //   { name: "Grandmother", imageSrc: "/images/grandmother2.jpg", price: 28 },
+  // ];
+
+  // const candleOptions = [
+  //   {
+  //     name: "Number Candles",
+  //     imageSrc: "/images/number_candle2.jpg",
+  //     price: 15,
+  //   },
+  //   {
+  //     name: "Alphabet Candles",
+  //     imageSrc: "/images/alphabet_candle.jpg",
+  //     price: 20,
+  //   },
+  //   {
+  //     name: "Straight Candles",
+  //     imageSrc: "/images/straight_candle.jpg",
+  //     price: 10,
+  //   },
+  // ];
+
   const calculateShapePrice = () => {
     let price = 0;
     switch (selectedShapeValue) {
@@ -241,8 +293,8 @@ export default function Designed_Cake() {
   // Hàm tính giá cho giới tính
   const calculateSexPrice = () => {
     let price = 0;
-    selectSex.forEach((sex) => {
-      const selectedSex = sexOptions.find((item) => item.name === sex);
+    selectSex.forEach((each) => {
+      const selectedSex = sex.find((item) => item.name === each);
       if (selectedSex) {
         price += selectedSex.price;
       }
@@ -253,8 +305,8 @@ export default function Designed_Cake() {
   // Hàm tính giá cho nến
   const calculateCandlePrice = () => {
     let price = 0;
-    selectCandles.forEach((candle) => {
-      const selectedCandle = candleOptions.find((item) => item.name === candle);
+    selectCandles.forEach((each) => {
+      const selectedCandle = candles.find((item) => item.name === each);
       if (selectedCandle) {
         price += selectedCandle.price;
       }
@@ -284,26 +336,48 @@ export default function Designed_Cake() {
     return totalPrice;
   };
 
-  const TotalPrice = async () => {
-    const response = await fetch("/api/cake/price", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        selectedShape,
-        selectedSize,
-        selectedTaste,
-        selectFruits,
-        selectAnimals,
-        selectSex,
-        selectCandles,
-      }),
-    });
-
-    const data = await response.json();
-    setTotalPrice(data.totalPrice);
+  const aaaa = async () => {
+    // const response = await fetch("/api/cake/price", {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify({
+    //     selectedShape,
+    //     selectedSize,
+    //     selectedTaste,
+    //     selectFruits,
+    //     selectAnimals,
+    //     selectSex,
+    //     selectCandles,
+    //   }),
+    // });
+    let a = {
+      selectedShape,
+      selectedSize,
+      selectedTaste,
+      selectFruits,
+      selectAnimals,
+      selectSex,
+      selectCandles,
+    };
+    console.log(a);
+    // const data = await response.json();
+    // setTotalPrice(data.totalPrice);
   };
+
+  const saveDataDesProd = () => {
+    let desProd = {
+      cus_id: 1,
+      category_id: 1,
+      size_id: 1,
+      shape_id: 1,
+      flavour_id: 1,
+      name: "thinh",
+      price: data,
+    };
+  };
+
   return (
     <div className="main_designed_cake">
       <div className="selected_items ">
@@ -332,6 +406,15 @@ export default function Designed_Cake() {
             className="mx-auto mt-2 max-w-xl sm:mt-2"
           >
             <div className="grid grid-cols-3 gap-x-48 gap-y-6 sm:grid-cols-2">
+              <div>
+                <label
+                  htmlFor="shape"
+                  className="title_designed_cake_left block text-sm font-semibold leading-6 text-gray-900"
+                >
+                  Name
+                </label>
+                <textarea className="center-textarea"></textarea>
+              </div>
               <div>
                 <label
                   htmlFor="shape"
@@ -424,10 +507,10 @@ export default function Designed_Cake() {
                 </label>
                 <div className="mt-2.5">
                   <div>
-                    <label>
+                    {/* <label>
                       A birthday cake can have 3 layers and you choose at most 3
                       tastes
-                    </label>
+                    </label> */}
                   </div>
                   <div>
                     <Dropdown>
@@ -441,7 +524,7 @@ export default function Designed_Cake() {
                         variant="flat"
                         closeOnSelect={false}
                         disallowEmptySelection
-                        selectionMode="multiple"
+                        selectionMode="single"
                         selectedKeys={selectedTaste}
                         // onSelectionChange={setSelectedTaste}
                         onSelectionChange={handleSelectionChange}
@@ -541,12 +624,12 @@ export default function Designed_Cake() {
                       value={selectSex}
                       onChange={handleSexSelectionChange}
                     >
-                      {sexOptions.map((sex) => (
-                        <Checkbox key={sex.name} value={sex.name}>
+                      {sex.map((item) => (
+                        <Checkbox key={item.name} value={item.name}>
                           <div className="sex-checkbox">
                             <img
-                              src={sex.imageSrc}
-                              alt={sex.name}
+                              src={item.imageSrc}
+                              alt={item.name}
                               width={70}
                               height={70}
                             />
@@ -577,7 +660,7 @@ export default function Designed_Cake() {
                       value={selectCandles}
                       onChange={handleCandleSelectionChange}
                     >
-                      {candleOptions.map((candle) => (
+                      {candles.map((candle) => (
                         <Checkbox key={candle.name} value={candle.name}>
                           <div className="candle-checkbox">
                             <img
@@ -772,6 +855,9 @@ export default function Designed_Cake() {
           </button>
         </div> */}
         <div className="flex flex-row w-full justify-end">
+          <button class="button button1" onClick={aaaa}>
+            Create
+          </button>
           <AddToCartButton
             variant="bordered"
             color="secondary"

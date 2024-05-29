@@ -415,6 +415,20 @@ button {
 }
 
 /* designed_page */
+.center-textarea {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px; /* Chiều cao bạn muốn */
+  width: 100%; /* Hoặc chiều rộng bạn muốn */
+  padding: 10px;
+  box-sizing: border-box;
+  font-size: 16px;
+  text-align: center;
+  resize: none;
+  border: 2px solid #000; /* Thêm viền với độ dày 2px và màu đen */
+  border-radius: 4px;
+}
 .main_designed_cake {
   display: flex;
   color: #57352d;
@@ -484,7 +498,35 @@ button {
   padding-top: 30px;
   padding-right: 50px;
 }
+.button {
+  background-color: #04aa6d; /* Green */
+  border: none;
+  color: white;
+  padding: 16px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+}
 
+.button1 {
+  background-color: white;
+  color: black;
+  border: 2px solid #04aa6d;
+  border-radius: 5%;
+  -webkit-border-radius: 5%;
+  -moz-border-radius: 5%;
+  -ms-border-radius: 5%;
+  -o-border-radius: 5%;
+}
+
+.button1:hover {
+  background-color: #04aa6d;
+  color: white;
+}
 #title_designed_cake_price {
   font-weight: bolder;
   display: flex;

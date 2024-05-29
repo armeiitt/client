@@ -80,8 +80,8 @@ export default function AddToCartButton({ children, data, className, size = "med
 				name: "thinh",
 				price: data,
 			}
-
 			postDesProd(desProd);
+			getDesProd();
 			// items.push({
 			// 	id: "des_" + data.des_prod_id,
 			// 	name: data.name,
@@ -98,10 +98,10 @@ export default function AddToCartButton({ children, data, className, size = "med
 			let api_url = `http://${environment.API_DOMAIN}:${environment.API_PORT}/api/des_products`;
 			let rest_api = {
 				method: "POST",
-				// headers: {
-				// 	'Content-Type': 'application/json'
-				// },
-				body: JSON.stringify({ desProd })
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify(desProd)
 			};
 
 			const res = await fetch(api_url, rest_api);
