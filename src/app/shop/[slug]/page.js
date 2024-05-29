@@ -9,42 +9,10 @@ export default function shopPage() {
   const [data, setData] = useState(null);
   const pathname = usePathname();
   const { push } = useRouter();
+
   function getProdPhotoURL(nameImg) {
     // return `http://10.30.232.103:3000/api/prod_photo/${nameImg}`;
   }
-
-  // useEffect(() => {
-  //   const cate = pathname.split("/")[2];
-  //   console.log("pathname: " + pathname.split("/")[2]);
-  //   const fetchData = async () => {
-  //     try {
-  //       const res = await fetch(
-  //         // `http://localhost:1337/api/categories?filters[slug][$eq]=${
-  //         `http://10.30.221.82:3000/api/categories?filters[slug][$eq]=${
-  //           pathname.split("/")[2]
-  //         }&populate=*`,
-  //         {
-  //           method: "GET",
-  //           // headers: {
-  //           //   Authorization:
-  //           //     "Bearer e955830f4caa7e9baa1870ef7d20144622215b4139d4170733184bf0a7824269404199106e090e6f191e94f76a143376823c385d900102df221d0013141eef48c5353b027b17745f5ee5167b4eecf80732fdaab09287993408293cd89f948b3336756ad4f41cbc51225c526f142dfcc9043eccbb8ed4bd5d436ddf4576f356e9",
-  //           // },
-  //         }
-  //       );
-  //       const dataImg = await res.json();
-
-  //       for (let item of dataImg.data) {
-  //         item.src = getProdPhotoURL(item.image);
-  //       }
-  //       const dataCate = await res.json();
-  //       console.log(dataCate.data);
-  //       setData(dataCate.data[0].attributes.products.data);
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   };
-  //   fetchData();
-  // }, []);
 
   useEffect(() => {
     const cate = pathname.split("/")[2];
@@ -54,7 +22,6 @@ export default function shopPage() {
         let rest_api = { method: "GET" };
         const res = await fetch(api_url, rest_api);
         const dataCate = await res.json();
-        // setData(dataCate.data);
         setData(
           dataCate.data.map((product) => ({
             ...product,
@@ -63,10 +30,6 @@ export default function shopPage() {
         );
       } catch (error) {
         console.error("Error fetching data:", error);
-      }
-      const dataImg = await res.json();
-      for (let item of dataImg.data) {
-        item.src = getProdPhotoURL(item.image);
       }
     };
     fetchData();

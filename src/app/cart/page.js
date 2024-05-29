@@ -220,7 +220,7 @@ export default function Cart() {
                       +
                     </Button>
                   </div>
-                  <div>${item.price * item.quantity}</div>
+                  <div>${item.price}</div>
                 </div>
               );
             })}

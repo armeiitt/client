@@ -31,6 +31,7 @@ export default function Home() {
         }
         setData(dataImg.data);
         setLoading(false);
+        console.log(1121312);
       } catch (error) {
         setLoading(false);
         setError(error.message);
@@ -61,7 +62,7 @@ export default function Home() {
       <section>
         <div className="grid grid-cols-3 gap-4 px-2 py-3">
           {data &&
-            data.map((value, index) => (
+            data.slice(0, 9).map((value, index) => (
               <Card
                 shadow="sm"
                 key={value.id}

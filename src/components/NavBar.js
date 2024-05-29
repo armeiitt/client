@@ -38,7 +38,6 @@ export default function NavBar() {
         });
         const data = await res.json();
         setData(data.data);
-        console.log(data.data);
       } catch (error) {
         console.log(error);
       }

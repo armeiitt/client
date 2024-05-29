@@ -69,9 +69,13 @@ export default function AddToCartButton({ children, data, className, size = "med
       }
       localStorage.setItem("cart", JSON.stringify(items));
       console.log("Item added to cart:", data.prod_id);
-    } else {
-      console.error("Invalid data or data.prod.id is missing");
-    }
+    } else if (data) {
+      // items.push({
+      //   name: "Designed Cake",
+      //   price: data,
+      //   quantity: 1,
+      // });
+    } else { console.error("Invalid data or data.prod.id is missing"); }
   };
 
   return (
