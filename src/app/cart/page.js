@@ -66,6 +66,7 @@ export default function Cart() {
   };
 
   const increaseQuantity = (id) => {
+    console.log(id);
     const updatedItems = items.map((item) =>
       item.id === id ? { ...item, quantity: item.quantity + 1 } : item
     );

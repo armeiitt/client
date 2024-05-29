@@ -272,7 +272,6 @@ export default function Designed_Cake() {
     const sexPrice = calculateSexPrice();
     const candlePrice = calculateCandlePrice();
 
-    // Tổng giá tiền của các thành phần đã chọn
     const totalPrice =
       shapePrice +
       sizePrice +
