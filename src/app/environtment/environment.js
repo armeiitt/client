@@ -1,5 +1,5 @@
 const environment = {
-  API_DOMAIN: "192.168.1.137",
+  API_DOMAIN: "localhost",
   API_PORT: "3000",
 };
 

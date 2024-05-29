@@ -229,47 +229,31 @@ export default function Designed_Cake() {
 	};
 
 	const calculateFruitPrice = () => {
-		let totalPrice = 0;
-		selectFruits.forEach((fruit) => {
+		return selectFruits.reduce((totalPrice, fruit) => {
 			const selectedFruit = fruits.find((item) => item.name === fruit);
-			if (selectedFruit) {
-				totalPrice += selectedFruit.price;
-			}
-		});
-		return totalPrice;
+			return selectedFruit ? totalPrice + selectedFruit.price : totalPrice;
+		}, 0);
 	};
 
 	const calculateAnimalPrice = () => {
-		let price = 0;
-		selectAnimals.forEach((animal) => {
+		return selectAnimals.reduce((totalPrice, animal) => {
 			const selectedAnimal = animals.find((item) => item.name === animal);
-			if (selectedAnimal) {
-				price += selectedAnimal.price;
-			}
-		});
-		return price;
+			return selectedAnimal ? totalPrice + selectedAnimal.price : totalPrice;
+		}, 0);
 	};
 
 	const calculateSexPrice = () => {
-		let price = 0;
-		selectSex.forEach((each) => {
+		return selectSex.reduce((totalPrice, each) => {
 			const selectedSex = sex.find((item) => item.name === each);
-			if (selectedSex) {
-				price += selectedSex.price;
-			}
-		});
-		return price;
+			return selectedSex ? totalPrice + selectedSex.price : totalPrice;
+		}, 0);
 	};
 
 	const calculateCandlePrice = () => {
-		let price = 0;
-		selectCandles.forEach((each) => {
+		return selectCandles.reduce((totalPrice, each) => {
 			const selectedCandle = candles.find((item) => item.name === each);
-			if (selectedCandle) {
-				price += selectedCandle.price;
-			}
-		});
-		return price;
+			return selectedCandle ? totalPrice + selectedCandle.price : totalPrice;
+		}, 0);
 	};
 
 	const [totalPrice, setTotalPrice] = useState(0);
