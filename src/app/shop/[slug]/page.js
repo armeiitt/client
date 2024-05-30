@@ -10,9 +10,9 @@ export default function shopPage() {
   const pathname = usePathname();
   const { push } = useRouter();
 
-  function getProdPhotoURL(nameImg) {
-    // return `http://10.30.232.103:3000/api/prod_photo/${nameImg}`;
-  }
+  // function getProdPhotoURL(nameImg) {
+  //   // return `http://10.30.232.103:3000/api/prod_photo/${nameImg}`;
+  // }
 
   useEffect(() => {
     const cate = pathname.split("/")[2];
