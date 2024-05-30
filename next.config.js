@@ -2,6 +2,11 @@ const nextConfig = {
 	images: {
 		domains: ["skins.minimog.co"],
 	},
+	fastRefresh: true,
+	productionBrowserSourceMaps: false,
+	optimizeFonts: false,
+	minify: false,
+	concurrentFeatures: true,
 };
 
 const customConfig = {
