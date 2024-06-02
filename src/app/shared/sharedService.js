@@ -1,11 +1,11 @@
-import environment from "../environtment/environment";
+import environtment from "../environtment/environtment";
 
-const API_URL = `http://${environment.API_DOMAIN}:${environment.API_PORT}/api/products`;
+const API_URL = `http://${environtment.API_DOMAIN}:${environtment.API_PORT}/api`;
 
 const apiService = {
   async getData(endpoint) {
     try {
-      const api_url = `http://${environment.API_DOMAIN}:${environment.API_PORT}/api/${endpoint}`;
+      const api_url = `${API_URL}/${endpoint}`;
       let rest_api = { method: "GET" };
       const res = await fetch(api_url, rest_api);
       const data = await res.json();
@@ -17,7 +17,7 @@ const apiService = {
 
   async getDecorbyCategory(endpoint, type) {
     try {
-      const api_url = `http://${environment.API_DOMAIN}:${environment.API_PORT}/api/${endpoint}`;
+      const api_url = `${API_URL}/${endpoint}/`;
       let rest_api = { method: "GET" };
       const res = await fetch(api_url, rest_api);
       const data = await res.json();
@@ -38,11 +38,11 @@ const apiService = {
   // },
 
   getProdPhotoURL(nameImg) {
-    return `http://${environment.API_DOMAIN}:${environment.API_PORT}/api/prod_photo/${nameImg}`;
+    return `${API_URL}/prod_photo/${nameImg}`;
   },
 
   getDecorPhotoURL(nameImg) {
-    return `http://${environment.API_DOMAIN}:${environment.API_PORT}/api/decor_photo/${nameImg}`;
+    return `${API_URL}/decor_photo/${nameImg}`;
   },
 };
 
