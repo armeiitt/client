@@ -15,10 +15,10 @@ export default function AboutPage() {
             </div>
             <div>
               {" "}
-              We are 3T, a cozy bakery nestled in the heart of the city, founded
-              by Tuan Thinh and Emily. We are more than just a bakery; we are a
-              destination for those who appreciate delicate flavors and creative
-              pastry artistry.{" "}
+              We are Sweetie Cake, a cozy bakery nestled in the heart of the
+              city, founded by Thinh, My and Nguyen. We are more than just a
+              bakery; we are a destination for those who appreciate delicate
+              flavors and creative pastry artistry.{" "}
             </div>
           </div>
           <div className="about_text">

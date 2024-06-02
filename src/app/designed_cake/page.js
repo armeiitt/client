@@ -308,6 +308,7 @@ export default function Designed_Cake() {
     console.log(data);
     // const data = await response.json();
     // setTotalPrice(data.totalPrice);
+    return data;
   };
 
   const saveDataDesProd = () => {
@@ -321,7 +322,20 @@ export default function Designed_Cake() {
       price: data,
     };
   };
+  const handleAddToCart = async () => {
+    const desProd = await getDesProd();
+    await postDesProd(desProd);
+    const calculatedTotalPrice = calculateTotalPrice();
+    setTotalPrice(calculatedTotalPrice);
+  };
 
+  const [showAll, setShowAll] = useState(false);
+
+  const handleShowMore = () => {
+    setShowAll(!showAll);
+  };
+
+  const visibleItems = showAll ? fruits : fruits.slice(0, 3);
   return (
     <div className="main_designed_cake">
       <div className="selected_items ">
