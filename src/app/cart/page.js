@@ -3,6 +3,7 @@ import { Button } from "@nextui-org/react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import StarRating from "../star_rating/page";
+import { useRouter } from "next/router";
 
 export default function Cart() {
   const [items, setItems] = useState([]);
@@ -17,6 +18,23 @@ export default function Cart() {
   });
   const [feedbackList, setFeedbackList] = useState([]);
   const [showFeedbackList, setShowFeedbackList] = useState(false);
+  const handleOrderSubmit = (event) => {
+    event.preventDefault();
+    // Check if user is logged in
+    const router = useRouter();
+    const isLoggedIn = true; // Replace this with your logic to check if user is logged in or not
+    if (!isLoggedIn) {
+      // Redirect user to login page if not logged in
+      router.push("/auth"); // Assuming "/auth" is your login page
+    } else {
+      // Perform order submission logic here
+      if (selectedFile) {
+        console.log("Selected file:", selectedFile);
+      } else {
+        console.log("No file selected.");
+      }
+    }
+  };
 
   useEffect(() => {
     const storedItems = localStorage.getItem("cart");
@@ -34,7 +52,7 @@ export default function Cart() {
       body: JSON.stringify({
         to: formData.email,
         subject: "Order Confirm",
-        html: `<p>THANKS FOR BUYING CAKES</p></p><p> Hello <b>${formData.firstName} ${formData.lastName}</b></p><p>Your order has complete </p><p>Payment Address </p><p>Name: ${formData.firstName} ${formData.lastName}</p><p>Address: ${formData.address}</p><p>Phone: ${formData.phoneNumber}</p><p>Email: ${formData.email}</p><p>Thank you for purchasing from us</p> <p>Sweeties Cake</p>`,
+        html: `<p>THANKS FOR BUYING CAKES</p></p><p> Hello <b>${formData.firstName} ${formData.lastName}</b></p><p>Your order has complete </p><p>Payment Address </p><p>Name: ${formData.firstName} ${formData.lastName}</p><p>Address: ${formData.address}</p><p>Phone: ${formData.phoneNumber}</p><p>Email: ${formData.email}</p><p>Your payment: $${subTotal}</p><p>Thank you for purchasing from us</p> <p>Sweeties Cake</p>`,
       }),
     });
 
@@ -307,13 +325,19 @@ export default function Cart() {
               <div>
                 <label>Shipping Method:</label>
               </div>
-              <div className="infor_ship">Delivery: $4.32</div>
+              <div className="infor_ship">Delivery: Free ship</div>
             </div>
             <div className="main_shipping_title">
               <div>
                 <label>Payment methods</label>
               </div>
               <div className="infor_ship">Cash on delivery (COD)</div>
+            </div>
+            <div className="main_shipping_title">
+              <div>
+                <label>Payment</label>
+              </div>
+              <div className="infor_ship">${subTotal}</div>
             </div>
             <div className="border-b border-gray-900/10 pb-12"></div>
             <div className="mt-6 flex items-center justify-end gap-x-6">
@@ -406,7 +430,7 @@ export default function Cart() {
                   </div>
 
                   <div className="img_feedback">
-                    <div className="mt-2 flex items-center gap-x-3 choose_img">
+                    {/* <div className="mt-2 flex items-center gap-x-3 choose_img">
                       <label
                         htmlFor="file-upload"
                         className="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 cursor-pointer file-upload-button"
@@ -420,7 +444,7 @@ export default function Cart() {
                         className="sr-only"
                         onChange={handleFileChange}
                       />
-                    </div>
+                    </div> */}
                     <div className="imgOfFeedback">
                       {previewUrl && (
                         <div className="mt-4">

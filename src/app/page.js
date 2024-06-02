@@ -23,7 +23,6 @@ export default function Home() {
       try {
         let api_url = `http://${environment.API_DOMAIN}:${environment.API_PORT}/api/products`;
         let rest_api = { method: "GET" };
-        // "http://localhost:1337/api/products?populate=*&pagination[pageSize]=6",
         const res = await fetch(api_url, rest_api);
         const dataImg = await res.json();
         for (let item of dataImg.data) {

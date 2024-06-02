@@ -21,6 +21,7 @@ import {
   Button,
 } from "@nextui-org/react";
 import { AcmeLogo } from "./AcmeLogo.jsx";
+import environment from "@/app/environtment/environment.js";
 
 export default function NavBar() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
@@ -29,14 +30,14 @@ export default function NavBar() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch(`http://10.30.221.82:3000/api/categories`, {
-          method: "GET",
-          // headers: {
-          //   Authorization:
-          //     "Bearer e955830f4caa7e9baa1870ef7d20144622215b4139d4170733184bf0a7824269404199106e090e6f191e94f76a143376823c385d900102df221d0013141eef48c5353b027b17745f5ee5167b4eecf80732fdaab09287993408293cd89f948b3336756ad4f41cbc51225c526f142dfcc9043eccbb8ed4bd5d436ddf4576f356e9",
-          // },
-        });
+        const res = await fetch(
+          `http://${environment.API_DOMAIN}:${environment.API_PORT}/api/categories`,
+          {
+            method: "GET",
+          }
+        );
         const data = await res.json();
+        console.log(data);
         setData(data.data);
       } catch (error) {
         console.log(error);
@@ -96,12 +97,6 @@ export default function NavBar() {
           </Link>
         </NavbarItem>
 
-        {/* <NavbarItem>
-          <Link color="foreground" href="/register">
-            Register
-          </Link>
-        </NavbarItem> */}
-
         <NavbarItem>
           <Dropdown>
             <DropdownTrigger>
@@ -109,29 +104,10 @@ export default function NavBar() {
             </DropdownTrigger>
             <DropdownMenu aria-label="Dynamic Actions" items={data}>
               {(item) => (
-                // <DropdownItem
-                //   key={item.key}
-                //   color={item.key === "delete" ? "danger" : "default"}
-                //   className={item.key === "delete" ? "text-danger" : ""}
-                // >
-                //   <Link
-                //     className="w-full"
-                //     href={`/shop/${item.attributes.slug}`}
-                //   >
-                //     {item.attributes.name}
-                //   </Link>
-                // </DropdownItem>
                 <DropdownItem
-                  key={item.type} // Change item.key to item.type
-                  color={item.type === "delete" ? "danger" : "default"} // Change item.key to item.type
-                  className={item.type === "delete" ? "text-danger" : ""} // Change item.key to item.type
+                  key={item.type}
+                  className={item.type === "delete" ? "text-danger" : ""}
                 >
-                  {/* <Link
-                    className="w-full"
-                    href={`/shop/${item.attributes.slug}`}
-                  >
-                    {item.type}
-                  </Link> */}
                   <Link className="w-full" href={`/shop/${item.category_id}`}>
                     {item.type.charAt(0).toUpperCase() + item.type.slice(1)}
                   </Link>
@@ -151,6 +127,11 @@ export default function NavBar() {
       <NavbarContent justify="end">
         <NavbarItem className="hidden lg:flex">
           <Link href="/cart">Cart</Link>
+        </NavbarItem>
+        <NavbarItem>
+          <Link color="foreground" href="/auth">
+            Login
+          </Link>
         </NavbarItem>
         <NavbarItem>
           <Button as={Link} color="warning" href="/sign_up" variant="flat">
