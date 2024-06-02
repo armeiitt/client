@@ -213,29 +213,32 @@ export default function Cart() {
           </div>
         </div>
         <div className="main_cart flex gap-3">
-          <div className="product_cart">
+          <div className="product_cart w-[60%]">
+            <div className="flex flex-row justify-between font-bold mb-2">
+              <div className="w-[40%]">Name</div>
+              <div className="button_cart">Quantity</div>
+              <div>Unit Price</div>
+            </div>
             {items.map((item, index) => {
               return (
-                <div key={index} className="flex flex-row justify-between">
+                <div key={index} className="flex flex-row justify-between mb-2">
                   <div className="w-[40%]">{item.name}</div>
-                  <div className="button_cart">
-                    {/* <Button onClick={() => decreaseQuantity(item.id)}> - </Button> */}
+                  <div className="button_cart flex items-center">
                     <Button
                       color="primary"
                       variant="light"
                       onClick={() => decreaseQuantity(item.id)}
+                      className="mr-2"
                     >
-                      {" "}
                       -
                     </Button>
                     {item.quantity}
-                    {/* <Button onClick={() => increaseQuantity(item.id)}> + </Button> */}
                     <Button
                       color="primary"
                       variant="light"
                       onClick={() => increaseQuantity(item.id)}
+                      className="ml-2"
                     >
-                      {" "}
                       +
                     </Button>
                   </div>
@@ -244,7 +247,7 @@ export default function Cart() {
               );
             })}
           </div>
-          <div className="order_summary">
+          <div className="order_summary w-[40%]">
             <div>
               <div className="order_summary_title">
                 <h3>
@@ -252,7 +255,6 @@ export default function Cart() {
                 </h3>
               </div>
               <div className="order">
-                {/* <div>{items.map((item) => item.name).join(", ")}</div> */}
                 <div className="products-container">
                   {items.map((item) => (
                     <div key={item.id} className="product-item">
