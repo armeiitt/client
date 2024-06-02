@@ -1,27 +1,25 @@
 "use client";
-import React, { useState, useEffect } from "react";
 import {
   Dropdown,
-  NextUILink,
-  DropdownTrigger,
-  DropdownMenu,
   DropdownItem,
-  NextUIButton,
+  DropdownMenu,
+  DropdownTrigger
 } from "@nextui-org/react";
+import React, { useEffect, useState } from "react";
 
+import environtment from "@/app/environtment/environtment.js";
 import {
+  Button,
+  Link,
   Navbar,
   NavbarBrand,
-  NavbarMenuToggle,
-  NavbarMenuItem,
-  NavbarMenu,
   NavbarContent,
   NavbarItem,
-  Link,
-  Button,
+  NavbarMenu,
+  NavbarMenuItem,
+  NavbarMenuToggle,
 } from "@nextui-org/react";
 import { AcmeLogo } from "./AcmeLogo.jsx";
-import environment from "@/app/environtment/environment.js";
 
 export default function NavBar() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
@@ -31,13 +29,12 @@ export default function NavBar() {
     const fetchData = async () => {
       try {
         const res = await fetch(
-          `http://${environment.API_DOMAIN}:${environment.API_PORT}/api/categories`,
+          `http://${environtment.API_DOMAIN}:${environtment.API_PORT}/api/categories`,
           {
             method: "GET",
           }
         );
         const data = await res.json();
-        console.log(data);
         setData(data.data);
       } catch (error) {
         console.log(error);
@@ -149,21 +146,21 @@ export default function NavBar() {
                 index === 2
                   ? "warning"
                   : index === menuItems.length - 1
-                  ? "danger"
-                  : "foreground"
+                    ? "danger"
+                    : "foreground"
               }
               href={
                 item === "Home"
                   ? "/"
                   : item === "Contact"
-                  ? "/contact"
-                  : item === "About"
-                  ? "/about"
-                  : item === "Cart"
-                  ? "/cart"
-                  : item === "Designed Cake"
-                  ? "/designed_cake"
-                  : `/${item.toLowerCase()}`
+                    ? "/contact"
+                    : item === "About"
+                      ? "/about"
+                      : item === "Cart"
+                        ? "/cart"
+                        : item === "Designed Cake"
+                          ? "/designed_cake"
+                          : `/${item.toLowerCase()}`
               }
               size="lg"
             >

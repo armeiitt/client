@@ -8,7 +8,7 @@ import { Card, CardBody, CardFooter } from "@nextui-org/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import "swiper/css";
-import environment from "./environtment/environment";
+import environtment from "./environtment/environtment";
 
 export default function Home() {
   const [data, setData] = useState(null);
@@ -21,7 +21,7 @@ export default function Home() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        let api_url = `http://${environment.API_DOMAIN}:${environment.API_PORT}/api/products`;
+        let api_url = `http://${environtment.API_DOMAIN}:${environtment.API_PORT}/api/products`;
         let rest_api = { method: "GET" };
         const res = await fetch(api_url, rest_api);
         const dataImg = await res.json();
@@ -30,7 +30,6 @@ export default function Home() {
         }
         setData(dataImg.data);
         setLoading(false);
-        console.log(1121312);
       } catch (error) {
         setLoading(false);
         setError(error.message);
@@ -52,7 +51,7 @@ export default function Home() {
   }, []);
 
   function getProdPhotoURL(nameImg) {
-    return `http://${environment.API_DOMAIN}:${environment.API_PORT}/api/prod_photo/${nameImg}`;
+    return `http://${environtment.API_DOMAIN}:${environtment.API_PORT}/api/prod_photo/${nameImg}`;
   }
 
   return (

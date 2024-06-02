@@ -1,9 +1,9 @@
 "use client";
+import environtment from "@/app/environtment/environtment";
 import AddToCartButton from "@/components/AddToCartButton";
 import { Card, CardBody, CardFooter } from "@nextui-org/react";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import environment from "@/app/environtment/environment";
 
 export default function shopPage() {
   const [data, setData] = useState(null);
@@ -18,7 +18,7 @@ export default function shopPage() {
     const cate = pathname.split("/")[2];
     const fetchData = async () => {
       try {
-        let api_url = `http://${environment.API_DOMAIN}:${environment.API_PORT}/api/products/category/${cate}`;
+        let api_url = `http://${environtment.API_DOMAIN}:${environtment.API_PORT}/api/products/category/${cate}`;
         let rest_api = { method: "GET" };
         const res = await fetch(api_url, rest_api);
         const dataCate = await res.json();
@@ -36,7 +36,7 @@ export default function shopPage() {
   }, [pathname]);
 
   function getProdPhotoURL(nameImg) {
-    return `http://${environment.API_DOMAIN}:${environment.API_PORT}/api/prod_photo/${nameImg}`;
+    return `http://${environtment.API_DOMAIN}:${environtment.API_PORT}/api/prod_photo/${nameImg}`;
   }
 
   return (

@@ -46,10 +46,9 @@
 //   );
 // }
 "use client";
-import React from "react";
-import PropTypes, { shape } from "prop-types";
+import environtment from "@/app/environtment/environtment";
 import { Button, cn } from "@nextui-org/react";
-import environment from "@/app/environtment/environment";
+import PropTypes from "prop-types";
 
 export default function AddToCartButton({ children, data, className, size = "medium", variant = "solid", color = "primary", ...props }) {
 	const handleAddToCart = () => {
@@ -95,7 +94,7 @@ export default function AddToCartButton({ children, data, className, size = "med
 
 	const postDesProd = async (desProd) => {
 		try {
-			let api_url = `http://${environment.API_DOMAIN}:${environment.API_PORT}/api/des_products`;
+			let api_url = `http://${environtment.API_DOMAIN}:${environtment.API_PORT}/api/des_products`;
 			let rest_api = {
 				method: "POST",
 				headers: {
