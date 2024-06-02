@@ -129,12 +129,6 @@ export default function Designed_Cake() {
 		return "Flavours";
 	}, [selectedFlavour]);
 
-	const handleSelectionChange = (newKeys) => {
-		if (newKeys.size <= 1) {
-			setSelectedFlavour(newKeys);
-		}
-	};
-
 	const [userInput, setUserInput] = useState("");
 	const handleChange = (event) => {
 		setUserInput(event.target.value);
@@ -164,109 +158,60 @@ export default function Designed_Cake() {
 		}
 	};
 
-	const calculateShapePrice = () => {
-		let price = 0;
-		switch (selectedShapeValue) {
-			case "Heart":
-				price = 6.5;
-				break;
-			case "Circle":
-				price = 9.9;
-				break;
-			case "Rectangle":
-				price = 5.5;
-				break;
-			case "Square":
-				price = 11.9;
-				break;
-			case "Triangle":
-				price = 12;
-				break;
-			default:
-				price = 0;
-				break;
-		}
-		return price;
-	};
-
-	const calculateSizePrice = () => {
-		let price = 0;
-		switch (selectedSizeValue) {
-			case "Small":
-				price = 5;
-				break;
-			case "Medium":
-				price = 10;
-				break;
-			case "Large":
-				price = 15;
-				break;
-			default:
-				price = 0;
-				break;
-		}
-		return price;
-	};
-
-	const calculateFlavourPrice = () => {
-		let price = 0;
-		selectedFlavour.forEach((flavour) => {
-			switch (flavour) {
-				case "Strawberry":
-					price += 5;
-					break;
-				case "Blackberry":
-					price += 6;
-					break;
-				case "Chocolate":
-					price += 4;
-					break;
-				case "Mango":
-					price += 3;
-					break;
-				case "Blueberry":
-					price += 5;
-					break;
-				default:
-					break;
-			}
-		});
-		return price;
-	};
-
 	const calculateFruitPrice = () => {
-		return selectFruits.reduce((totalPrice, fruit) => {
-			const selectedFruit = fruits.find((item) => item.name === fruit);
-			return selectedFruit ? totalPrice + selectedFruit.price : totalPrice;
+		return selectFruits.reduce((totalPrice, each) => {
+			const selectedFruit = fruits.find((item) => item.name === each);
+			if (selectedFruit) {
+				return totalPrice + parseFloat(selectedFruit.price);
+			}
+			return totalPrice;
 		}, 0);
 	};
 
 	const calculateAnimalPrice = () => {
-		return selectAnimals.reduce((totalPrice, animal) => {
-			const selectedAnimal = animals.find((item) => item.name === animal);
-			return selectedAnimal ? totalPrice + selectedAnimal.price : totalPrice;
+		return selectAnimals.reduce((totalPrice, each) => {
+			const selectedAnimal = animals.find((item) => item.name === each);
+			if (selectedAnimal) {
+				return totalPrice + parseFloat(selectedAnimal.price);
+			}
+			return totalPrice;
 		}, 0);
 	};
 
 	const calculateSexPrice = () => {
 		return selectSex.reduce((totalPrice, each) => {
 			const selectedSex = sex.find((item) => item.name === each);
-			return selectedSex ? totalPrice + selectedSex.price : totalPrice;
+			if (selectedSex) {
+				return totalPrice + parseFloat(selectedSex.price);
+			}
+			return totalPrice;
 		}, 0);
 	};
 
 	const calculateCandlePrice = () => {
 		return selectCandles.reduce((totalPrice, each) => {
 			const selectedCandle = candles.find((item) => item.name === each);
-			return selectedCandle ? totalPrice + selectedCandle.price : totalPrice;
+			if (selectedCandle) {
+				return totalPrice + parseFloat(selectedCandle.price);
+			}
+			return totalPrice;
 		}, 0);
 	};
 
-	const [totalPrice, setTotalPrice] = useState(0);
 	const calculateTotalPrice = () => {
-		const shapePrice = calculateShapePrice();
-		const sizePrice = calculateSizePrice();
-		const flavourPrice = calculateFlavourPrice();
+		let shapePrice = 0;
+		let sizePrice = 0;
+		let flavourPrice = 0;
+		if (selectedShape.size > 0) {
+			shapePrice = parseFloat(Array.from(selectedShape)[0].price);
+		}
+		if (selectedSize.size > 0) {
+			sizePrice = parseFloat(Array.from(selectedSize)[0].price);
+		}
+		if (selectedFlavour.size > 0) {
+			flavourPrice = parseFloat(Array.from(selectedFlavour)[0].price);
+		}
+
 		const fruitPrice = calculateFruitPrice();
 		const animalPrice = calculateAnimalPrice();
 		const sexPrice = calculateSexPrice();
@@ -280,7 +225,6 @@ export default function Designed_Cake() {
 			animalPrice +
 			sexPrice +
 			candlePrice;
-		// setTotalPrice(totalPrice)
 		return totalPrice;
 	};
 
