@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { register } from "swiper/element/bundle";
 
 // register Swiper custom elements
@@ -21,7 +21,7 @@ export default function Banner() {
         <swiper-slide>
           <div>
             <div className="swiper-slide">
-              <img className="slide-image" src="https://skins.minimog.co/cdn/shop/files/cake_slide_1.jpg" alt="Cake slide" s />
+              <img className="slide-image" src="https://skins.minimog.co/cdn/shop/files/cake_slide_1.jpg" alt="Cake slide" />
               <div className="swiper-slide-transform">
                 <div className="slide-content">
                   <h4 className="heading-title">
@@ -39,7 +39,7 @@ export default function Banner() {
         <swiper-slide>
           <div>
             <div className="swiper-slide">
-              <img className="slide-image" src="https://skins.minimog.co/cdn/shop/files/cake_slide_2.jpg" />
+              <img className="slide-image" src="https://skins.minimog.co/cdn/shop/files/cake_slide_2.jpg" alt="Cake slide 2" />
               <div className="swiper-slide-transform">
                 <div className="slide-content">
                   <h4 className="heading-title">
