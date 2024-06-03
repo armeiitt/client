@@ -1,15 +1,11 @@
 "use client";
+import environment from "@/app/environment/environment.js";
 import {
+  Button,
   Dropdown,
   DropdownItem,
   DropdownMenu,
-  DropdownTrigger
-} from "@nextui-org/react";
-import React, { useEffect, useState } from "react";
-
-import environtment from "@/app/environtment/environtment.js";
-import {
-  Button,
+  DropdownTrigger,
   Link,
   Navbar,
   NavbarBrand,
@@ -17,8 +13,9 @@ import {
   NavbarItem,
   NavbarMenu,
   NavbarMenuItem,
-  NavbarMenuToggle,
+  NavbarMenuToggle
 } from "@nextui-org/react";
+import React, { useEffect, useState } from "react";
 import { AcmeLogo } from "./AcmeLogo.jsx";
 
 export default function NavBar() {
@@ -29,7 +26,7 @@ export default function NavBar() {
     const fetchData = async () => {
       try {
         const res = await fetch(
-          `http://${environtment.API_DOMAIN}:${environtment.API_PORT}/api/categories`,
+          `http://${environment.API_DOMAIN}:${environment.API_PORT}/api/categories`,
           {
             method: "GET",
           }

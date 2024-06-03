@@ -2,7 +2,7 @@ import AddToCartButton from "@/components/AddToCartButton";
 
 const fetchData = async (pathname) => {
     try {
-        let api_url = `http://${environtment.API_DOMAIN}:${environtment.API_PORT}/api/products`;
+        let api_url = `http://${environment.API_DOMAIN}:${environment.API_PORT}/api/products`;
         let rest_api = { method: "GET" };
         const res = await fetch(
             `http://10.30.232.103:3000/api/products?filters[slug][$eq]=${pathname}&populate=*`,

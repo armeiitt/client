@@ -1,5 +1,5 @@
 "use client";
-import environtment from "@/app/environtment/environtment";
+import environment from "@/app/environmkent/environment";
 import AddToCartButton from "@/components/AddToCartButton";
 import {
   Button,
@@ -80,7 +80,7 @@ export default function Designed_Cake() {
 
   const postDesProd = async (desProd) => {
     try {
-      let api_url = `http://${environtment.API_DOMAIN}:${environtment.API_PORT}/api/des_products`;
+      let api_url = `http://${environment.API_DOMAIN}:${environment.API_PORT}/api/des_products`;
       let rest_api = {
         method: "POST",
         headers: {
