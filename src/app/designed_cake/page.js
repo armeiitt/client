@@ -218,13 +218,7 @@ export default function Designed_Cake() {
     const candlePrice = calculateCandlePrice();
 
     const totalPrice =
-      shapePrice +
-      sizePrice +
-      flavourPrice +
-      fruitPrice +
-      animalPrice +
-      sexPrice +
-      candlePrice;
+      shapePrice + sizePrice + flavourPrice + fruitPrice + animalPrice + sexPrice + candlePrice;
     return totalPrice;
   };
 
@@ -291,7 +285,6 @@ export default function Designed_Cake() {
     setCakeId(nextCakeNumber);
   };
   const handleDelete = (index) => {
-
     const updatedCakes = [...cakes];
 
     updatedCakes.splice(index, 1);
@@ -299,7 +292,6 @@ export default function Designed_Cake() {
     setCakes(updatedCakes);
   };
   const [showCakeNameInTextarea, setShowCakeNameInTextarea] = useState(true);
-
 
   return (
     <div className="main_designed_cake">
@@ -313,21 +305,12 @@ export default function Designed_Cake() {
             </div>
             <div>
               <center>
-                <Image
-                  src="/images/designed_cake.jpg"
-                  alt="picture"
-                  width={100}
-                  height={100}
-                />
+                <Image src="/images/designed_cake.jpg" alt="picture" width={100} height={100} />
               </center>
             </div>
             <p className="mt-1 text-lg leading-8 text-gray-600"></p>
           </div>
-          <form
-            action="#"
-            method="POST"
-            className="mx-auto mt-2 max-w-xl sm:mt-2"
-          >
+          <form action="#" method="POST" className="mx-auto mt-2 max-w-xl sm:mt-2">
             <div className="grid grid-cols-3 gap-x-48 gap-y-6 sm:grid-cols-2">
               <textarea
                 name="message"
@@ -622,40 +605,37 @@ export default function Designed_Cake() {
                   </thead>
                   <tbody>
                     {cakes.map((cake, index) => (
-                      <tr key={cake.name}> {/* Use a stable key */}
+                      <tr key={cake.name}>
                         <td>{cake.name}</td>
                         <td>${cake.totalPrice.toFixed(2)}</td>
                         <td>
                           <AddToCartButton
                             variant="bordered"
-                            color="#ff0000" // Truyền màu sắc từ phía cha vào đây
+                            color="#ff0000"
                             data={saveDataDesProd}
                           >
                             Add To Cart
                           </AddToCartButton>
-
                         </td>
                         <td>
                           <button
                             className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
                             onClick={() => handleDelete(index)}
                             style={{
-                              backgroundColor: '#ff0000',
-                              color: '#fff',
-                              border: 'none',
-                              padding: '8px 16px',
-                              borderRadius: '4px',
-                              cursor: 'pointer',
+                              backgroundColor: "#ff0000",
+                              color: "#fff",
+                              border: "none",
+                              padding: "8px 16px",
+                              borderRadius: "4px",
+                              cursor: "pointer",
                             }}
                           >
                             Delete
                           </button>
-
                         </td>
                       </tr>
                     ))}
                   </tbody>
-
                 </table>
               </div>
             </div>
@@ -684,9 +664,7 @@ export default function Designed_Cake() {
             <div>{selectedFlavourValue}</div>
           </div>
           <div style={{ borderBottom: "2px solid #000" }}></div>
-          <div className="name_designed_cake decoration_container">
-            Decorations:{" "}
-          </div>
+          <div className="name_designed_cake decoration_container">Decorations: </div>
           <div>
             {selectFruits.length > 0 ? (
               <>
@@ -694,43 +672,66 @@ export default function Designed_Cake() {
                   <div className="fruit_price">
                     <div>
                       <span key={index}>
-                        {value} - $
-                        {fruits.find((item) => item.name === value)?.price}{" "}
+                        {value} - ${fruits.find((item) => item.name === value)?.price}{" "}
                       </span>
                     </div>
                   </div>
                 ))}
               </>
             ) : (
-              "Loading..."
+              "No Fruits"
             )}
           </div>
           <div>
-            {selectAnimals
-              ? selectAnimals.map((value, index) => (
-                <span>
-                  {value} - ${calculateAnimalPrice()}
-                </span>
-              ))
-              : " "}
+            {selectAnimals.length > 0 ? (
+              <>
+                {selectAnimals.map((value, index) => (
+                  <div className="anime_price">
+                    <div>
+                      <span key={index}>
+                        {value} - ${animals.find((item) => item.name === value)?.price}
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </>
+            ) : (
+              "No Animals"
+            )}
           </div>
           <div>
-            {selectSex
-              ? selectSex.map((value, index) => (
-                <span>
-                  {value} - ${calculateSexPrice()}
-                </span>
-              ))
-              : " "}
+            {selectSex.length > 0 ? (
+              <>
+                {selectSex.map((value, index) => (
+                  <div className="sex_price">
+                    <div>
+                      <span key={index}>
+                        {value} - ${sex.find((item) => item.name === value)?.price}
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </>
+            ) : (
+              "No Sex"
+            )}
           </div>
           <div>
-            {selectCandles
-              ? selectCandles.map((value, index) => (
-                <span>
-                  {value} - ${calculateCandlePrice()}
-                </span>
-              ))
-              : " "}
+            {selectCandles.length > 0 ? (
+              <>
+                {selectCandles.map((value, index) => (
+                  <div className="candle_price">
+                    <div>
+                      <span key={index}>
+                        {value} - ${candles.find((item) => item.name === value)?.price}
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </>
+            ) : (
+              "No Candles"
+            )}
           </div>
           <div style={{ borderBottom: "2px solid #000" }}></div>
           <div className="body_designed_cake">
@@ -776,12 +777,7 @@ export default function Designed_Cake() {
         <div className="image_footer_designed_cake">
           {" "}
           <center>
-            <Image
-              src="/images/logo2.jpg"
-              alt="picture"
-              width={200}
-              height={80}
-            />
+            <Image src="/images/logo2.jpg" alt="picture" width={200} height={80} />
           </center>
         </div>
       </div>
