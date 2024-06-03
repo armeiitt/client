@@ -10,7 +10,6 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import "swiper/css";
 
-
 export default function Home() {
 	const [data, setData] = useState(null);
 	const { push } = useRouter();
