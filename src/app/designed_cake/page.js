@@ -1,4 +1,5 @@
 "use client";
+
 import environment from "@/app/environment/environment";
 import AddToCartButton from "@/components/AddToCartButton";
 import {
@@ -306,7 +307,7 @@ export default function Designed_Cake() {
         <div className="isolate bg-white px-6 py-5 lg:px-4">
           <div className="mx-auto max-w-2xl text-center">
             <div className="title_designed_cake">
-              <span class="bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500">
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500">
                 LET'S DESIGN YOUR CAKE
               </span>
             </div>
@@ -663,7 +664,7 @@ export default function Designed_Cake() {
       </div>
       <div className="detail_designed_cake">
         <div className="title_designed_cake mx-auto max-w-2xl text-center pt-5">
-          <span class="bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500">
+          <span className="bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500">
             A DESIGNED CAKE INFORMATION
           </span>
         </div>
@@ -741,7 +742,7 @@ export default function Designed_Cake() {
         </div>
         <div className="price_of_designed_cake">
           <div className="title_designed_cake mx-auto max-w-2xl text-center pt-5">
-            <span class="bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500">
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500">
               PRICE OF DESIGNED CAKE
             </span>
           </div>
