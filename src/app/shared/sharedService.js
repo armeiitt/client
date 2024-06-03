@@ -1,4 +1,4 @@
-import environment from "../environmkent/environment";
+import environment from "@/app/environment/environment.js";
 
 const API_URL = `http://${environment.API_DOMAIN}:${environment.API_PORT}/api`;
 

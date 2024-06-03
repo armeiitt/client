@@ -1,7 +1,7 @@
-import React from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
 import Image from "next/image";
+import React from "react";
 import "swiper/css";
+import { Swiper, SwiperSlide } from "swiper/react";
 
 const fetchData = async (pathname) => {
   try {
@@ -39,7 +39,7 @@ export default ({ params }) => {
   return (
     <div>
       <div className="title_banner2">
-        <span class="bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500">
+        <span className="bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500">
           Best seller
         </span>
       </div>

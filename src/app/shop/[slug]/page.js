@@ -1,5 +1,5 @@
 "use client";
-import environment from "@/app/environmkent/environment";
+import environment from "@/app/environment/environment";
 import AddToCartButton from "@/components/AddToCartButton";
 import { Card, CardBody, CardFooter } from "@nextui-org/react";
 import { usePathname, useRouter } from "next/navigation";

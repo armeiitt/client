@@ -13,8 +13,6 @@ import "swiper/css";
 
 export default function Home() {
 	const [data, setData] = useState(null);
-	const [loading, setLoading] = useState(true);
-	const [error, setError] = useState();
 	const { push } = useRouter();
 	const [cartItems, setCartItems] = useState([]);
 	const [feedbackData, setFeedbackData] = useState({});
@@ -30,10 +28,8 @@ export default function Home() {
 					item.src = getProdPhotoURL(item.image);
 				}
 				setData(dataImg.data);
-				setLoading(false);
 			} catch (error) {
-				setLoading(false);
-				setError(error.message);
+				console.log(error.message);
 			}
 		};
 		fetchData();
