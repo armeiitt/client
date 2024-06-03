@@ -27,7 +27,7 @@
 //         <section>
 //             <div>
 //                 <div className="title_banner2">
-//                     <span class="bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500">Feedback</span>
+//                     <span className="bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500">Feedback</span>
 //                 </div>
 //                 <p>Product Name: {feedbackData.productName}</p>
 //                 <p>Comment: {feedbackData.comment}</p>
@@ -36,7 +36,7 @@
 //         </section>
 //     );
 // }
-import React, { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export default function Home() {
     const [feedbackList, setFeedbackList] = useState([]);
@@ -94,4 +94,3 @@ const getStarRating = (rating) => {
     }
     return stars;
 };
-
