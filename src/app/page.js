@@ -26,6 +26,7 @@ export default function Home() {
 				for (let item of dataImg.data) {
 					item.src = getProdPhotoURL(item.image);
 				}
+				console.log(dataImg);
 				setData(dataImg.data);
 			} catch (error) {
 				console.log(error.message);
@@ -35,11 +36,6 @@ export default function Home() {
 	}, []);
 
 	useEffect(() => {
-		// const storedCartItems = localStorage.getItem("cart");
-		// if (storedCartItems) {
-		//   setCartItems(JSON.parse(storedCartItems));
-		// }
-
 		const storedFeedbackData = localStorage.getItem("feedbackData");
 		if (storedFeedbackData) {
 			setFeedbackData(JSON.parse(storedFeedbackData));
@@ -55,42 +51,41 @@ export default function Home() {
 			<Banner />
 			<section>
 				<div className="grid grid-cols-3 gap-4 px-2 py-3">
-					{data &&
-						data.slice(0, 9).map((value, index) => (
-							<Card
-								shadow="sm"
-								key={value.id}
-								isPressable
-								onPress={() => push(`/product/${value.attributes.slug}`)}
-							>
-								<CardBody className="overflow-visible p-0">
-									{/* <img
+					{data && data.slice(0, 9).map((value, index) => (
+						<Card
+							shadow="sm"
+							key={value.id}
+							isPressable
+							onPress={() => push(`/product/${value.attributes.slug}`)}
+						>
+							<CardBody className="overflow-visible p-0">
+								{/* <img
                                     className="w-full h-auto"
                                     alt={value.attributes.name}
                                     src={`http://localhost:1337${value.attributes.image.data.attributes.url}`}
                                 /> */}
-									{/* Check if value.src exists and render the image */}
-									{value.src && (
-										<img className="w-full h-auto" src={value.src} />
-									)}
-								</CardBody>
-								<CardFooter className="text-small flex-col gap-2">
-									<div className="flex felx-row justify-between gap-2 w-full">
-										<b className="truncate">{value.name}</b>
-										<p className="text-default-500">${value.price}</p>
-									</div>
-									<div className="flex flex-row w-full justify-end">
-										<AddToCartButton
-											variant="bordered"
-											color="secondary"
-											data={value}
-										>
-											Add To Cart
-										</AddToCartButton>
-									</div>
-								</CardFooter>
-							</Card>
-						))}
+								{/* Check if value.src exists and render the image */}
+								{value.src && (
+									<img className="w-full h-auto" src={value.src} />
+								)}
+							</CardBody>
+							<CardFooter className="text-small flex-col gap-2">
+								<div className="flex felx-row justify-between gap-2 w-full">
+									<b className="truncate">{value.name}</b>
+									<p className="text-default-500">${value.price}</p>
+								</div>
+								<div className="flex flex-row w-full justify-end">
+									<AddToCartButton
+										variant="bordered"
+										color="secondary"
+										data={value}
+									>
+										Add To Cart
+									</AddToCartButton>
+								</div>
+							</CardFooter>
+						</Card>
+					))}
 				</div>
 			</section>
 			<section className="pt-5">
