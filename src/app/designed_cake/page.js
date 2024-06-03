@@ -29,8 +29,6 @@ export default function Designed_Cake() {
 	const [listSex, setListSex] = useState([]);
 	const [listCandle, setListCandle] = useState([]);
 
-	const [totalPrice, setTotalPrice] = useState(0);
-
 	useEffect(() => {
 		fetchData();
 		fetchDecors();
@@ -214,7 +212,6 @@ export default function Designed_Cake() {
 		let candlePrice = calculateCandlePrice();
 
 		let total_price = shapePrice + sizePrice + flavourPrice + fruitPrice + animalPrice + sexPrice + candlePrice;
-		// setTotalPrice(total_price);
 		return total_price;
 	};
 
@@ -240,9 +237,9 @@ export default function Designed_Cake() {
 			shape_id: Array.from(selectedShape)[0]?.shape_id || null,
 			flavour_id: Array.from(selectedFlavour)[0]?.flavour_id || null,
 			name: "thinh",
-			price: totalPrice || 0,
+			price: calculateTotalPrice(),
 		};
-		// console.log(desProd);
+		console.log(desProd);
 	};
 
 	const [cakes, setCakes] = useState([]);
@@ -277,7 +274,7 @@ export default function Designed_Cake() {
 							<span className="bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500">
 								LET'S DESIGN YOUR CAKE
 							</span>
-							{/* <button onClick={saveDataDesProd}>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</button> */}
+							<button onClick={saveDataDesProd}>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</button>
 						</div>
 						<div>
 							<center>
