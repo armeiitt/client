@@ -69,10 +69,6 @@ export default function Designed_Cake() {
 				decorateItems(tempSex),
 				decorateItems(tempCandles),
 			]);
-			console.log(tempFruits);
-			console.log(tempAnimals);
-			console.log(tempSex);
-			console.log(tempCandles);
 			setListFruit(tempFruits);
 			setListAnimal(tempAnimals);
 			setListSex(tempSex);
@@ -82,21 +78,30 @@ export default function Designed_Cake() {
 		}
 	}
 
-	const postDesProd = async (desProd) => {
+	const getLastestDesignedProduct = async () => {
 		try {
-			let api_url = `http://${environment.API_DOMAIN}:${environment.API_PORT}/api/des_products`;
-			let rest_api = {
-				method: "POST",
+			const temp = await apiService.getData("des_products/last");
+			console.log(temp);
+		} catch (error) {
+			console.error(error);
+		}
+	};
+
+	const createDesignedProduct = async (designedProduct) => {
+		try {
+			const url = `http://${environment.API_DOMAIN}:${environment.API_PORT}/api/des_products`;
+			const request = {
+				method: 'POST',
 				headers: {
-					"Content-Type": "application/json",
+					'Content-Type': 'application/json',
 				},
-				body: JSON.stringify(desProd),
+				body: JSON.stringify(designedProduct),
 			};
 
-			const res = await fetch(api_url, rest_api);
-			console.log(res);
+			const response = await fetch(url, request);
+			console.log("Created Designed Product Successfully", response);
 		} catch (error) {
-			console.log(error);
+			console.error(error);
 		}
 	};
 
@@ -215,31 +220,30 @@ export default function Designed_Cake() {
 		return total_price;
 	};
 
-	const getDesProd = async () => {
-		console.log("getDesProd called");
-		addNewCake();
-		setUserInput(`Cake ${nextCakeNumber}`);
-		let data = {
-			selectedShape,
-			selectedSize,
-			selectedFlavour: selectedFlavour,
-			selectFruits,
-			selectAnimals,
-			selectSex,
-			selectCandles,
-		};
-	};
+	const saveDesignedProduct = () => {
+		const selectedSizeId = Array.from(selectedSize)[0]?.size_id || null;
+		const selectedShapeId = Array.from(selectedShape)[0]?.shape_id || null;
+		const selectedFlavourId = Array.from(selectedFlavour)[0]?.flavour_id || null;
 
-	const saveDataDesProd = () => {
-		let desProd = {
-			category_id: 1,
-			size_id: Array.from(selectedSize)[0]?.size_id || null,
-			shape_id: Array.from(selectedShape)[0]?.shape_id || null,
-			flavour_id: Array.from(selectedFlavour)[0]?.flavour_id || null,
-			name: "thinh",
+		const designedProduct = {
+			categoryId: 1,
+			sizeId: selectedSizeId,
+			shapeId: selectedShapeId,
+			flavourId: selectedFlavourId,
+			name: "Customized Cake",
 			price: calculateTotalPrice(),
 		};
-		console.log(desProd);
+		const designedProduct2 = {
+			fruits: selectFruits,
+			animals: selectAnimals,
+			sex: selectSex,
+			candles: selectCandles
+		}
+		console.log(designedProduct2);
+		// createDesignedProduct(designedProduct);
+		const lastData = getLastestDesignedProduct();
+		console.log(lastData);
+
 	};
 
 	const [cakes, setCakes] = useState([]);
@@ -274,7 +278,7 @@ export default function Designed_Cake() {
 							<span className="bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500">
 								LET'S DESIGN YOUR CAKE
 							</span>
-							<button onClick={saveDataDesProd}>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</button>
+							<button onClick={saveDesignedProduct}>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</button>
 						</div>
 						<div>
 							<center>
@@ -742,7 +746,7 @@ export default function Designed_Cake() {
 					<div className="flex justify-center">
 						<button
 							className="bg-white border border-purple-500 hover:bg-purple-500 hover:text-white font-bold py-2 px-4 rounded-full"
-							onClick={getDesProd}
+							onClick={saveDesignedProduct}
 						>
 							Create
 						</button>
