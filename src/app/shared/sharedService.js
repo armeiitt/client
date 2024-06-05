@@ -27,15 +27,23 @@ const apiService = {
     }
   },
 
-  // async postData(endpoint, data) {
-  //   try {
-  //     const response = await axios.post(`${API_URL}/${endpoint}`, data);
-  //     return response.data;
-  //   } catch (error) {
-  //     console.error("Error posting data:", error);
-  //     throw error;
-  //   }
-  // },
+  async postData(endpoint, data) {
+    try {
+      const url = `http://${environment.API_DOMAIN}:${environment.API_PORT}/api/${endpoint}`;
+      const request = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      };
+      const response = await fetch(url, request);
+      console.log("Created Successfully", response);
+    } catch (error) {
+      console.error(error);
+      throw error
+    }
+  },
 
   getProdPhotoURL(nameImg) {
     return `${API_URL}/prod_photo/${nameImg}`;

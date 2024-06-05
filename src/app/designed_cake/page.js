@@ -1,6 +1,5 @@
 "use client";
 
-import environment from "@/app/environment/environment";
 import AddToCartButton from "@/components/AddToCartButton";
 import {
 	Button,
@@ -29,81 +28,7 @@ export default function Designed_Cake() {
 	const [listSex, setListSex] = useState([]);
 	const [listCandle, setListCandle] = useState([]);
 
-	useEffect(() => {
-		fetchData();
-		fetchDecors();
-	}, []);
-
-	async function fetchData() {
-		try {
-			const [shapesData, sizesData, flavoursData] = await Promise.all([
-				apiService.getData("shapes"),
-				apiService.getData("sizes"),
-				apiService.getData("flavours"),
-			]);
-			setListShape(shapesData.data);
-			setListSize(sizesData.data);
-			setListFlavour(flavoursData.data);
-		} catch (error) {
-			console.error("Error fetching data:", error);
-		}
-	}
-
-	async function fetchDecors() {
-		try {
-			const temp = await apiService.getData("decors");
-			const tempFruits = temp.data.filter((item) => item.type === "fruits");
-			const tempAnimals = temp.data.filter((item) => item.type === "animals");
-			const tempSex = temp.data.filter((item) => item.type === "sex");
-			const tempCandles = temp.data.filter((item) => item.type === "candles");
-
-			const decorateItems = async (items) => {
-				for (let item of items) {
-					item.imageSrc = apiService.getDecorPhotoURL(item.image);
-				}
-			};
-
-			await Promise.all([
-				decorateItems(tempFruits),
-				decorateItems(tempAnimals),
-				decorateItems(tempSex),
-				decorateItems(tempCandles),
-			]);
-			setListFruit(tempFruits);
-			setListAnimal(tempAnimals);
-			setListSex(tempSex);
-			setListCandle(tempCandles);
-		} catch (error) {
-			console.error("Error fetching decorations:", error);
-		}
-	}
-
-	const getLastestDesignedProduct = async () => {
-		try {
-			const temp = await apiService.getData("des_products/last");
-			console.log(temp);
-		} catch (error) {
-			console.error(error);
-		}
-	};
-
-	const createDesignedProduct = async (designedProduct) => {
-		try {
-			const url = `http://${environment.API_DOMAIN}:${environment.API_PORT}/api/des_products`;
-			const request = {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json',
-				},
-				body: JSON.stringify(designedProduct),
-			};
-
-			const response = await fetch(url, request);
-			console.log("Created Designed Product Successfully", response);
-		} catch (error) {
-			console.error(error);
-		}
-	};
+	const [userInput, setUserInput] = useState("");
 
 	const [selectFruits, setSelectFruits] = useState([]);
 	const [selectAnimals, setSelectAnimals] = useState([]);
@@ -137,36 +62,112 @@ export default function Designed_Cake() {
 		return "Flavours";
 	}, [selectedFlavour]);
 
-	const [userInput, setUserInput] = useState("");
-	const handleChange = (event) => {
+	const totalPrice = React.useMemo(() => {
+		const selectedShapeItem = Array.from(selectedShape)[0];
+		const selectedSizeItem = Array.from(selectedSize)[0];
+		const selectedFlavourItem = Array.from(selectedFlavour)[0];
+		const shapePrice = parseFloat(selectedShapeItem?.price) || 0;
+		const sizePrice = parseFloat(selectedSizeItem?.price) || 0;
+		const flavourPrice = parseFloat(selectedFlavourItem?.price) || 0;
+
+		const fruitPrice = calculateFruitPrice();
+		const animalPrice = calculateAnimalPrice();
+		const sexPrice = calculateSexPrice();
+		const candlePrice = calculateCandlePrice();
+
+		return shapePrice + sizePrice + flavourPrice + fruitPrice + animalPrice + sexPrice + candlePrice;
+	}, [selectFruits, selectAnimals, selectSex, selectCandles, selectedShape, selectedSize, selectedFlavour]);
+
+	useEffect(() => {
+		fetchData();
+		fetchDecors();
+	}, []);
+
+	const fetchData = async () => {
+		try {
+			const [shapeData, sizeData, flavourData] = await Promise.all([
+				apiService.getData("shapes"),
+				apiService.getData("sizes"),
+				apiService.getData("flavours"),
+			]);
+			setListShape(shapeData.data);
+			setListSize(sizeData.data);
+			setListFlavour(flavourData.data);
+		} catch (error) {
+			console.error("Error fetching data:", error);
+		}
+	};
+
+	async function fetchDecors() {
+		try {
+			const { data } = await apiService.getData("decors");
+			const [fruits, animals, sex, candles] = [
+				"fruits",
+				"animals",
+				"sex",
+				"candles",
+			].map((type) =>
+				data.filter((item) => item.type === type).map((item) => ({
+					...item,
+					imageSrc: apiService.getDecorPhotoURL(item.image),
+				}))
+			);
+			setListFruit(fruits);
+			setListAnimal(animals);
+			setListSex(sex);
+			setListCandle(candles);
+		} catch (error) {
+			console.error("Error fetching decorations:", error);
+		}
+	}
+
+	async function getLatestDesignedProduct() {
+		try {
+			const response = await apiService.getData("des_products/last");
+			return response;
+		} catch (error) {
+			throw new Error("Failed to fetch: ", error);
+		}
+	}
+
+	async function createDesignedProduct(endpoint, data) {
+		try {
+			const response = await apiService.postData(endpoint, data)
+			return response;
+		} catch (error) {
+			throw new Error("Failed to create: ", error);
+		}
+	};
+
+	function handleChange(event) {
 		setUserInput(event.target.value);
 	};
 
-	const handleFruitSelectionChange = (newSelection) => {
+	function handleFruitSelectionChange(newSelection) {
 		if (newSelection.length <= 2) {
 			setSelectFruits(newSelection);
 		}
 	};
 
-	const handleAnimalSelectionChange = (newSelection) => {
+	function handleAnimalSelectionChange(newSelection) {
 		if (newSelection.length <= 1) {
 			setSelectAnimals(newSelection);
 		}
 	};
 
-	const handleSexSelectionChange = (newSelection) => {
+	function handleSexSelectionChange(newSelection) {
 		if (newSelection.length <= 1) {
 			setSelectSex(newSelection);
 		}
 	};
 
-	const handleCandleSelectionChange = (newSelection) => {
+	function handleCandleSelectionChange(newSelection) {
 		if (newSelection.length <= 1) {
 			setSelectCandles(newSelection);
 		}
 	};
 
-	const calculateFruitPrice = () => {
+	function calculateFruitPrice() {
 		return selectFruits.reduce((totalPrice, each) => {
 			const selectedFruit = listFruit.find((item) => item.decor_id === each);
 			if (selectedFruit) {
@@ -176,7 +177,7 @@ export default function Designed_Cake() {
 		}, 0);
 	};
 
-	const calculateAnimalPrice = () => {
+	function calculateAnimalPrice() {
 		return selectAnimals.reduce((totalPrice, each) => {
 			const selectedAnimal = listAnimal.find((item) => item.decor_id === each);
 			if (selectedAnimal) {
@@ -186,7 +187,7 @@ export default function Designed_Cake() {
 		}, 0);
 	};
 
-	const calculateSexPrice = () => {
+	function calculateSexPrice() {
 		return selectSex.reduce((totalPrice, each) => {
 			const selectedSex = listSex.find((item) => item.decor_id === each);
 			if (selectedSex) {
@@ -196,7 +197,7 @@ export default function Designed_Cake() {
 		}, 0);
 	};
 
-	const calculateCandlePrice = () => {
+	function calculateCandlePrice() {
 		return selectCandles.reduce((totalPrice, each) => {
 			const selectedCandle = listCandle.find((item) => item.decor_id === each);
 			if (selectedCandle) {
@@ -206,21 +207,7 @@ export default function Designed_Cake() {
 		}, 0);
 	};
 
-	const calculateTotalPrice = () => {
-		let shapePrice = parseFloat(Array.from(selectedShape)[0]?.price) || 0;
-		let sizePrice = parseFloat(Array.from(selectedSize)[0]?.price) || 0;
-		let flavourPrice = parseFloat(Array.from(selectedFlavour)[0]?.price) || 0;
-
-		let fruitPrice = calculateFruitPrice();
-		let animalPrice = calculateAnimalPrice();
-		let sexPrice = calculateSexPrice();
-		let candlePrice = calculateCandlePrice();
-
-		let total_price = shapePrice + sizePrice + flavourPrice + fruitPrice + animalPrice + sexPrice + candlePrice;
-		return total_price;
-	};
-
-	const saveDesignedProduct = () => {
+	function saveDesignedProduct() {
 		const selectedSizeId = Array.from(selectedSize)[0]?.size_id || null;
 		const selectedShapeId = Array.from(selectedShape)[0]?.shape_id || null;
 		const selectedFlavourId = Array.from(selectedFlavour)[0]?.flavour_id || null;
@@ -231,26 +218,30 @@ export default function Designed_Cake() {
 			shapeId: selectedShapeId,
 			flavourId: selectedFlavourId,
 			name: "Customized Cake",
-			price: calculateTotalPrice(),
+			price: totalPrice,
 		};
-		const designedProduct2 = {
+
+		// createDesignedProduct("des_products", designedProduct);
+		const lastData = getLatestDesignedProduct();
+
+		const designedProductDetails = {
+			des_prod_id: lastData,
 			fruits: selectFruits,
 			animals: selectAnimals,
 			sex: selectSex,
-			candles: selectCandles
-		}
-		console.log(designedProduct2);
-		// createDesignedProduct(designedProduct);
-		const lastData = getLastestDesignedProduct();
-		console.log(lastData);
+			candles: selectCandles,
+		};
 
+		console.log(designedProductDetails);
+		createDesignedProduct("des_prod_details", designedProductDetails);
+		console.log(lastData);
 	};
 
 	const [cakes, setCakes] = useState([]);
 	const [cakeId, setCakeId] = useState(1);
 	const [nextCakeNumber, setNextCakeNumber] = useState(1);
 
-	const addNewCake = () => {
+	function addNewCake() {
 		const newCakeName = `Cake ${nextCakeNumber}`;
 		// const totalPrice = calculateTotalPrice();
 
@@ -261,7 +252,7 @@ export default function Designed_Cake() {
 		setCakeId(nextCakeNumber);
 	};
 
-	const handleDelete = (index) => {
+	function handleDelete(index) {
 		const updatedCakes = [...cakes];
 		updatedCakes.splice(index, 1);
 		setCakes(updatedCakes);
@@ -642,7 +633,6 @@ export default function Designed_Cake() {
 					</div>
 					<div style={{ borderBottom: "2px solid #000" }}></div>
 					<div className="name_designed_cake decoration_container">Decorations: </div>
-
 					<div>
 						{selectFruits.length > 0 ? (
 							selectFruits.map((value, index) => {
@@ -651,7 +641,9 @@ export default function Designed_Cake() {
 									<div className="fruit_price" key={index}>
 										{fruit ? (
 											<div>
-												<span>{fruit.name} - ${fruit.price}</span>
+												<span>
+													{fruit.name} - ${fruit.price}
+												</span>
 											</div>
 										) : null}
 									</div>
@@ -661,7 +653,6 @@ export default function Designed_Cake() {
 							<div>No Fruits</div>
 						)}
 					</div>
-
 					<div>
 						{selectAnimals.length > 0 ? (
 							selectAnimals.map((value, index) => {
@@ -670,7 +661,9 @@ export default function Designed_Cake() {
 									<div className="animal_price" key={index}>
 										{animal ? (
 											<div>
-												<span>{animal.name} - ${animal.price}</span>
+												<span>
+													{animal.name} - ${animal.price}
+												</span>
 											</div>
 										) : null}
 									</div>
@@ -680,7 +673,6 @@ export default function Designed_Cake() {
 							<div>No Animals</div>
 						)}
 					</div>
-
 					<div>
 						{selectSex.length > 0 ? (
 							selectSex.map((value, index) => {
@@ -689,7 +681,9 @@ export default function Designed_Cake() {
 									<div className="sex_price" key={index}>
 										{sex ? (
 											<div>
-												<span>{sex.name} - ${sex.price}</span>
+												<span>
+													{sex.name} - ${sex.price}
+												</span>
 											</div>
 										) : null}
 									</div>
@@ -699,7 +693,6 @@ export default function Designed_Cake() {
 							<div>No Sex</div>
 						)}
 					</div>
-
 					<div>
 						{selectCandles.length > 0 ? (
 							selectCandles.map((value, index) => {
@@ -708,7 +701,9 @@ export default function Designed_Cake() {
 									<div className="candle_price" key={index}>
 										{candle ? (
 											<div>
-												<span>{candle.name} - ${candle.price}</span>
+												<span>
+													{candle.name} - ${candle.price}
+												</span>
 											</div>
 										) : null}
 									</div>
@@ -718,7 +713,6 @@ export default function Designed_Cake() {
 							<div>No Candles</div>
 						)}
 					</div>
-
 					<div style={{ borderBottom: "2px solid #000" }}></div>
 					<div className="body_designed_cake">
 						{" "}
@@ -738,7 +732,7 @@ export default function Designed_Cake() {
 					<div style={{ borderBottom: "2px solid #000" }}></div>
 					<div className="total_price" id="title_designed_cake_price">
 						<div className="text_title_designed_cake_price">Total Price</div>
-						<div>${calculateTotalPrice()}</div>
+						<div>${totalPrice}</div>
 					</div>
 				</div>
 
