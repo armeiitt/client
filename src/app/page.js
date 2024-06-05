@@ -8,13 +8,15 @@ import Feedback from "@/components/Feedback";
 import { Card, CardBody, CardFooter } from "@nextui-org/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { Pagination, Button } from '@nextui-org/react';
 import "swiper/css";
-
+const ITEMS_PER_PAGE = 9;
 export default function Home() {
   const [data, setData] = useState(null);
   const { push } = useRouter();
   const [cartItems, setCartItems] = useState([]);
   const [feedbackData, setFeedbackData] = useState({});
+  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -45,13 +47,16 @@ export default function Home() {
   function getProdPhotoURL(nameImg) {
     return `http://${environment.API_DOMAIN}:${environment.API_PORT}/api/prod_photo/${nameImg}`;
   }
-
+  const totalPages = data ? Math.ceil(data.length / ITEMS_PER_PAGE) : 0;
+  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+  const endIndex = startIndex + ITEMS_PER_PAGE;
+  const paginatedData = data ? data.slice(startIndex, endIndex) : [];
   return (
     <main>
       <Banner />
       <section>
         <div className="grid grid-cols-3 gap-4 px-2 py-3">
-          {data && data.slice(0, 9).map((value, index) => (
+          {paginatedData.map((value) => (
             <Card
               shadow="sm"
               key={value.id}
@@ -86,6 +91,32 @@ export default function Home() {
               </CardFooter>
             </Card>
           ))}
+        </div>
+        <div className="flex flex-col items-center mt-4 gap-2">
+          <Pagination
+            total={totalPages}
+            color="secondary"
+            page={currentPage}
+            onChange={setCurrentPage}
+          />
+          <div className="flex gap-2">
+            <Button
+              size="sm"
+              variant="flat"
+              color="secondary"
+              onPress={() => setCurrentPage((prev) => (prev > 1 ? prev - 1 : prev))}
+            >
+              Previous
+            </Button>
+            <Button
+              size="sm"
+              variant="flat"
+              color="secondary"
+              onPress={() => setCurrentPage((prev) => (prev < totalPages ? prev + 1 : prev))}
+            >
+              Next
+            </Button>
+          </div>
         </div>
       </section>
       <section className="pt-5">
