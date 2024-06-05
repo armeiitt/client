@@ -76,7 +76,39 @@ export default ({ params }) => {
         </SwiperSlide>
         <SwiperSlide>
           <Image
+            src="/images/cake2.jpg"
+            alt="picture"
+            width={200}
+            height={200}
+          />
+        </SwiperSlide>
+        <SwiperSlide>
+          <Image
+            src="/images/macaron9.jpg"
+            alt="picture"
+            width={200}
+            height={200}
+          />
+        </SwiperSlide>
+        <SwiperSlide>
+          <Image
+            src="/images/cake6.jpg"
+            alt="picture"
+            width={200}
+            height={200}
+          />
+        </SwiperSlide>
+        <SwiperSlide>
+          <Image
             src="/images/macaron2.jpg"
+            alt="picture"
+            width={200}
+            height={200}
+          />
+        </SwiperSlide>
+        <SwiperSlide>
+          <Image
+            src="/images/cookie4.jpg"
             alt="picture"
             width={200}
             height={200}
@@ -92,15 +124,7 @@ export default ({ params }) => {
         </SwiperSlide>
         <SwiperSlide>
           <Image
-            src="/images/cake7.jpg"
-            alt="picture"
-            width={200}
-            height={200}
-          />
-        </SwiperSlide>
-        <SwiperSlide>
-          <Image
-            src="/images/macaron2.jpg"
+            src="/images/cake13.jpg"
             alt="picture"
             width={200}
             height={200}

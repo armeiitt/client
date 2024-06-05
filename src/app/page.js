@@ -17,6 +17,9 @@ export default function Home() {
   const { push } = useRouter();
   const [cartItems, setCartItems] = useState([]);
   const [feedbackData, setFeedbackData] = useState({});
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [pageSize, setPageSize] = useState(6);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -29,6 +32,7 @@ export default function Home() {
           item.src = getProdPhotoURL(item.image);
         }
         setData(dataImg.data);
+        setTotalPages(Math.ceil(dataImg.meta.total / pageSize));
         setLoading(false);
       } catch (error) {
         setLoading(false);
@@ -36,7 +40,7 @@ export default function Home() {
       }
     };
     fetchData();
-  }, []);
+  }, [currentPage, pageSize]);
 
   useEffect(() => {
     // const storedCartItems = localStorage.getItem("cart");
@@ -53,48 +57,64 @@ export default function Home() {
   function getProdPhotoURL(nameImg) {
     return `http://${environtment.API_DOMAIN}:${environtment.API_PORT}/api/prod_photo/${nameImg}`;
   }
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
+
+  const handleSelectChange = (e) => {
+    setCurrentPage(parseInt(e.target.value));
+  };
 
   return (
     <main>
       <Banner />
       <section>
         <div className="grid grid-cols-3 gap-4 px-2 py-3">
-          {data &&
-            data.slice(0, 9).map((value, index) => (
-              <Card
-                shadow="sm"
-                key={value.id}
-                isPressable
-                onPress={() => push(`/product/${value.attributes.slug}`)}
-              >
-                <CardBody className="overflow-visible p-0">
-                  {/* <img
+          {data && data.map((value) => (
+            <Card
+              shadow="sm"
+              key={value.id}
+              isPressable
+              onPress={() => push(`/product/${value.attributes.slug}`)}
+            >
+              <CardBody className="overflow-visible p-0">
+                {/* <img
                                     className="w-full h-auto"
                                     alt={value.attributes.name}
                                     src={`http://localhost:1337${value.attributes.image.data.attributes.url}`}
                                 /> */}
-                  {/* Check if value.src exists and render the image */}
-                  {value.src && (
-                    <img className="w-full h-auto" src={value.src} />
-                  )}
-                </CardBody>
-                <CardFooter className="text-small flex-col gap-2">
-                  <div className="flex felx-row justify-between gap-2 w-full">
-                    <b className="truncate">{value.name}</b>
-                    <p className="text-default-500">${value.price}</p>
-                  </div>
-                  <div className="flex flex-row w-full justify-end">
-                    <AddToCartButton
-                      variant="bordered"
-                      color="secondary"
-                      data={value}
-                    >
-                      Add To Cart
-                    </AddToCartButton>
-                  </div>
-                </CardFooter>
-              </Card>
+                {/* Check if value.src exists and render the image */}
+                {value.src && (
+                  <img className="w-full h-auto" src={value.src} />
+                )}
+              </CardBody>
+              <CardFooter className="text-small flex-col gap-2">
+                <div className="flex felx-row justify-between gap-2 w-full">
+                  <b className="truncate">{value.name}</b>
+                  <p className="text-default-500">${value.price}</p>
+                </div>
+                <div className="flex flex-row w-full justify-end">
+                  <AddToCartButton
+                    variant="bordered"
+                    color="secondary"
+                    data={value}
+                  >
+                    Add To Cart
+                  </AddToCartButton>
+                </div>
+              </CardFooter>
+            </Card>
+          ))}
+        </div>
+        <div className="pagination">
+          <select value={currentPage} onChange={handleSelectChange}>
+            {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+              <option key={page} value={page}>
+                {page}
+              </option>
             ))}
+          </select>
+          <span> of {totalPages}</span>
         </div>
       </section>
       <section className="pt-5">
