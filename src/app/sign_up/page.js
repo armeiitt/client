@@ -1,61 +1,58 @@
 "use client";
 import { useEffect, useState } from "react";
+import apiService from "../shared/sharedService";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
 export default function Page() {
-  const [showPassword, setShowPassword] = useState(false); // Define showPassword state
+  const [showPassword, setShowPassword] = useState(false);
 
   const togglePasswordVisibility = () => {
-    setShowPassword((prevShowPassword) => !prevShowPassword); // Toggle showPassword state
+    setShowPassword((prevShowPassword) => !prevShowPassword);
   };
-  const initialFormData = {
-    firstName: "",
-    lastName: "",
-    phoneNumber: "",
+
+  const initialUserData = {
+    first_name: "",
+    last_name: "",
+    phone: "",
     email: "",
+    password: "",
     gender: "",
-    dayOfBirth: "",
+    dateOfBirth: "",
     address: "",
   };
 
-  const [formData, setFormData] = useState(initialFormData);
+  const [user, setUser] = useState(initialUserData);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-    setFormData({
-      ...formData,
+    setUser({
+      ...user,
       [name]: value,
     });
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log("Form data:", formData);
-    localStorage.setItem("formData", JSON.stringify(formData));
+    localStorage.setItem("user", JSON.stringify(user));
     alert(
       "We have received your information, the store will contact you later via your phone number. Thank you!"
     );
-    setFormData(initialFormData);
+    setUser(initialUserData);
+    createNewCus();
   };
 
-  useEffect(() => {
-    fetch("https://jsonplaceholder.typicode.com/posts", {
-      method: "POST",
-      body: JSON.stringify({
-        title: "foo",
-        body: "bar",
-        userId: 1,
-      }),
-      headers: {
-        "Content-type": "application/json; charset=UTF-8",
-      },
-    })
-      .then((response) => response.json())
-      .then((json) => console.log(json));
-  }, []);
+  async function createNewCus() {
+    try {
+      console.log(user);
+      const response = await apiService.postData("customers", user)
+      console.log(response);
+    } catch (error) {
+      console.error("Failed to create: ", error);
+    }
+  }
 
   return (
     <div className="isolate bg-white px-6 py-5 lg:px-8">
@@ -82,11 +79,11 @@ export default function Page() {
             <div className="mt-2.5">
               <input
                 type="text"
-                name="firstName"
+                name="first_name"
                 id="first-name"
                 autoComplete="given-name"
                 className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                value={formData.firstName} // Hiển thị giá trị của trường firstName
+                value={user.first_name}
                 onChange={handleChange}
                 required
               />
@@ -102,12 +99,12 @@ export default function Page() {
             <div className="mt-2.5">
               <input
                 type="text"
-                name="lastName"
+                name="last_name"
                 id="last-name"
                 autoComplete="family-name"
                 className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                value={user.last_name}
                 onChange={handleChange}
-                value={formData.lastName}
                 required
               />
             </div>
@@ -138,12 +135,12 @@ export default function Page() {
               </div>
               <input
                 type="tel"
-                name="phoneNumber"
+                name="phone"
                 id="phone-number"
                 autoComplete="tel"
                 className="block w-full rounded-md border-0 px-3.5 py-2 pl-20 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                value={user.phone}
                 onChange={handleChange}
-                value={formData.phoneNumber}
                 required
               />
             </div>
@@ -163,7 +160,7 @@ export default function Page() {
                 autoComplete="email"
                 className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 onChange={handleChange}
-                value={formData.email}
+                value={user.email}
                 required
               />
             </div>
@@ -183,10 +180,11 @@ export default function Page() {
                 autoComplete="current-password"
                 className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 onChange={handleChange}
-                value={formData.password}
+                value={user.password}
                 required
               />
               <button
+                type="button"
                 onClick={togglePasswordVisibility}
                 className="absolute inset-y-0 right-0 flex items-center px-2"
                 style={{ top: "50%", transform: "translateY(-50%)" }}
@@ -212,7 +210,7 @@ export default function Page() {
                   value="male"
                   className="text-indigo-600 focus:ring-indigo-600"
                   onChange={handleChange}
-                  checked={formData.gender === "male"}
+                  checked={user.gender === "male"}
                 />
                 <span className="text-sm font-medium text-gray-900">Male</span>
               </label>
@@ -224,7 +222,7 @@ export default function Page() {
                   value="female"
                   className="text-indigo-600 focus:ring-indigo-600"
                   onChange={handleChange}
-                  checked={formData.gender === "female"}
+                  checked={user.gender === "female"}
                 />
                 <span className="text-sm font-medium text-gray-900">
                   Female
@@ -238,31 +236,31 @@ export default function Page() {
                   value="other"
                   className="text-indigo-600 focus:ring-indigo-600"
                   onChange={handleChange}
-                  checked={formData.gender === "other"}
+                  checked={user.gender === "other"}
                 />
                 <span className="text-sm font-medium text-gray-900">Other</span>
               </label>
             </div>
-            <div className="sm:col-span-2 pt-5 ">
-              <label
-                htmlFor="day-of-birth"
-                className="block text-sm font-semibold leading-6 text-gray-900 pb-2"
-              >
-                Date of Birth
-              </label>
-              <input
-                type="date"
-                name="dayOfBirth"
-                id="day-of-birth"
-                className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                value={formData.dayOfBirth}
-                onChange={handleChange}
-              />
-            </div>
+          </div>
+          <div className="sm:col-span-2 pt-5">
+            <label
+              htmlFor="day-of-birth"
+              className="block text-sm font-semibold leading-6 text-gray-900 pb-2"
+            >
+              Date of Birth
+            </label>
+            <input
+              type="date"
+              name="dateOfBirth"
+              id="day-of-birth"
+              className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              value={user.dateOfBirth}
+              onChange={handleChange}
+            />
           </div>
           <div className="sm:col-span-2">
             <label
-              htmlFor="message"
+              htmlFor="address"
               className="block text-sm font-semibold leading-6 text-gray-900"
             >
               Address
@@ -273,8 +271,7 @@ export default function Page() {
                 id="address"
                 rows={4}
                 className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                defaultValue={""}
-                value={formData.address}
+                value={user.address}
                 onChange={handleChange}
                 required
               />

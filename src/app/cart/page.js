@@ -8,7 +8,7 @@ import { useRouter } from "next/router";
 export default function Cart() {
   const [items, setItems] = useState([]);
   const [subTotal, setSubTotal] = useState(0);
-  const [formData, setFormData] = useState({});
+  const [user, setUser] = useState({});
   const [selectedFile, setSelectedFile] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(null);
   const [feedbackData, setFeedbackData] = useState({
@@ -50,9 +50,9 @@ export default function Cart() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        to: formData.email,
+        to: user.email,
         subject: "Order Confirm",
-        html: `<p>THANKS FOR BUYING CAKES</p></p><p> Hello <b>${formData.firstName} ${formData.lastName}</b></p><p>Your order has complete </p><p>Payment Address </p><p>Name: ${formData.firstName} ${formData.lastName}</p><p>Address: ${formData.address}</p><p>Phone: ${formData.phoneNumber}</p><p>Email: ${formData.email}</p><p>Your payment: $${subTotal}</p><p>Thank you for purchasing from us</p> <p>Sweeties Cake</p>`,
+        html: `<p>THANKS FOR BUYING CAKES</p></p><p> Hello <b>${user.firstName} ${user.lastName}</b></p><p>Your order has complete </p><p>Payment Address </p><p>Name: ${user.firstName} ${user.lastName}</p><p>Address: ${user.address}</p><p>Phone: ${user.phoneNumber}</p><p>Email: ${user.email}</p><p>Your payment: $${subTotal}</p><p>Thank you for purchasing from us</p> <p>Sweeties Cake</p>`,
       }),
     });
 
@@ -171,9 +171,9 @@ export default function Cart() {
   };
 
   useEffect(() => {
-    const storedFormData = localStorage.getItem("formData");
+    const storedFormData = localStorage.getItem("user");
     if (storedFormData) {
-      setFormData(JSON.parse(storedFormData));
+      setUser(JSON.parse(storedFormData));
     }
   }, []);
 
@@ -297,31 +297,31 @@ export default function Cart() {
               <div>
                 <label>First Name:</label>
               </div>
-              <div className="infor_ship">{formData.firstName}</div>
+              <div className="infor_ship">{user.firstName}</div>
             </div>
             <div className="main_shipping_title">
               <div>
                 <label>Last Name:</label>
               </div>
-              <div className="infor_ship">{formData.lastName}</div>
+              <div className="infor_ship">{user.lastName}</div>
             </div>
             <div className="main_shipping_title">
               <div>
                 <label>Email:</label>
               </div>
-              <div className="infor_ship">{formData.email}</div>
+              <div className="infor_ship">{user.email}</div>
             </div>
             <div className="main_shipping_title">
               <div>
                 <label>Phone Number:</label>
               </div>
-              <div className="infor_ship">{formData.phoneNumber}</div>
+              <div className="infor_ship">{user.phoneNumber}</div>
             </div>
             <div className="main_shipping_title">
               <div>
                 <label>Address:</label>
               </div>
-              <div className="infor_ship">{formData.address}</div>
+              <div className="infor_ship">{user.address}</div>
             </div>
             <div className="main_shipping_title">
               <div>

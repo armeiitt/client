@@ -29,7 +29,8 @@ const apiService = {
 
   async postData(endpoint, data) {
     try {
-      const url = `http://${environment.API_DOMAIN}:${environment.API_PORT}/api/${endpoint}`;
+      const url = `${API_URL}/${endpoint}`;
+      console.log(url);
       const request = {
         method: "POST",
         headers: {
