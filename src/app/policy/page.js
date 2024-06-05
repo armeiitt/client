@@ -2,15 +2,15 @@
 export default function PolicyPage() {
     return (
         <div>
-            <div class="cf-title-02 cf-title-alt-two">
+            <div className="cf-title-02 cf-title-alt-two">
                 <h1>
                     POLICY
                     <span>3T Cake</span>
                 </h1>
             </div>
             <div>
-                <div class="title_policy text-2xl font-extrabold ...">
-                    <span class="bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500">
+                <div className="title_policy text-2xl font-extrabold ...">
+                    <span className="bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500">
                         The Privacy Policy
                     </span>
                 </div>
@@ -21,8 +21,8 @@ export default function PolicyPage() {
                 </div>
             </div>
             <div>
-                <div class="title_policy text-2xl font-extrabold ...">
-                    <span class="bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500">
+                <div className="title_policy text-2xl font-extrabold ...">
+                    <span className="bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500">
                         The Security Measures
                     </span>
                 </div>
@@ -32,8 +32,8 @@ export default function PolicyPage() {
                 </div>
             </div>
             <div>
-                <div class="title_policy text-2xl font-extrabold ...">
-                    <span class="bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500">
+                <div className="title_policy text-2xl font-extrabold ...">
+                    <span className="bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500">
                         The Terms of Service
                     </span>
                 </div>
@@ -42,8 +42,8 @@ export default function PolicyPage() {
                     obligations, acceptable use policies, and limitations of liability.
                 </div>
                 <div>
-                    <div class="title_policy text-2xl font-extrabold ...">
-                        <span class="bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500">
+                    <div className="title_policy text-2xl font-extrabold ...">
+                        <span className="bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500">
                             The Cookie Policy
                         </span>
                     </div>
@@ -54,8 +54,8 @@ export default function PolicyPage() {
                     </div>
                 </div>
                 <div>
-                    <div class="title_policy text-2xl font-extrabold ...">
-                        <span class="bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500">
+                    <div className="title_policy text-2xl font-extrabold ...">
+                        <span className="bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500">
                             The Refund and Return Policy
                         </span>
                     </div>
@@ -65,8 +65,8 @@ export default function PolicyPage() {
                     </div>
                 </div>
                 <div>
-                    <div class="title_policy text-2xl font-extrabold ...">
-                        <span class="bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500">
+                    <div className="title_policy text-2xl font-extrabold ...">
+                        <span className="bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500">
                             The Intellectual Property Rights
                         </span>
                     </div>
@@ -77,8 +77,8 @@ export default function PolicyPage() {
                     </div>
                 </div>
                 <div>
-                    <div class="title_policy text-2xl font-extrabold ...">
-                        <span class="bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500">
+                    <div className="title_policy text-2xl font-extrabold ...">
+                        <span className="bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500">
                             The Community Guidelines
                         </span>
                     </div>
@@ -89,8 +89,8 @@ export default function PolicyPage() {
                     </div>
                 </div>
                 <div>
-                    <div class="title_policy text-2xl font-extrabold ...">
-                        <span class="bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500">
+                    <div className="title_policy text-2xl font-extrabold ...">
+                        <span className="bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500">
                             The Updates and Changes policy
                         </span>
                     </div>

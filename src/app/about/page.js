@@ -4,9 +4,9 @@ export default function AboutPage() {
       <div className="about">
         <div className="about_content">
           <div className="about_text">
-            <div class="text-4xl font-extrabold ...">
+            <div className="text-4xl font-extrabold ...">
               <center>
-                <span class="bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500">
+                <span className="bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500">
                   Who We Are
                 </span>
               </center>
@@ -20,9 +20,9 @@ export default function AboutPage() {
             </div>
           </div>
           <div className="about_text">
-            <div class="text-4xl font-extrabold ...">
+            <div className="text-4xl font-extrabold ...">
               <center>
-                <span class="bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500">
+                <span className="bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500">
                   What We Do
                 </span>
               </center>
@@ -35,9 +35,9 @@ export default function AboutPage() {
             </div>
           </div>
           <div className="about_text">
-            <div class="text-4xl font-extrabold ...">
+            <div className="text-4xl font-extrabold ...">
               <center>
-                <span class="bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500">
+                <span className="bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500">
                   Why We Are
                 </span>
               </center>

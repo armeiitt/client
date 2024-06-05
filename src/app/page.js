@@ -1,5 +1,6 @@
 "use client";
 
+import environment from "@/app/environment/environment.js";
 import AddToCartButton from "@/components/AddToCartButton";
 import Banner from "@/components/Banner";
 import Banner2 from "@/components/Banner2";
@@ -8,46 +9,33 @@ import { Card, CardBody, CardFooter } from "@nextui-org/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import "swiper/css";
-import environtment from "./environtment/environtment";
 
 export default function Home() {
   const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState();
   const { push } = useRouter();
   const [cartItems, setCartItems] = useState([]);
   const [feedbackData, setFeedbackData] = useState({});
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
-  const [pageSize, setPageSize] = useState(6);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        let api_url = `http://${environtment.API_DOMAIN}:${environtment.API_PORT}/api/products`;
+        let api_url = `http://${environment.API_DOMAIN}:${environment.API_PORT}/api/products`;
         let rest_api = { method: "GET" };
         const res = await fetch(api_url, rest_api);
         const dataImg = await res.json();
         for (let item of dataImg.data) {
           item.src = getProdPhotoURL(item.image);
         }
+        console.log(dataImg);
         setData(dataImg.data);
-        setTotalPages(Math.ceil(dataImg.meta.total / pageSize));
-        setLoading(false);
       } catch (error) {
-        setLoading(false);
-        setError(error.message);
+        console.log(error.message);
       }
     };
     fetchData();
-  }, [currentPage, pageSize]);
+  }, []);
 
   useEffect(() => {
-    // const storedCartItems = localStorage.getItem("cart");
-    // if (storedCartItems) {
-    //   setCartItems(JSON.parse(storedCartItems));
-    // }
-
     const storedFeedbackData = localStorage.getItem("feedbackData");
     if (storedFeedbackData) {
       setFeedbackData(JSON.parse(storedFeedbackData));
@@ -55,22 +43,15 @@ export default function Home() {
   }, []);
 
   function getProdPhotoURL(nameImg) {
-    return `http://${environtment.API_DOMAIN}:${environtment.API_PORT}/api/prod_photo/${nameImg}`;
+    return `http://${environment.API_DOMAIN}:${environment.API_PORT}/api/prod_photo/${nameImg}`;
   }
-  const handlePageChange = (page) => {
-    setCurrentPage(page);
-  };
-
-  const handleSelectChange = (e) => {
-    setCurrentPage(parseInt(e.target.value));
-  };
 
   return (
     <main>
       <Banner />
       <section>
         <div className="grid grid-cols-3 gap-4 px-2 py-3">
-          {data && data.map((value) => (
+          {data && data.slice(0, 9).map((value, index) => (
             <Card
               shadow="sm"
               key={value.id}
@@ -105,16 +86,6 @@ export default function Home() {
               </CardFooter>
             </Card>
           ))}
-        </div>
-        <div className="pagination">
-          <select value={currentPage} onChange={handleSelectChange}>
-            {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-              <option key={page} value={page}>
-                {page}
-              </option>
-            ))}
-          </select>
-          <span> of {totalPages}</span>
         </div>
       </section>
       <section className="pt-5">

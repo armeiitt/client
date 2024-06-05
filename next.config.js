@@ -1,12 +1,15 @@
 const nextConfig = {
 	images: {
-		domains: ["skins.minimog.co"],
+		remotePatterns: [
+			{
+				protocol: 'https',
+				hostname: 'skins.minimog.co',
+				pathname: '**',
+			},
+		],
 	},
-	fastRefresh: true,
 	productionBrowserSourceMaps: false,
 	optimizeFonts: false,
-	minify: false,
-	concurrentFeatures: true,
 };
 
 const customConfig = {
@@ -16,11 +19,11 @@ const customConfig = {
 				source: '/api/:slug*',
 				destination: `http://localhost:3000/api/:slug*`,
 			},
-		]
+		];
 	},
 };
 
 module.exports = {
 	...nextConfig,
-	...customConfig
+	...customConfig,
 };

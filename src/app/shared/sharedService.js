@@ -1,6 +1,6 @@
-import environtment from "../environtment/environtment";
+import environment from "@/app/environment/environment.js";
 
-const API_URL = `http://${environtment.API_DOMAIN}:${environtment.API_PORT}/api`;
+const API_URL = `http://${environment.API_DOMAIN}:${environment.API_PORT}/api`;
 
 const apiService = {
   async getData(endpoint) {

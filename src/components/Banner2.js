@@ -1,7 +1,7 @@
-import React from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
 import Image from "next/image";
+import React from "react";
 import "swiper/css";
+import { Swiper, SwiperSlide } from "swiper/react";
 
 const fetchData = async (pathname) => {
   try {
@@ -9,10 +9,10 @@ const fetchData = async (pathname) => {
       `http://localhost:1337/api/products?filters[slug][$eq]=${pathname}&populate=*`,
       {
         method: "GET",
-        headers: {
-          Authorization:
-            "Bearer e955830f4caa7e9baa1870ef7d20144622215b4139d4170733184bf0a7824269404199106e090e6f191e94f76a143376823c385d900102df221d0013141eef48c5353b027b17745f5ee5167b4eecf80732fdaab09287993408293cd89f948b3336756ad4f41cbc51225c526f142dfcc9043eccbb8ed4bd5d436ddf4576f356e9",
-        },
+        // headers: {
+        //   Authorization:
+        //     "Bearer e955830f4caa7e9baa1870ef7d20144622215b4139d4170733184bf0a7824269404199106e090e6f191e94f76a143376823c385d900102df221d0013141eef48c5353b027b17745f5ee5167b4eecf80732fdaab09287993408293cd89f948b3336756ad4f41cbc51225c526f142dfcc9043eccbb8ed4bd5d436ddf4576f356e9",
+        // },
       }
     );
     const data = await res.json();
@@ -29,7 +29,6 @@ export default ({ params }) => {
     const fetchDataAndUpdateState = async () => {
       if (params && params.slug) {
         const fetchedData = await fetchData(params.slug);
-        console.log("Fetched data:", fetchedData); // Add this line to log fetched data
       }
     };
 
@@ -39,7 +38,7 @@ export default ({ params }) => {
   return (
     <div>
       <div className="title_banner2">
-        <span class="bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500">
+        <span className="bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500">
           Best seller
         </span>
       </div>
@@ -48,11 +47,11 @@ export default ({ params }) => {
         slidesPerView={3}
         onSlideChange={() => console.log("slide change")}
         onSwiper={(swiper) => setSwiper(swiper)}
-        autoplay={{ delay: 3000 }} // Auto chạy sau mỗi 3 giây
+        autoplay={{ delay: 3000 }}
       >
-        <SwiperSlide>
+        {/* <SwiperSlide>
           <Image
-            src="/images/cake15.jpg"
+            src="/assets/images/cake15.jpg"
             alt="picture"
             width={200}
             height={200}
@@ -60,12 +59,12 @@ export default ({ params }) => {
         </SwiperSlide>
         <SwiperSlide>
           <Image
-            src="/images/cake1.jpg"
+            src="/assets/images/cake1.jpg"
             alt="picture"
             width={200}
             height={200}
           />
-        </SwiperSlide>
+        </SwiperSlide> */}
         <SwiperSlide>
           <Image
             src="/images/cookie10.jpg"

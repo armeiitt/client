@@ -1,6 +1,6 @@
 // IMPORT COMPONENTS
-import HeaderDefault from "@/components/Header";
 import FooterDefault from "@/components/Footer";
+import HeaderDefault from "@/components/Header";
 // PROVIDERS
 import { Providers } from "@/app/Providers";
 // STATIC FILE

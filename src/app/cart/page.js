@@ -184,7 +184,7 @@ export default function Cart() {
           <div>
             <h1 className="cart_title">
               <center>
-                <span class="bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500">
+                <span className="bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500">
                   YOUR BAG
                 </span>
               </center>
