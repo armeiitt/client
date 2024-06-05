@@ -225,7 +225,7 @@ export default function Designed_Cake() {
 		const lastData = getLatestDesignedProduct();
 
 		const designedProductDetails = {
-			des_prod_id: lastData,
+			des_prod_id: lastData.des_prod_id,
 			fruits: selectFruits,
 			animals: selectAnimals,
 			sex: selectSex,
@@ -233,7 +233,7 @@ export default function Designed_Cake() {
 		};
 
 		console.log(designedProductDetails);
-		createDesignedProduct("des_prod_details", designedProductDetails);
+		// createDesignedProduct("des_prod_details", designedProductDetails);
 		console.log(lastData);
 	};
 
