@@ -1,9 +1,9 @@
 "use client";
 import { Button } from "@nextui-org/react";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import StarRating from "../star_rating/page";
-import { useRouter } from "next/router";
 
 export default function Cart() {
   const [items, setItems] = useState([]);
@@ -20,14 +20,11 @@ export default function Cart() {
   const [showFeedbackList, setShowFeedbackList] = useState(false);
   const handleOrderSubmit = (event) => {
     event.preventDefault();
-    // Check if user is logged in
     const router = useRouter();
-    const isLoggedIn = true; // Replace this with your logic to check if user is logged in or not
+    const isLoggedIn = true;
     if (!isLoggedIn) {
-      // Redirect user to login page if not logged in
-      router.push("/auth"); // Assuming "/auth" is your login page
+      router.push("/auth");
     } else {
-      // Perform order submission logic here
       if (selectedFile) {
         console.log("Selected file:", selectedFile);
       } else {
@@ -297,13 +294,13 @@ export default function Cart() {
               <div>
                 <label>First Name:</label>
               </div>
-              <div className="infor_ship">{user.firstName}</div>
+              <div className="infor_ship">{user.first_name}</div>
             </div>
             <div className="main_shipping_title">
               <div>
                 <label>Last Name:</label>
               </div>
-              <div className="infor_ship">{user.lastName}</div>
+              <div className="infor_ship">{user.last_name}</div>
             </div>
             <div className="main_shipping_title">
               <div>
@@ -315,7 +312,7 @@ export default function Cart() {
               <div>
                 <label>Phone Number:</label>
               </div>
-              <div className="infor_ship">{user.phoneNumber}</div>
+              <div className="infor_ship">{user.phone}</div>
             </div>
             <div className="main_shipping_title">
               <div>

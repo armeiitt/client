@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import apiService from "../shared/sharedService";
 
 function classNames(...classes) {
@@ -37,11 +37,11 @@ export default function Page() {
   const handleSubmit = (event) => {
     event.preventDefault();
     localStorage.setItem("user", JSON.stringify(user));
+    setUser(initialUserData);
+    createNewCus();
     alert(
       "We have received your information, the store will contact you later via your phone number. Thank you!"
     );
-    setUser(initialUserData);
-    createNewCus();
   };
 
   async function createNewCus() {

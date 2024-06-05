@@ -1,6 +1,6 @@
 const environment = {
-    API_DOMAIN: "10.30.221.82",
+    API_DOMAIN: "localhost",
     API_PORT: "3000"
 }
-//doi so thanh localhost
+
 export default environment;
