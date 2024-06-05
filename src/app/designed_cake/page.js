@@ -78,6 +78,12 @@ export default function Designed_Cake() {
 		return shapePrice + sizePrice + flavourPrice + fruitPrice + animalPrice + sexPrice + candlePrice;
 	}, [selectFruits, selectAnimals, selectSex, selectCandles, selectedShape, selectedSize, selectedFlavour]);
 
+	const [cakes, setCakes] = useState([]);
+	const [cakeId, setCakeId] = useState(1);
+	const [nextCakeNumber, setNextCakeNumber] = useState(1);
+
+	const [showCakeNameInTextarea, setShowCakeNameInTextarea] = useState(true);
+
 	useEffect(() => {
 		fetchData();
 		fetchDecors();
@@ -207,7 +213,7 @@ export default function Designed_Cake() {
 		}, 0);
 	};
 
-	function saveDesignedProduct() {
+	async function saveDesignedProduct() {
 		const selectedSizeId = Array.from(selectedSize)[0]?.size_id || null;
 		const selectedShapeId = Array.from(selectedShape)[0]?.shape_id || null;
 		const selectedFlavourId = Array.from(selectedFlavour)[0]?.flavour_id || null;
@@ -222,10 +228,9 @@ export default function Designed_Cake() {
 		};
 
 		// createDesignedProduct("des_products", designedProduct);
-		const lastData = getLatestDesignedProduct();
-
+		const lastData = await getLatestDesignedProduct();
 		const designedProductDetails = {
-			des_prod_id: lastData.des_prod_id,
+			des_prod_id: lastData.data.des_prod_id,
 			fruits: selectFruits,
 			animals: selectAnimals,
 			sex: selectSex,
@@ -234,12 +239,7 @@ export default function Designed_Cake() {
 
 		console.log(designedProductDetails);
 		// createDesignedProduct("des_prod_details", designedProductDetails);
-		console.log(lastData);
 	};
-
-	const [cakes, setCakes] = useState([]);
-	const [cakeId, setCakeId] = useState(1);
-	const [nextCakeNumber, setNextCakeNumber] = useState(1);
 
 	function addNewCake() {
 		const newCakeName = `Cake ${nextCakeNumber}`;
@@ -257,8 +257,6 @@ export default function Designed_Cake() {
 		updatedCakes.splice(index, 1);
 		setCakes(updatedCakes);
 	};
-
-	const [showCakeNameInTextarea, setShowCakeNameInTextarea] = useState(true);
 
 	return (
 		<div className="main_designed_cake">
