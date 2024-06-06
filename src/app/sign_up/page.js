@@ -39,9 +39,7 @@ export default function Page() {
 		localStorage.setItem("user", JSON.stringify(user));
 		setUser(initialUserData);
 		createNewCus();
-		alert(
-			"We have received your information, the store will contact you later via your phone number. Thank you!"
-		);
+		alert("Successfully Sign Up.");
 	};
 
 	async function createNewCus() {

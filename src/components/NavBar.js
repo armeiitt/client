@@ -71,8 +71,6 @@ export default function NavBar() {
 				localStorage.removeItem("user");
 				localStorage.removeItem("isLoggedIn");
 				window.location.reload();
-			// localStorage.setItem("isLoggedIn", false);
-			// alert("You click Logout");
 			default:
 				break;
 		}

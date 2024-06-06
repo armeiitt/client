@@ -19,6 +19,49 @@ export default function Cart() {
 	const [feedbackList, setFeedbackList] = useState([]);
 	const [showFeedbackList, setShowFeedbackList] = useState(false);
 
+
+
+	useEffect(() => {
+		const storedItems = localStorage.getItem("cart");
+		if (storedItems) {
+			setItems(JSON.parse(storedItems));
+		}
+		const storedFormData = localStorage.getItem("user");
+		if (storedFormData) {
+			setUser(JSON.parse(storedFormData));
+		}
+		const storedFeedbackList = localStorage.getItem("feedbackList");
+		if (storedFeedbackList) {
+			setFeedbackList(JSON.parse(storedFeedbackList));
+		}
+	}, []);
+
+	useEffect(() => {
+		const subtotal = items.reduce((acc, item) => acc + item.price * item.quantity, 0);
+		setSubTotal(subtotal);
+	}, [items]);
+
+	async function handleSendMail({ to, subject, html }) {
+		const response = await fetch("/api/nodemailer", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({
+				to: user.email,
+				subject: "Order Confirm",
+				html: ` <p>THANKS FOR BUYING CAKES</p> <p>Hello <b>${user.first_name} ${user.last_name}</b></p> <p>Your order has been completed.</p> <p>Payment Address</p> <p>Name: ${user.first_name} ${user.last_name}</p> <p>Address: ${user.address}</p> <p>Phone: ${user.phone}</p> <p>Email: ${user.email}</p> <p>Your payment: $${subTotal.toFixed(2)}</p> <p>Thank you for purchasing from us.</p> <p>Sweeties Cake</p>`,
+			}),
+		});
+
+		const data = await response.json();
+		if (response.ok) {
+			console.log("Email sent successfully:", data.messageId);
+		} else {
+			console.error("Failed to send email:", data.error);
+		}
+	}
+
 	function handleOrderSubmit(event) {
 		event.preventDefault();
 		const router = useRouter();
@@ -33,57 +76,11 @@ export default function Cart() {
 			}
 		}
 	}
-
-	useEffect(() => {
-		const storedItems = localStorage.getItem("cart");
-		if (storedItems) {
-			setItems(JSON.parse(storedItems));
-		}
-		const storedFormData = localStorage.getItem("user");
-		if (storedFormData) {
-			setUser(JSON.parse(storedFormData));
-		}
-	}, []);
-
-	async function handleSendMail({ to, subject, html }) {
-		const response = await fetch("/api/nodemailer", {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify({
-				to: user.email,
-				subject: "Order Confirm",
-				html: `<p>THANKS FOR BUYING CAKES</p></p><p> Hello <b>${user.firstName} ${user.lastName}</b></p><p>Your order has complete </p><p>Payment Address </p><p>Name: ${user.firstName} ${user.lastName}</p><p>Address: ${user.address}</p><p>Phone: ${user.phoneNumber}</p><p>Email: ${user.email}</p><p>Your payment: $${subTotal}</p><p>Thank you for purchasing from us</p> <p>Sweeties Cake</p>`,
-			}),
-		});
-
-		const data = await response.json();
-		if (response.ok) {
-			console.log("Email sent successfully:", data.messageId);
-		} else {
-			console.error("Failed to send email:", data.error);
-		}
-	}
-
-	useEffect(() => {
-		const subtotal = items.reduce((acc, item) => acc + item.price * item.quantity, 0);
-		setSubTotal(subtotal);
-	}, [items]);
-
-	useEffect(() => {
-		const storedFeedbackList = localStorage.getItem("feedbackList");
-		if (storedFeedbackList) {
-			setFeedbackList(JSON.parse(storedFeedbackList));
-		}
-	}, []);
-
 	const updateLocalStorage = (updatedItems) => {
 		localStorage.setItem("cart", JSON.stringify(updatedItems));
 	};
 
 	function increaseQuantity(id) {
-		console.log(id);
 		const updatedItems = items.map((item) =>
 			item.id === id ? { ...item, quantity: item.quantity + 1 } : item
 		);

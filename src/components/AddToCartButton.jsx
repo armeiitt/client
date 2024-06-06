@@ -9,12 +9,12 @@ export default function AddToCartButton({ children, data, className, size = "med
 		if (data && data.prod_id) {
 			const storedItems = localStorage.getItem("cart");
 			const items = storedItems ? JSON.parse(storedItems) : [];
-			const existingItemIndex = items.findIndex((item) => item.id === data.prod_id);
+			const existingItemIndex = items.findIndex((item) => item.prod_id === data.prod_id);
 			if (existingItemIndex !== -1) {
 				items[existingItemIndex].quantity += 1;
 			} else {
 				items.push({
-					id: "prod_" + data.prod_id,
+					prod_id: data.prod_id,
 					name: data.name,
 					price: data.price,
 					quantity: 1,
@@ -25,12 +25,12 @@ export default function AddToCartButton({ children, data, className, size = "med
 		} else if (data && data.des_prod_id) {
 			const storedItems = localStorage.getItem("cart");
 			const items = storedItems ? JSON.parse(storedItems) : [];
-			const existingItemIndex = items.findIndex((item) => item.id === data.des_prod_id);
+			const existingItemIndex = items.findIndex((item) => item.des_prod_id === data.des_prod_id);
 			if (existingItemIndex !== -1) {
 				items[existingItemIndex].quantity += 1;
 			} else {
 				items.push({
-					id: "des_" + data.des_prod_id,
+					des_prod_id: data.des_prod_id,
 					name: data.name,
 					price: data.price,
 					quantity: 1,
