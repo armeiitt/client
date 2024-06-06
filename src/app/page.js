@@ -5,10 +5,9 @@ import AddToCartButton from "@/components/AddToCartButton";
 import Banner from "@/components/Banner";
 import Banner2 from "@/components/Banner2";
 import Feedback from "@/components/Feedback";
-import { Card, CardBody, CardFooter } from "@nextui-org/react";
+import { Button, Card, CardBody, CardFooter, Pagination } from "@nextui-org/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { Pagination, Button } from '@nextui-org/react';
 import "swiper/css";
 const ITEMS_PER_PAGE = 9;
 export default function Home() {

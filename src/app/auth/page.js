@@ -14,16 +14,13 @@ function AuthPage() {
 
 	useEffect(() => {
 		getCustomers();
-		const user = localStorage.getItem("user");
-		if (user) {
-			setIsLoggedIn(true);
-		}
+		console.log(typeof (JSON.parse(localStorage.getItem("isLoggedIn"))));
+		setIsLoggedIn(localStorage.getItem("isLoggedIn"));
 	}, []);
 
 	async function getCustomers() {
 		try {
 			const customers = await apiService.getData("customers");
-			console.log(customers.data);
 			setListCustomers(customers.data);
 		} catch (error) {
 			console.error("Failed to fetch customers: ", error);
@@ -46,8 +43,9 @@ function AuthPage() {
 			);
 			if (found) {
 				localStorage.setItem("user", JSON.stringify(found));
+				localStorage.setItem("isLoggedIn", true);
 				setIsLoggedIn(true);
-				alert("Login Successful");
+				window.location.reload();
 			} else {
 				alert("Invalid email or password");
 			}
