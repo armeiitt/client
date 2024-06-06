@@ -1,8 +1,9 @@
 "use client";
+
 import { Button } from "@nextui-org/react";
 import Image from "next/image";
-import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import apiService from "../shared/sharedService";
 import StarRating from "../star_rating/page";
 
 export default function Cart() {
@@ -19,16 +20,14 @@ export default function Cart() {
 	const [feedbackList, setFeedbackList] = useState([]);
 	const [showFeedbackList, setShowFeedbackList] = useState(false);
 
-
-
 	useEffect(() => {
 		const storedItems = localStorage.getItem("cart");
 		if (storedItems) {
 			setItems(JSON.parse(storedItems));
 		}
-		const storedFormData = localStorage.getItem("user");
-		if (storedFormData) {
-			setUser(JSON.parse(storedFormData));
+		const storedUser = localStorage.getItem("user");
+		if (storedUser) {
+			setUser(JSON.parse(storedUser));
 		}
 		const storedFeedbackList = localStorage.getItem("feedbackList");
 		if (storedFeedbackList) {
@@ -62,38 +61,55 @@ export default function Cart() {
 		}
 	}
 
-	function handleOrderSubmit(event) {
-		event.preventDefault();
-		const router = useRouter();
-		const isLoggedIn = true;
-		if (!isLoggedIn) {
-			router.push("/auth");
-		} else {
-			if (selectedFile) {
-				console.log("Selected file:", selectedFile);
-			} else {
-				console.log("No file selected.");
-			}
+	async function handleOrderSubmit() {
+		try {
+			const totalUnit = items.reduce((acc, item) => acc + item.quantity, 0);
+			const totalOriginPrice = items.reduce((acc, item) => acc + item.originPrice * item.quantity, 0);
+			const totalPrice = items.reduce((acc, item) => acc + item.price * item.quantity, 0);
+			const dataJSON = {
+				cus_id: 1,
+				delivery_status: "pending",
+				active_status: "active",
+				total_unit: totalUnit,
+				total_origin_price: totalOriginPrice,
+				total_price: totalPrice,
+			};
+			console.log(dataJSON);
+			const response = await apiService.postData("orders", dataJSON);
+			console.log(response);
+		} catch (error) {
+			console.error("Error:", error);
 		}
 	}
+
 	const updateLocalStorage = (updatedItems) => {
 		localStorage.setItem("cart", JSON.stringify(updatedItems));
 	};
 
-	function increaseQuantity(id) {
-		const updatedItems = items.map((item) =>
-			item.id === id ? { ...item, quantity: item.quantity + 1 } : item
-		);
+	function increaseQuantity(itemId) {
+		const updatedItems = items.map((item) => {
+			const id = item?.prod_id || item?.des_prod_id;
+			if (id === itemId) {
+				return { ...item, quantity: item.quantity + 1 };
+			}
+			return item;
+		});
 		setItems(updatedItems);
 		updateLocalStorage(updatedItems);
 	}
 
-	function decreaseQuantity(id) {
-		const updatedItems = items
-			.map((item) =>
-				item.id === id ? (item.quantity > 1 ? { ...item, quantity: item.quantity - 1 } : null) : item
-			)
-			.filter((item) => item !== null);
+	function decreaseQuantity(itemId) {
+		const updatedItems = items.map((item) => {
+			const id = item?.prod_id || item?.des_prod_id;
+			if (id === itemId) {
+				if (item.quantity > 1) {
+					return { ...item, quantity: item.quantity - 1 };
+				} else {
+					return null;
+				}
+			}
+			return item;
+		}).filter(Boolean);
 		setItems(updatedItems);
 		updateLocalStorage(updatedItems);
 	}
@@ -207,15 +223,16 @@ export default function Cart() {
 							<div className="button_cart">Quantity</div>
 							<div>Unit Price</div>
 						</div>
-						{items.map((item, index) => {
+						{Array.isArray(items) && items.map((item, index) => {
+							const id = item?.prod_id || item?.des_prod_id || index;
 							return (
-								<div key={index} className="flex flex-row justify-between mb-2">
+								<div key={id} className="flex flex-row justify-between mb-2">
 									<div className="w-[40%]">{item.name}</div>
 									<div className="button_cart flex items-center">
 										<Button
 											color="primary"
 											variant="light"
-											onClick={() => decreaseQuantity(item.id)}
+											onClick={() => decreaseQuantity(id)}
 											className="mr-2"
 										>
 											-
@@ -224,7 +241,7 @@ export default function Cart() {
 										<Button
 											color="primary"
 											variant="light"
-											onClick={() => increaseQuantity(item.id)}
+											onClick={() => increaseQuantity(id)}
 											className="ml-2"
 										>
 											+
@@ -234,6 +251,7 @@ export default function Cart() {
 								</div>
 							);
 						})}
+
 					</div>
 					<div className="order_summary w-[40%]">
 						<div>
@@ -271,7 +289,7 @@ export default function Cart() {
 			<div className="isolate bg-white px-6 py-5 lg:px-8"></div>
 			<div className="form_cart">
 				<div className="form_shipping ">
-					<form>
+					<form onSubmit={handleOrderSubmit}>
 						<div className="cart_title">
 							<center>
 								<span className="bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500">
@@ -331,7 +349,6 @@ export default function Cart() {
 						<div className="mt-6 flex items-center justify-end gap-x-6">
 							<button
 								type="submit"
-								onClick={handleSendMail}
 								className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
 							>
 								ORDER
@@ -339,9 +356,11 @@ export default function Cart() {
 						</div>
 					</form>
 				</div>
+
 				<div className="img_between_forms">
 					<Image src="/images/logo2.jpg" alt="picture" width={200} height={80} priority />
 				</div>
+
 				<div className="form_feedback">
 					<form onSubmit={handleSubmitFeedbackForm}>
 						<div className="space-y-12">
@@ -459,7 +478,7 @@ export default function Cart() {
 								<>
 									<h2>Feedbacks</h2>
 									<ul>
-										{feedbackList.map((feedback, index) => (
+										{Array.isArray(feedbackList) && feedbackList.map((feedback, index) => (
 											<li key={index}>
 												<p>Product Name: {feedback.productName}</p>
 												<p>Comment: {feedback.comment}</p>
@@ -473,6 +492,6 @@ export default function Cart() {
 					</form>
 				</div>
 			</div>
-		</div>
+		</div >
 	);
 }

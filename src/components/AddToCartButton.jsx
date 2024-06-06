@@ -17,6 +17,7 @@ export default function AddToCartButton({ children, data, className, size = "med
 					prod_id: data.prod_id,
 					name: data.name,
 					price: data.price,
+					originPrice: data.originPrice,
 					quantity: 1,
 				});
 			}
@@ -33,6 +34,7 @@ export default function AddToCartButton({ children, data, className, size = "med
 					des_prod_id: data.des_prod_id,
 					name: data.name,
 					price: data.price,
+					originPrice: 0,
 					quantity: 1,
 				});
 			}
