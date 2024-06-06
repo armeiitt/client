@@ -1,6 +1,5 @@
 "use client";
 
-import environment from "@/app/environment/environment.js";
 import { Button, cn } from "@nextui-org/react";
 import PropTypes from "prop-types";
 
@@ -41,24 +40,6 @@ export default function AddToCartButton({ children, data, className, size = "med
 			console.log("Designed Product added to cart:", data.des_prod_id);
 		} else {
 			console.error("Invalid data or data.des_prod_id is missing");
-		}
-	};
-
-	const postDesProd = async (desProd) => {
-		try {
-			let api_url = `http://${environment.API_DOMAIN}:${environment.API_PORT}/api/des_products`;
-			let rest_api = {
-				method: "POST",
-				headers: {
-					'Content-Type': 'application/json'
-				},
-				body: JSON.stringify(desProd)
-			};
-
-			const res = await fetch(api_url, rest_api);
-			console.log(res);
-		} catch (error) {
-			console.log(error);
 		}
 	};
 
