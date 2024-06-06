@@ -138,7 +138,7 @@ export default function Designed_Cake() {
 			const response = await apiService.postData(endpoint, data)
 			return response;
 		} catch (error) {
-			throw new Error("Failed to create: ", error);
+			throw new Error("Failed To Create: ", error);
 		}
 	};
 
