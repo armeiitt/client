@@ -227,18 +227,15 @@ export default function Designed_Cake() {
 			price: totalPrice,
 		};
 
-		// createDesignedProduct("des_products", designedProduct);
+		createDesignedProduct("des_products", designedProduct);
 		const lastData = await getLatestDesignedProduct();
 		const designedProductDetails = {
 			des_prod_id: lastData.data.des_prod_id,
-			fruits: selectFruits,
-			animals: selectAnimals,
-			sex: selectSex,
-			candles: selectCandles,
+			decor_id: [selectFruits, selectAnimals, selectSex, selectCandles],
+			quantity: 1,
 		};
 
-		console.log(designedProductDetails);
-		// createDesignedProduct("des_prod_details", designedProductDetails);
+		createDesignedProduct("des_prod_details", designedProductDetails);
 	};
 
 	function addNewCake() {
