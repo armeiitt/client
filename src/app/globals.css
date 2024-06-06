@@ -629,3 +629,88 @@ button {
 .line {
   padding-bottom: 20px;
 }
+
+/* delivery */
+.delivery-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.delivery-content {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.delivery-text {
+  flex: 1;
+  padding-right: 20px;
+}
+
+.delivery-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.delivery-info {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #666;
+}
+
+.delivery-list {
+  margin-top: 20px;
+  padding-left: 20px;
+}
+
+.delivery-list li {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #666;
+  margin-bottom: 10px;
+}
+
+.delivery-image {
+  width: 300px; /* Điều chỉnh kích thước hình ảnh theo nhu cầu */
+  height: auto;
+}
+
+/* Contact Us */
+.contact-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.contact-content {
+  text-align: center;
+}
+
+.contact-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.contact-info {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.contact-list {
+  list-style: none;
+  padding: 0;
+}
+
+.contact-list li {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #666;
+  margin-bottom: 10px;
+}

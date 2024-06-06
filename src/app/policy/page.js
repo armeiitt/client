@@ -5,7 +5,7 @@ export default function PolicyPage() {
             <div className="cf-title-02 cf-title-alt-two">
                 <h1>
                     POLICY
-                    <span>3T Cake</span>
+                    <span>Sweeties Cake</span>
                 </h1>
             </div>
             <div>

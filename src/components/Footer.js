@@ -49,7 +49,7 @@ export default function FooterDefault() {
               <ul className="text-gray-500 dark:text-gray-400 font-medium">
                 <li className="mb-4">
                   <a
-                    href="https://github.com/themesberg/flowbite"
+                    href="/contactUs"
                     className="hover:underline "
                   >
                     Contact us
@@ -57,10 +57,10 @@ export default function FooterDefault() {
                 </li>
                 <li>
                   <a
-                    href="https://discord.gg/4eeurUVvTy"
+                    href="https://www.instagram.com/sweetiecake.pml/?hl=en"
                     className="hover:underline"
                   >
-                    Discord
+                    Instagram
                   </a>
                 </li>
               </ul>
@@ -76,7 +76,7 @@ export default function FooterDefault() {
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="hover:underline">
+                  <a href="/delivery" className="hover:underline">
                     Delivery
                   </a>
                 </li>

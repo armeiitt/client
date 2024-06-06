@@ -160,9 +160,10 @@ export default function Cart() {
 		event.preventDefault();
 		handleSubmitFeedback(event);
 		setShowFeedbackList(false);
+		window.alert("We receive your feedback, and hope to have more feedback from customers.");
 	};
 
-	useEffect(() => {}, []);
+	useEffect(() => { }, []);
 
 	return (
 		<div>

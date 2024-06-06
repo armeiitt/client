@@ -8,6 +8,7 @@ import Feedback from "@/components/Feedback";
 import { Button, Card, CardBody, CardFooter, Pagination } from "@nextui-org/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import ScrollToTopButton from "@/components/ScrollToTopButton";
 import "swiper/css";
 const ITEMS_PER_PAGE = 9;
 export default function Home() {
@@ -140,6 +141,7 @@ export default function Home() {
           <p>Rating: {feedbackData.rating}</p> */}
         </div>
       </section>
+      <ScrollToTopButton />
     </main>
   );
 }

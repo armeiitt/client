@@ -48,7 +48,8 @@ export default function shopPage() {
               shadow="sm"
               key={product.id}
               isPressable
-              onPress={() => push(`/product/${product.attributes.slug}`)}
+              onPress={() => push(`/product/${value.attributes?.slug}`)}
+
             >
               <CardBody className="overflow-visible p-0">
                 {product.src && (
