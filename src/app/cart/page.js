@@ -80,20 +80,26 @@ export default function Cart() {
 		localStorage.setItem("cart", JSON.stringify(updatedItems));
 	};
 
-	function increaseQuantity(id) {
-		const updatedItems = items.map((item) =>
-			item.id === id ? { ...item, quantity: item.quantity + 1 } : item
-		);
+	function increaseQuantity(itemId) {
+		const updatedItems = items.map((item) => {
+			const id = item?.prod_id || item?.des_prod_id;
+			if (id === itemId) {
+				return { ...item, quantity: item.quantity + 1 };
+			}
+			return item;
+		});
 		setItems(updatedItems);
 		updateLocalStorage(updatedItems);
 	}
 
-	function decreaseQuantity(id) {
-		const updatedItems = items
-			.map((item) =>
-				item.id === id ? (item.quantity > 1 ? { ...item, quantity: item.quantity - 1 } : null) : item
-			)
-			.filter((item) => item !== null);
+	function decreaseQuantity(itemId) {
+		const updatedItems = items.map((item) => {
+			const id = item?.prod_id || item?.des_prod_id;
+			if (id === itemId && item.quantity > 1) {
+				return { ...item, quantity: item.quantity - 1 };
+			}
+			return item;
+		});
 		setItems(updatedItems);
 		updateLocalStorage(updatedItems);
 	}
@@ -214,7 +220,10 @@ export default function Cart() {
 										<Button
 											color="primary"
 											variant="light"
-											onClick={() => decreaseQuantity(item.id)}
+											onClick={() => {
+												const id = item?.prod_id || item?.des_prod_id
+												decreaseQuantity(id)
+											}}
 											className="mr-2"
 										>
 											-
@@ -223,7 +232,10 @@ export default function Cart() {
 										<Button
 											color="primary"
 											variant="light"
-											onClick={() => increaseQuantity(item.id)}
+											onClick={() => {
+												const id = item?.prod_id || item?.des_prod_id
+												increaseQuantity(id)
+											}}
 											className="ml-2"
 										>
 											+
