@@ -1,7 +1,9 @@
 "use client";
+
 import { Button } from "@nextui-org/react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import apiService from "../shared/sharedService";
 import StarRating from "../star_rating/page";
 
 export default function Cart() {
@@ -62,7 +64,7 @@ export default function Cart() {
 	async function handleOrderSubmit() {
 		try {
 			const totalUnit = items.reduce((acc, item) => acc + item.quantity, 0);
-			const totalOriginPrice = items.reduce((acc, item) => acc + item.origin_price * item.quantity, 0);
+			const totalOriginPrice = items.reduce((acc, item) => acc + item.originPrice * item.quantity, 0);
 			const totalPrice = items.reduce((acc, item) => acc + item.price * item.quantity, 0);
 			const dataJSON = {
 				cus_id: 1,
@@ -73,8 +75,8 @@ export default function Cart() {
 				total_price: totalPrice,
 			};
 			console.log(dataJSON);
-			// const response = await apiService.postData("orders", dataJSON);
-			// console.log(response);
+			const response = await apiService.postData("orders", dataJSON);
+			console.log(response);
 		} catch (error) {
 			console.error("Error:", error);
 		}
@@ -286,77 +288,78 @@ export default function Cart() {
 			<div className="isolate bg-white px-6 py-5 lg:px-8"></div>
 			<div className="form_cart">
 				<div className="form_shipping ">
-					{/* <form onSubmit={handleOrderSubmit}> */}
-					<div className="cart_title">
-						<center>
-							<span className="bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500">
-								SHIPPING INFORMATION
-							</span>
-						</center>
-					</div>
-					<div className="main_shipping_title">
-						<div>
-							<label>First Name:</label>
+					<form onSubmit={handleOrderSubmit}>
+						<div className="cart_title">
+							<center>
+								<span className="bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500">
+									SHIPPING INFORMATION
+								</span>
+							</center>
 						</div>
-						<div className="infor_ship">{user.first_name}</div>
-					</div>
-					<div className="main_shipping_title">
-						<div>
-							<label>Last Name:</label>
+						<div className="main_shipping_title">
+							<div>
+								<label>First Name:</label>
+							</div>
+							<div className="infor_ship">{user.first_name}</div>
 						</div>
-						<div className="infor_ship">{user.last_name}</div>
-					</div>
-					<div className="main_shipping_title">
-						<div>
-							<label>Email:</label>
+						<div className="main_shipping_title">
+							<div>
+								<label>Last Name:</label>
+							</div>
+							<div className="infor_ship">{user.last_name}</div>
 						</div>
-						<div className="infor_ship">{user.email}</div>
-					</div>
-					<div className="main_shipping_title">
-						<div>
-							<label>Phone Number:</label>
+						<div className="main_shipping_title">
+							<div>
+								<label>Email:</label>
+							</div>
+							<div className="infor_ship">{user.email}</div>
 						</div>
-						<div className="infor_ship">{user.phone}</div>
-					</div>
-					<div className="main_shipping_title">
-						<div>
-							<label>Address:</label>
+						<div className="main_shipping_title">
+							<div>
+								<label>Phone Number:</label>
+							</div>
+							<div className="infor_ship">{user.phone}</div>
 						</div>
-						<div className="infor_ship">{user.address}</div>
-					</div>
-					<div className="main_shipping_title">
-						<div>
-							<label>Shipping Method:</label>
+						<div className="main_shipping_title">
+							<div>
+								<label>Address:</label>
+							</div>
+							<div className="infor_ship">{user.address}</div>
 						</div>
-						<div className="infor_ship">Delivery: Free ship</div>
-					</div>
-					<div className="main_shipping_title">
-						<div>
-							<label>Payment methods</label>
+						<div className="main_shipping_title">
+							<div>
+								<label>Shipping Method:</label>
+							</div>
+							<div className="infor_ship">Delivery: Free ship</div>
 						</div>
-						<div className="infor_ship">Cash on delivery (COD)</div>
-					</div>
-					<div className="main_shipping_title">
-						<div>
-							<label>Payment</label>
+						<div className="main_shipping_title">
+							<div>
+								<label>Payment methods</label>
+							</div>
+							<div className="infor_ship">Cash on delivery (COD)</div>
 						</div>
-						<div className="infor_ship">${subTotal}</div>
-					</div>
-					<div className="border-b border-gray-900/10 pb-12"></div>
-					<div className="mt-6 flex items-center justify-end gap-x-6">
-						<button
-							// type="submit"
-							onClick={handleOrderSubmit}
-							className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-						>
-							ORDER
-						</button>
-					</div>
-					{/* </form> */}
+						<div className="main_shipping_title">
+							<div>
+								<label>Payment</label>
+							</div>
+							<div className="infor_ship">${subTotal}</div>
+						</div>
+						<div className="border-b border-gray-900/10 pb-12"></div>
+						<div className="mt-6 flex items-center justify-end gap-x-6">
+							<button
+								type="submit"
+								className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+							>
+								ORDER
+							</button>
+						</div>
+					</form>
 				</div>
+
 				<div className="img_between_forms">
 					<Image src="/images/logo2.jpg" alt="picture" width={200} height={80} priority />
 				</div>
+
 				<div className="form_feedback">
 					<form onSubmit={handleSubmitFeedbackForm}>
 						<div className="space-y-12">

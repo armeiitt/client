@@ -129,7 +129,7 @@ h4 {
   align-items: center;
 } */
 
-.swiper-slide-transform > div {
+.swiper-slide-transform>div {
   display: flex;
   flex-direction: column;
   width: 35%;
@@ -154,7 +154,7 @@ h4 {
     "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
-.banner_button > button {
+.banner_button>button {
   background-color: orange;
 }
 
@@ -263,7 +263,7 @@ h4 {
   display: flex;
   justify-content: space-between;
 } */
-.shopping_bag > h3 {
+.shopping_bag>h3 {
   margin: 0;
   font-weight: bold;
   color: #57352d;
@@ -304,7 +304,7 @@ h4 {
   justify-content: space-between;
 }
 
-.button_cart > button {
+.button_cart>button {
   color: #05090e;
 }
 
@@ -411,35 +411,35 @@ button {
 }
 
 /* Product_detail */
-.product_detail {
-}
+.product_detail {}
 
 /* designed_page */
 
-.table_designed_cake{
+.table_designed_cake {
   table {
     width: 100%;
     border-collapse: collapse;
   }
-  
-  thead th, tbody td {
+
+  thead th,
+  tbody td {
     padding: 8px;
     border-bottom: 1px solid #ddd;
   }
-  
+
   thead th {
     background-color: #f2f2f2;
     text-align: left;
   }
-  
+
   tbody tr:nth-child(even) {
     background-color: #f2f2f2;
   }
-  
+
   tbody tr:hover {
     background-color: #ddd;
   }
-  
+
   button {
     padding: 8px 16px;
     background-color: #4CAF50;
@@ -448,25 +448,30 @@ button {
     border-radius: 4px;
     cursor: pointer;
   }
-  
+
   button:hover {
     background-color: #45a049;
   }
 }
+
 .center-textarea {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 40px; /* Chiều cao bạn muốn */
-  width: 100%; /* Hoặc chiều rộng bạn muốn */
+  height: 40px;
+  /* Chiều cao bạn muốn */
+  width: 100%;
+  /* Hoặc chiều rộng bạn muốn */
   padding: 10px;
   box-sizing: border-box;
   font-size: 16px;
   text-align: center;
   resize: none;
-  border: 2px solid #000; /* Thêm viền với độ dày 2px và màu đen */
+  border: 2px solid #000;
+  /* Thêm viền với độ dày 2px và màu đen */
   border-radius: 4px;
 }
+
 .main_designed_cake {
   display: flex;
   color: #57352d;
@@ -536,8 +541,10 @@ button {
   padding-top: 30px;
   padding-right: 50px;
 }
+
 .button {
-  background-color: #04aa6d; /* Green */
+  background-color: #04aa6d;
+  /* Green */
   border: none;
   color: white;
   padding: 16px 32px;
@@ -565,6 +572,7 @@ button {
   background-color: #04aa6d;
   color: white;
 }
+
 #title_designed_cake_price {
   font-weight: bolder;
   display: flex;
@@ -579,19 +587,27 @@ button {
   display: flex;
   flex-direction: column;
 }
+
 .add-to-cart-button {
   text-align: center;
   margin-top: 20px;
 }
 
 .add-to-cart-button button {
-  color: #ffffff; /* Text color */
-  padding: 10px 20px; /* Padding */
-  font-size: 16px; /* Font size */
-  border: none; /* Remove border */
-  border-radius: 5px; /* Rounded corners */
-  cursor: pointer; /* Cursor style on hover */
-  transition: background-color 0.3s; /* Smooth transition for background color */
+  color: #ffffff;
+  /* Text color */
+  padding: 10px 20px;
+  /* Padding */
+  font-size: 16px;
+  /* Font size */
+  border: none;
+  /* Remove border */
+  border-radius: 5px;
+  /* Rounded corners */
+  cursor: pointer;
+  /* Cursor style on hover */
+  transition: background-color 0.3s;
+  /* Smooth transition for background color */
 }
 
 /* policy page */
