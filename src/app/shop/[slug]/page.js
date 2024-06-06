@@ -4,7 +4,7 @@ import AddToCartButton from "@/components/AddToCartButton";
 import { Card, CardBody, CardFooter } from "@nextui-org/react";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-
+import ScrollToTopButton from "@/components/ScrollToTopButton";
 export default function shopPage() {
   const [data, setData] = useState(null);
   const pathname = usePathname();
@@ -75,6 +75,7 @@ export default function shopPage() {
             </Card>
           ))}
       </div>
+      <ScrollToTopButton />
     </div>
   );
 }

@@ -1,5 +1,5 @@
 "use client";
-
+import ScrollToTopButton from "@/components/ScrollToTopButton";
 import AddToCartButton from "@/components/AddToCartButton";
 import {
 	Button,
@@ -753,6 +753,8 @@ export default function Designed_Cake() {
 						<Image src="/images/logo2.jpg" alt="picture" width={200} height={80} />
 					</center>
 				</div>
+				<ScrollToTopButton />
+
 			</div>
 		</div>
 	);
