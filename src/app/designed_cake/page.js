@@ -28,7 +28,8 @@ export default function Designed_Cake() {
 	const [listSex, setListSex] = useState([]);
 	const [listCandle, setListCandle] = useState([]);
 
-	const [userInput, setUserInput] = useState("");
+	const [cakeName, setCakeName] = useState("");
+	const [message, setMessage] = useState("");
 
 	const [selectFruits, setSelectFruits] = useState([]);
 	const [selectAnimals, setSelectAnimals] = useState([]);
@@ -79,41 +80,27 @@ export default function Designed_Cake() {
 	}, [selectFruits, selectAnimals, selectSex, selectCandles, selectedShape, selectedSize, selectedFlavour]);
 
 	const [cakes, setCakes] = useState([]);
-	const [cakeId, setCakeId] = useState(1);
-	const [nextCakeNumber, setNextCakeNumber] = useState(1);
-
-	const [showCakeNameInTextarea, setShowCakeNameInTextarea] = useState(true);
 
 	useEffect(() => {
-		fetchData();
-		fetchDecors();
+		fetchAllData();
+		fetchCakes();
 	}, []);
 
-	const fetchData = async () => {
+	async function fetchAllData() {
 		try {
-			const [shapeData, sizeData, flavourData] = await Promise.all([
+			const [shapeData, sizeData, flavourData, decorData] = await Promise.all([
 				apiService.getData("shapes"),
 				apiService.getData("sizes"),
 				apiService.getData("flavours"),
+				apiService.getData("decors"),
 			]);
+
 			setListShape(shapeData.data);
 			setListSize(sizeData.data);
 			setListFlavour(flavourData.data);
-		} catch (error) {
-			console.error("Error fetching data:", error);
-		}
-	};
 
-	async function fetchDecors() {
-		try {
-			const { data } = await apiService.getData("decors");
-			const [fruits, animals, sex, candles] = [
-				"fruits",
-				"animals",
-				"sex",
-				"candles",
-			].map((type) =>
-				data.filter((item) => item.type === type).map((item) => ({
+			const [fruits, animals, sex, candles] = ["fruits", "animals", "sex", "candles"].map((type) =>
+				decorData.data.filter((item) => item.type === type).map((item) => ({
 					...item,
 					imageSrc: apiService.getDecorPhotoURL(item.image),
 				}))
@@ -122,8 +109,18 @@ export default function Designed_Cake() {
 			setListAnimal(animals);
 			setListSex(sex);
 			setListCandle(candles);
+
 		} catch (error) {
-			console.error("Error fetching decorations:", error);
+			console.error("Error fetching data:", error);
+		}
+	}
+
+	async function fetchCakes() {
+		try {
+			const cakesData = await apiService.getData("des_products");
+			setCakes(cakesData.data);
+		} catch (error) {
+			console.error("Error fetching data:", error);
 		}
 	}
 
@@ -132,7 +129,7 @@ export default function Designed_Cake() {
 			const response = await apiService.getData("des_products/last");
 			return response;
 		} catch (error) {
-			throw new Error("Failed to fetch: ", error);
+			throw new Error("Failed To Fetch Latest Cake: ", error);
 		}
 	}
 
@@ -145,8 +142,12 @@ export default function Designed_Cake() {
 		}
 	};
 
-	function handleChange(event) {
-		setUserInput(event.target.value);
+	function handleCakeNameChange(event) {
+		setCakeName(event.target.value);
+	};
+
+	function handleMessageChange(event) {
+		setMessage(event.target.value);
 	};
 
 	function handleFruitSelectionChange(newSelection) {
@@ -219,39 +220,37 @@ export default function Designed_Cake() {
 		const selectedFlavourId = Array.from(selectedFlavour)[0]?.flavour_id || null;
 
 		const designedProduct = {
-			categoryId: 1,
-			sizeId: selectedSizeId,
-			shapeId: selectedShapeId,
-			flavourId: selectedFlavourId,
-			name: "Customized Cake",
+			category_id: 1,
+			size_id: selectedSizeId,
+			shape_id: selectedShapeId,
+			flavour_id: selectedFlavourId,
+			name: cakeName,
+			message: message,
 			price: totalPrice,
 		};
+
 		createDesignedProduct("des_products", designedProduct);
 
 		const lastData = await getLatestDesignedProduct();
+
 		const designedProductDetails = {
 			des_prod_id: lastData.data.des_prod_id,
 			decor_id: [selectFruits, selectAnimals, selectSex, selectCandles],
 			quantity: 1,
 		};
 		createDesignedProduct("des_prod_details", designedProductDetails);
+		fetchCakes();
 	};
 
-	function addNewCake() {
-		const newCakeName = `Cake ${nextCakeNumber}`;
-		// const totalPrice = calculateTotalPrice();
 
-		const newCake = { name: newCakeName, totalPrice };
-		setCakes([...cakes, newCake]);
-		setNextCakeNumber(nextCakeNumber + 1);
-		setUserInput(newCakeName);
-		setCakeId(nextCakeNumber);
-	};
-
-	function handleDelete(index) {
-		const updatedCakes = [...cakes];
-		updatedCakes.splice(index, 1);
-		setCakes(updatedCakes);
+	async function handleDelete(id) {
+		try {
+			const response = await apiService.deleteData("des_products", id);
+			console.log(response);
+			fetchCakes();
+		} catch (error) {
+			console.error("Error Deleting Data:", error);
+		}
 	};
 
 	return (
@@ -263,7 +262,6 @@ export default function Designed_Cake() {
 							<span className="bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500">
 								LET'S DESIGN YOUR CAKE
 							</span>
-							<button onClick={saveDesignedProduct}>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</button>
 						</div>
 						<div>
 							<center>
@@ -279,8 +277,8 @@ export default function Designed_Cake() {
 								id="message"
 								rows={4}
 								className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-								value={showCakeNameInTextarea ? `Cake ${cakeId}` : userInput}
-								onChange={handleChange}
+								value={cakeName}
+								onChange={handleCakeNameChange}
 							/>
 
 							<div className="sm:col-span-2">
@@ -552,8 +550,8 @@ export default function Designed_Cake() {
 										id="message"
 										rows={4}
 										className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-										value={userInput}
-										onChange={handleChange}
+										value={message}
+										onChange={handleMessageChange}
 									/>
 								</div>
 								<table className="table_designed_cake">
@@ -566,15 +564,15 @@ export default function Designed_Cake() {
 										</tr>
 									</thead>
 									<tbody>
-										{cakes.map((cake, index) => (
+										{cakes.map((cake) => (
 											<tr key={cake.name}>
 												<td>{cake.name}</td>
-												<td>${cake.totalPrice.toFixed(2)}</td>
+												<td>${cake.price}</td>
 												<td>
 													<AddToCartButton
 														variant="bordered"
 														color="#ff0000"
-														data={saveDataDesProd}
+														data={cake}
 													>
 														Add To Cart
 													</AddToCartButton>
@@ -582,7 +580,7 @@ export default function Designed_Cake() {
 												<td>
 													<button
 														className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-														onClick={() => handleDelete(index)}
+														onClick={() => handleDelete(cake.des_prod_id)}
 														style={{
 															backgroundColor: "#ff0000",
 															color: "#fff",
@@ -711,7 +709,7 @@ export default function Designed_Cake() {
 					<div className="body_designed_cake">
 						{" "}
 						<div className="name_designed_cake"> Let's enter text: </div>
-						<div>{userInput}</div>
+						<div>{cakeName}</div>
 					</div>{" "}
 					<div style={{ borderBottom: "2px solid #000" }}></div>
 				</div>
@@ -740,12 +738,12 @@ export default function Designed_Cake() {
 						</button>
 
 						{/* <AddToCartButton
-              variant="bordered"
-              color="secondary"
-              data={saveDataDesProd}
-            >
-              Add To Cart
-            </AddToCartButton> */}
+							variant="bordered"
+							color="secondary"
+							data={() => saveDesignedProduct()}
+						>
+							Add To Cart
+						</AddToCartButton> */}
 					</div>
 				</div>
 

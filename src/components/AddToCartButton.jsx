@@ -22,27 +22,25 @@ export default function AddToCartButton({ children, data, className, size = "med
 				});
 			}
 			localStorage.setItem("cart", JSON.stringify(items));
-			console.log("Item added to cart:", data.prod_id);
-		} else if (data) {
-			let desProd = {
-				cus_id: 1,
-				category_id: 1,
-				size_id: 1,
-				shape_id: 1,
-				flavour_id: 1,
-				name: "thinh",
-				price: data,
+			console.log("Product added to cart:", data.prod_id);
+		} else if (data && data.des_prod_id) {
+			const storedItems = localStorage.getItem("cart");
+			const items = storedItems ? JSON.parse(storedItems) : [];
+			const existingItemIndex = items.findIndex((item) => item.id === data.des_prod_id);
+			if (existingItemIndex !== -1) {
+				items[existingItemIndex].quantity += 1;
+			} else {
+				items.push({
+					id: "des_" + data.des_prod_id,
+					name: data.name,
+					price: data.price,
+					quantity: 1,
+				});
 			}
-			postDesProd(desProd);
-			getDesProd();
-			// items.push({
-			// 	id: "des_" + data.des_prod_id,
-			// 	name: data.name,
-			// 	price: data.price,
-			// 	quantity: 1,
-			// });
+			localStorage.setItem("cart", JSON.stringify(items));
+			console.log("Designed Product added to cart:", data.des_prod_id);
 		} else {
-			console.error("Invalid data or data.prod_id is missing");
+			console.error("Invalid data or data.des_prod_id is missing");
 		}
 	};
 
