@@ -564,7 +564,7 @@ export default function Designed_Cake() {
 										</tr>
 									</thead>
 									<tbody>
-										{Array. cakes.map((cake) => (
+										{cakes.map((cake) => (
 											<tr key={cake.name}>
 												<td>{cake.name}</td>
 												<td>${cake.price}</td>
