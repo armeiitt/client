@@ -226,15 +226,14 @@ export default function Designed_Cake() {
 			name: "Customized Cake",
 			price: totalPrice,
 		};
-
 		createDesignedProduct("des_products", designedProduct);
+
 		const lastData = await getLatestDesignedProduct();
 		const designedProductDetails = {
 			des_prod_id: lastData.data.des_prod_id,
 			decor_id: [selectFruits, selectAnimals, selectSex, selectCandles],
 			quantity: 1,
 		};
-
 		createDesignedProduct("des_prod_details", designedProductDetails);
 	};
 
