@@ -228,7 +228,7 @@ export default function Designed_Cake() {
 			price: totalPrice,
 		};
 
-		createDesignedProduct("des_products", designedProduct);
+		const responseDesProd = await createDesignedProduct("des_products", designedProduct);
 
 		const lastData = await getLatestDesignedProduct();
 
@@ -237,10 +237,9 @@ export default function Designed_Cake() {
 			decor_id: [selectFruits, selectAnimals, selectSex, selectCandles],
 			quantity: 1,
 		};
-		createDesignedProduct("des_prod_details", designedProductDetails);
+		const responseDesProdDetails = await createDesignedProduct("des_prod_details", designedProductDetails);
 		fetchCakes();
 	};
-
 
 	async function handleDelete(id) {
 		try {
