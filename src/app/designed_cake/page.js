@@ -245,7 +245,6 @@ export default function Designed_Cake() {
 
 	async function handleDelete(id) {
 		try {
-			console.log(id);
 			const responseDetail = await apiService.deleteData("des_prod_details", id);
 			console.log(responseDetail);
 			const responseProducts = await apiService.deleteData("des_products", id);
