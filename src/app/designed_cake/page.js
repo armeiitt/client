@@ -228,7 +228,8 @@ export default function Designed_Cake() {
 			price: totalPrice,
 		};
 
-		const responseDesProd = await createDesignedProduct("des_products", designedProduct);
+		console.log(designedProduct);
+		await createDesignedProduct("des_products", designedProduct);
 
 		const lastData = await getLatestDesignedProduct();
 
@@ -237,13 +238,15 @@ export default function Designed_Cake() {
 			decor_id: [selectFruits, selectAnimals, selectSex, selectCandles],
 			quantity: 1,
 		};
-		const responseDesProdDetails = await createDesignedProduct("des_prod_details", designedProductDetails);
+		console.log(designedProductDetails);
+		await createDesignedProduct("des_prod_details", designedProductDetails);
 		fetchCakes();
 	};
 
 	async function handleDelete(id) {
 		try {
-			const responseDetail = await apiService.deleteData("des_products_details", id);
+			console.log(id);
+			const responseDetail = await apiService.deleteData("des_prod_details", id);
 			console.log(responseDetail);
 			const responseProducts = await apiService.deleteData("des_products", id);
 			console.log(responseProducts);
@@ -270,336 +273,336 @@ export default function Designed_Cake() {
 						</div>
 						<p className="mt-1 text-lg leading-8 text-gray-600"></p>
 					</div>
-					<form action="#" method="POST" className="mx-auto mt-2 max-w-xl sm:mt-2">
-						<div className="grid grid-cols-3 gap-x-48 gap-y-6 sm:grid-cols-2">
-							<textarea
-								name="message"
-								id="message"
-								rows={4}
-								className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-								value={cakeName}
-								onChange={handleCakeNameChange}
-							/>
+					{/* <form action="#" method="POST" className="mx-auto mt-2 max-w-xl sm:mt-2"> */}
+					<div className="grid grid-cols-3 gap-x-48 gap-y-6 sm:grid-cols-2">
+						<textarea
+							name="message"
+							id="message"
+							rows={4}
+							className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+							value={cakeName}
+							onChange={handleCakeNameChange}
+						/>
 
-							<div className="sm:col-span-2">
-								<label
-									htmlFor="shape"
-									className="title_designed_cake_left block text-sm font-semibold leading-6 text-gray-900"
-								>
-									Shape
-								</label>
-								<div className="mt-2.5">
-									<Dropdown>
-										<DropdownTrigger>
-											<Button variant="bordered" className="capitalize">
-												{selectedShapeValue}
-											</Button>
-										</DropdownTrigger>
-										<DropdownMenu
-											aria-label="Single selection example"
-											variant="flat"
-											disallowEmptySelection
-											selectionMode="single"
-											selectedKeys={selectedShape}
-											onSelectionChange={(key) => {
-												const selected = listShape.find(
-													(each) => each.shape === key.currentKey
-												);
-												setSelectedShape(new Set([selected]));
-											}}
-										>
-											{Array.isArray(listShape) &&
-												listShape.map((each) => (
-													<DropdownItem
-														key={each.shape}
-														data-price={each.price}
-														value={each.shape}
-														textValue={`${each.shape} - ${each.price}`}
-													>
-														{each.shape} - ${each.price}
-													</DropdownItem>
-												))}
-										</DropdownMenu>
-									</Dropdown>
-								</div>
-							</div>
-
-							<div className="sm:col-span-2">
-								<label
-									htmlFor="size"
-									className="title_designed_cake_left block text-sm font-semibold leading-6 text-gray-900"
-								>
-									Size
-								</label>
-								<div className="mt-2">
-									<Dropdown>
-										<DropdownTrigger>
-											<Button variant="bordered" className="capitalize">
-												{selectedSizeValue}
-											</Button>
-										</DropdownTrigger>
-										<DropdownMenu
-											aria-label="Single selection example"
-											variant="flat"
-											disallowEmptySelection
-											selectionMode="single"
-											selectedKeys={selectedSize}
-											onSelectionChange={(key) => {
-												const selected = listSize.find(
-													(each) => each.size === key.currentKey
-												);
-												setSelectedSize(new Set([selected]));
-											}}
-										>
-											{Array.isArray(listSize) &&
-												listSize.map((each) => (
-													<DropdownItem
-														key={each.size}
-														data-price={each.price}
-														value={each.size}
-														textValue={`${each.size} - ${each.price}`}
-													>
-														{each.size} - ${each.price}
-													</DropdownItem>
-												))}
-										</DropdownMenu>
-									</Dropdown>
-								</div>
-							</div>
-
-							<div className="sm:col-span-2">
-								<label
-									htmlFor="flavour"
-									className="title_designed_cake_left block text-sm font-semibold leading-6 text-gray-900"
-								>
-									Flavour
-								</label>
-								<div className="mt-2.5">
-									<div>
-										<Dropdown>
-											<DropdownTrigger>
-												<Button variant="bordered" className="capitalize">
-													{selectedFlavourValue}
-												</Button>
-											</DropdownTrigger>
-											<DropdownMenu
-												aria-label="Single selection example"
-												variant="flat"
-												disallowEmptySelection
-												selectionMode="single"
-												selectedKeys={selectedFlavour}
-												onSelectionChange={(key) => {
-													const selected = listFlavour.find(
-														(each) => each.flavour === key.currentKey
-													);
-													setSelectedFlavour(new Set([selected]));
-												}}
-											>
-												{Array.isArray(listFlavour) &&
-													listFlavour.map((each) => (
-														<DropdownItem
-															key={each.flavour}
-															data-price={each.price}
-															value={each.flavour}
-															textValue={`${each.shape} - ${each.price}`}
-														>
-															{each.flavour} - ${each.price}
-														</DropdownItem>
-													))}
-											</DropdownMenu>
-										</Dropdown>
-									</div>
-								</div>
-							</div>
-
-							<div className="sm:col-span-2">
-								<label
-									htmlFor="sticker"
-									className="title_designed_cake_left block text-sm font-semibold leading-6 text-gray-900"
-								>
-									Decorations
-								</label>
-								<div className="relative mt-1.5">
-									<div>
-										<label>Fruits</label>
-									</div>
-									<div>
-										<CheckboxGroup
-											orientation="horizontal"
-											color="secondary"
-											value={selectFruits}
-											onChange={handleFruitSelectionChange}
-										>
-											{listFruit.map((each) => (
-												<Checkbox key={each.decor_id} value={each.decor_id}>
-													<div className="fruit-checkbox">
-														<img
-															src={each.imageSrc}
-															alt={each.name}
-															width={80}
-															height={100}
-														/>
-													</div>
-												</Checkbox>
+						<div className="sm:col-span-2">
+							<label
+								htmlFor="shape"
+								className="title_designed_cake_left block text-sm font-semibold leading-6 text-gray-900"
+							>
+								Shape
+							</label>
+							<div className="mt-2.5">
+								<Dropdown>
+									<DropdownTrigger>
+										<Button variant="bordered" className="capitalize">
+											{selectedShapeValue}
+										</Button>
+									</DropdownTrigger>
+									<DropdownMenu
+										aria-label="Single selection example"
+										variant="flat"
+										disallowEmptySelection
+										selectionMode="single"
+										selectedKeys={selectedShape}
+										onSelectionChange={(key) => {
+											const selected = listShape.find(
+												(each) => each.shape === key.currentKey
+											);
+											setSelectedShape(new Set([selected]));
+										}}
+									>
+										{Array.isArray(listShape) &&
+											listShape.map((each) => (
+												<DropdownItem
+													key={each.shape}
+													data-price={each.price}
+													value={each.shape}
+													textValue={`${each.shape} - ${each.price}`}
+												>
+													{each.shape} - ${each.price}
+												</DropdownItem>
 											))}
-										</CheckboxGroup>
-									</div>
-								</div>
-								<div className="relative mt-2.5">
-									<div>
-										<label>Animals</label>
-									</div>
-									<div>
-										<CheckboxGroup
-											orientation="horizontal"
-											color="secondary"
-											value={selectAnimals}
-											onChange={handleAnimalSelectionChange}
-										>
-											{listAnimal.map((each) => (
-												<Checkbox key={each.decor_id} value={each.decor_id}>
-													<div className="animal-checkbox">
-														<img
-															src={each.imageSrc}
-															alt={each.name}
-															width={70}
-															height={70}
-														/>
-													</div>
-												</Checkbox>
-											))}
-										</CheckboxGroup>
-										{/* <p>Total Price: ${calculateTotalPrice()}</p> */}
-									</div>
-								</div>
-								<div className="relative mt-2.5">
-									<div>
-										<label>Sex</label>
-									</div>
-									<div>
-										<CheckboxGroup
-											className="container_image_designed_cake"
-											orientation="horizontal"
-											color="secondary"
-											defaultValue={[]}
-											value={selectSex}
-											onChange={handleSexSelectionChange}
-										>
-											{listSex.map((each) => (
-												<Checkbox key={each.decor_id} value={each.decor_id}>
-													<div className="sex-checkbox">
-														<img
-															src={each.imageSrc}
-															alt={each.name}
-															width={70}
-															height={70}
-														/>
-													</div>
-												</Checkbox>
-											))}
-										</CheckboxGroup>
-										{/* <p>Total Price: ${calculateTotalPrice()}</p> */}
-									</div>
-								</div>
-							</div>
-
-							<div className="sm:col-span-2">
-								<label
-									htmlFor="sticker"
-								// className="block text-sm font-semibold leading-6 text-gray-900"
-								>
-									Candles (Accessory)
-								</label>
-								<div className="relative mt-1.5">
-									<div>
-										<CheckboxGroup
-											className="container_image_designed_cake"
-											orientation="horizontal"
-											color="secondary"
-											defaultValue={[]}
-											value={selectCandles}
-											onChange={handleCandleSelectionChange}
-										>
-											{listCandle.map((each) => (
-												<Checkbox key={each.decor_id} value={each.decor_id}>
-													<div className="candle-checkbox">
-														<img
-															src={each.imageSrc}
-															alt={each.name}
-															width={70}
-															height={70}
-														/>
-													</div>
-												</Checkbox>
-											))}
-										</CheckboxGroup>
-									</div>
-								</div>
-							</div>
-
-							<div className="sm:col-span-2">
-								<label
-									htmlFor="message"
-									className="title_designed_cake_left block text-sm font-semibold leading-6 text-gray-900"
-								>
-									Message
-								</label>
-								<div className="mt-2.5 pb-2">
-									<textarea
-										name="message"
-										id="message"
-										rows={4}
-										className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-										value={message}
-										onChange={handleMessageChange}
-									/>
-								</div>
-								<table className="table_designed_cake">
-									<thead>
-										<tr>
-											<th>Name</th>
-											<th>Total Price</th>
-											<th>Action</th>
-											<th>Delete</th>
-										</tr>
-									</thead>
-									<tbody>
-										{Array.isArray(cakes) && cakes.map((cake) => (
-											<tr key={cake.name}>
-												<td>{cake.name}</td>
-												<td>${cake.price}</td>
-												<td>
-													<AddToCartButton
-														variant="bordered"
-														color="#ff0000"
-														data={cake}
-													>
-														Add To Cart
-													</AddToCartButton>
-												</td>
-												<td>
-													<button
-														className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-														onClick={() => handleDelete(cake.des_prod_id)}
-														style={{
-															backgroundColor: "#ff0000",
-															color: "#fff",
-															border: "none",
-															padding: "8px 16px",
-															borderRadius: "4px",
-															cursor: "pointer",
-														}}
-													>
-														Delete
-													</button>
-												</td>
-											</tr>
-										))}
-									</tbody>
-								</table>
+									</DropdownMenu>
+								</Dropdown>
 							</div>
 						</div>
-					</form>
+
+						<div className="sm:col-span-2">
+							<label
+								htmlFor="size"
+								className="title_designed_cake_left block text-sm font-semibold leading-6 text-gray-900"
+							>
+								Size
+							</label>
+							<div className="mt-2">
+								<Dropdown>
+									<DropdownTrigger>
+										<Button variant="bordered" className="capitalize">
+											{selectedSizeValue}
+										</Button>
+									</DropdownTrigger>
+									<DropdownMenu
+										aria-label="Single selection example"
+										variant="flat"
+										disallowEmptySelection
+										selectionMode="single"
+										selectedKeys={selectedSize}
+										onSelectionChange={(key) => {
+											const selected = listSize.find(
+												(each) => each.size === key.currentKey
+											);
+											setSelectedSize(new Set([selected]));
+										}}
+									>
+										{Array.isArray(listSize) &&
+											listSize.map((each) => (
+												<DropdownItem
+													key={each.size}
+													data-price={each.price}
+													value={each.size}
+													textValue={`${each.size} - ${each.price}`}
+												>
+													{each.size} - ${each.price}
+												</DropdownItem>
+											))}
+									</DropdownMenu>
+								</Dropdown>
+							</div>
+						</div>
+
+						<div className="sm:col-span-2">
+							<label
+								htmlFor="flavour"
+								className="title_designed_cake_left block text-sm font-semibold leading-6 text-gray-900"
+							>
+								Flavour
+							</label>
+							<div className="mt-2.5">
+								<div>
+									<Dropdown>
+										<DropdownTrigger>
+											<Button variant="bordered" className="capitalize">
+												{selectedFlavourValue}
+											</Button>
+										</DropdownTrigger>
+										<DropdownMenu
+											aria-label="Single selection example"
+											variant="flat"
+											disallowEmptySelection
+											selectionMode="single"
+											selectedKeys={selectedFlavour}
+											onSelectionChange={(key) => {
+												const selected = listFlavour.find(
+													(each) => each.flavour === key.currentKey
+												);
+												setSelectedFlavour(new Set([selected]));
+											}}
+										>
+											{Array.isArray(listFlavour) &&
+												listFlavour.map((each) => (
+													<DropdownItem
+														key={each.flavour}
+														data-price={each.price}
+														value={each.flavour}
+														textValue={`${each.shape} - ${each.price}`}
+													>
+														{each.flavour} - ${each.price}
+													</DropdownItem>
+												))}
+										</DropdownMenu>
+									</Dropdown>
+								</div>
+							</div>
+						</div>
+
+						<div className="sm:col-span-2">
+							<label
+								htmlFor="sticker"
+								className="title_designed_cake_left block text-sm font-semibold leading-6 text-gray-900"
+							>
+								Decorations
+							</label>
+							<div className="relative mt-1.5">
+								<div>
+									<label>Fruits</label>
+								</div>
+								<div>
+									<CheckboxGroup
+										orientation="horizontal"
+										color="secondary"
+										value={selectFruits}
+										onChange={handleFruitSelectionChange}
+									>
+										{listFruit.map((each) => (
+											<Checkbox key={each.decor_id} value={each.decor_id}>
+												<div className="fruit-checkbox">
+													<img
+														src={each.imageSrc}
+														alt={each.name}
+														width={80}
+														height={100}
+													/>
+												</div>
+											</Checkbox>
+										))}
+									</CheckboxGroup>
+								</div>
+							</div>
+							<div className="relative mt-2.5">
+								<div>
+									<label>Animals</label>
+								</div>
+								<div>
+									<CheckboxGroup
+										orientation="horizontal"
+										color="secondary"
+										value={selectAnimals}
+										onChange={handleAnimalSelectionChange}
+									>
+										{listAnimal.map((each) => (
+											<Checkbox key={each.decor_id} value={each.decor_id}>
+												<div className="animal-checkbox">
+													<img
+														src={each.imageSrc}
+														alt={each.name}
+														width={70}
+														height={70}
+													/>
+												</div>
+											</Checkbox>
+										))}
+									</CheckboxGroup>
+									{/* <p>Total Price: ${calculateTotalPrice()}</p> */}
+								</div>
+							</div>
+							<div className="relative mt-2.5">
+								<div>
+									<label>Sex</label>
+								</div>
+								<div>
+									<CheckboxGroup
+										className="container_image_designed_cake"
+										orientation="horizontal"
+										color="secondary"
+										defaultValue={[]}
+										value={selectSex}
+										onChange={handleSexSelectionChange}
+									>
+										{listSex.map((each) => (
+											<Checkbox key={each.decor_id} value={each.decor_id}>
+												<div className="sex-checkbox">
+													<img
+														src={each.imageSrc}
+														alt={each.name}
+														width={70}
+														height={70}
+													/>
+												</div>
+											</Checkbox>
+										))}
+									</CheckboxGroup>
+									{/* <p>Total Price: ${calculateTotalPrice()}</p> */}
+								</div>
+							</div>
+						</div>
+
+						<div className="sm:col-span-2">
+							<label
+								htmlFor="sticker"
+							// className="block text-sm font-semibold leading-6 text-gray-900"
+							>
+								Candles (Accessory)
+							</label>
+							<div className="relative mt-1.5">
+								<div>
+									<CheckboxGroup
+										className="container_image_designed_cake"
+										orientation="horizontal"
+										color="secondary"
+										defaultValue={[]}
+										value={selectCandles}
+										onChange={handleCandleSelectionChange}
+									>
+										{listCandle.map((each) => (
+											<Checkbox key={each.decor_id} value={each.decor_id}>
+												<div className="candle-checkbox">
+													<img
+														src={each.imageSrc}
+														alt={each.name}
+														width={70}
+														height={70}
+													/>
+												</div>
+											</Checkbox>
+										))}
+									</CheckboxGroup>
+								</div>
+							</div>
+						</div>
+
+						<div className="sm:col-span-2">
+							<label
+								htmlFor="message"
+								className="title_designed_cake_left block text-sm font-semibold leading-6 text-gray-900"
+							>
+								Message
+							</label>
+							<div className="mt-2.5 pb-2">
+								<textarea
+									name="message"
+									id="message"
+									rows={4}
+									className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+									value={message}
+									onChange={handleMessageChange}
+								/>
+							</div>
+							<table className="table_designed_cake">
+								<thead>
+									<tr>
+										<th>Name</th>
+										<th>Total Price</th>
+										<th>Action</th>
+										<th>Delete</th>
+									</tr>
+								</thead>
+								<tbody>
+									{Array.isArray(cakes) && cakes.map((cake) => (
+										<tr key={cake.des_prod_id}>
+											<td>{cake.name}</td>
+											<td>${cake.price}</td>
+											<td>
+												<AddToCartButton
+													variant="bordered"
+													color="#ff0000"
+													data={cake}
+												>
+													Add To Cart
+												</AddToCartButton>
+											</td>
+											<td>
+												<button
+													className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+													onClick={() => handleDelete(cake.des_prod_id)}
+													style={{
+														backgroundColor: "#ff0000",
+														color: "#fff",
+														border: "none",
+														padding: "8px 16px",
+														borderRadius: "4px",
+														cursor: "pointer",
+													}}
+												>
+													Delete
+												</button>
+											</td>
+										</tr>
+									))}
+								</tbody>
+							</table>
+						</div>
+					</div>
+					{/* </form> */}
 				</div>
 			</div>
 			<div className="detail_designed_cake">
