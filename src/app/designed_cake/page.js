@@ -1,6 +1,6 @@
 "use client";
-import ScrollToTopButton from "@/components/ScrollToTopButton";
 import AddToCartButton from "@/components/AddToCartButton";
+import ScrollToTopButton from "@/components/ScrollToTopButton";
 import {
 	Button,
 	Checkbox,
@@ -244,8 +244,10 @@ export default function Designed_Cake() {
 
 	async function handleDelete(id) {
 		try {
-			const response = await apiService.deleteData("des_products", id);
-			console.log(response);
+			const responseDetail = await apiService.deleteData("des_products_details", id);
+			console.log(responseDetail);
+			const responseProducts = await apiService.deleteData("des_products", id);
+			console.log(responseProducts);
 			fetchCakes();
 		} catch (error) {
 			console.error("Error Deleting Data:", error);

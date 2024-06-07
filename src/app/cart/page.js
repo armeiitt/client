@@ -180,8 +180,6 @@ export default function Cart() {
 		window.alert("We receive your feedback, and hope to have more feedback from customers.");
 	};
 
-	useEffect(() => { }, []);
-
 	return (
 		<div>
 			<div>
