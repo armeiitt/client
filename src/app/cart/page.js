@@ -40,7 +40,7 @@ export default function Cart() {
 		setSubTotal(subtotal);
 	}, [items]);
 
-	async function handleSendMail({ to, subject, html }) {
+	async function handleSendMail() {
 		const response = await fetch("/api/nodemailer", {
 			method: "POST",
 			headers: {
@@ -76,6 +76,7 @@ export default function Cart() {
 			};
 			console.log(dataJSON);
 			const response = await apiService.postData("orders", dataJSON);
+			handleSendMail();
 			console.log(response);
 		} catch (error) {
 			console.error("Error:", error);

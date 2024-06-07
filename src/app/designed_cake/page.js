@@ -109,7 +109,6 @@ export default function Designed_Cake() {
 			setListAnimal(animals);
 			setListSex(sex);
 			setListCandle(candles);
-
 		} catch (error) {
 			console.error("Error fetching data:", error);
 		}

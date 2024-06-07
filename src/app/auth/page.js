@@ -62,7 +62,7 @@ function AuthPage() {
 
 			<div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
 				{isLoggedIn ? (
-					<p>Login Successful</p>
+					<div><p>Login Successful! </p> </div>
 				) : (
 					<form className="space-y-6" action="#" method="POST" onSubmit={handleSubmit}>
 						<div>
