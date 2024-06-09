@@ -1,4 +1,5 @@
 "use client";
+
 import AddToCartButton from "@/components/AddToCartButton";
 import ScrollToTopButton from "@/components/ScrollToTopButton";
 import {
@@ -29,6 +30,7 @@ export default function Designed_Cake() {
 	const [listCandle, setListCandle] = useState([]);
 
 	const [cakeName, setCakeName] = useState("");
+	const [user, setUser] = useState("");
 	const [message, setMessage] = useState("");
 
 	const [selectFruits, setSelectFruits] = useState([]);
@@ -82,9 +84,14 @@ export default function Designed_Cake() {
 	const [cakes, setCakes] = useState([]);
 
 	useEffect(() => {
+		getUser();
 		fetchAllData();
 		fetchCakes();
 	}, []);
+
+	function getUser() {
+		setUser(JSON.parse(localStorage.getItem("user")));
+	}
 
 	async function fetchAllData() {
 		try {
@@ -214,11 +221,16 @@ export default function Designed_Cake() {
 	};
 
 	async function saveDesignedProduct() {
+		if (!user) {
+			alert("Please Sign In");
+			return;
+		}
 		const selectedSizeId = Array.from(selectedSize)[0]?.size_id || null;
 		const selectedShapeId = Array.from(selectedShape)[0]?.shape_id || null;
 		const selectedFlavourId = Array.from(selectedFlavour)[0]?.flavour_id || null;
 
 		const designedProduct = {
+			cus_id: user.cus_id,
 			category_id: 1,
 			size_id: selectedSizeId,
 			shape_id: selectedShapeId,
@@ -228,7 +240,6 @@ export default function Designed_Cake() {
 			price: totalPrice,
 		};
 
-		console.log(designedProduct);
 		await createDesignedProduct("des_products", designedProduct);
 
 		const lastData = await getLatestDesignedProduct();
@@ -238,7 +249,6 @@ export default function Designed_Cake() {
 			decor_id: [selectFruits, selectAnimals, selectSex, selectCandles],
 			quantity: 1,
 		};
-		console.log(designedProductDetails);
 		await createDesignedProduct("des_prod_details", designedProductDetails);
 		fetchCakes();
 	};
