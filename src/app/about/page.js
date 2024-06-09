@@ -57,7 +57,7 @@ export default function AboutPage() {
         </div>
       </div>
       <div style={{ borderBottom: "2px solid #000" }}></div>
-      <div>
+      <div className="pt-1 text-lg text-center font-bold">
         This content provides an overview of 3T bakery, including shaping,
         products, and mission. Feel free to adjust and supplement the content to
         accurately reflect your bakery.
