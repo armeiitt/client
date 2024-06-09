@@ -690,7 +690,8 @@ button {
 }
 
 .delivery-image {
-  width: 300px; /* Điều chỉnh kích thước hình ảnh theo nhu cầu */
+  width: 300px;
+  /* Điều chỉnh kích thước hình ảnh theo nhu cầu */
   height: auto;
 }
 

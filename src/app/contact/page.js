@@ -50,7 +50,6 @@ export default function AboutPage() {
                     </div>
                 </div>
                 <div className="about_image">
-                    {" "}
                     <img src="https://png.pngtree.com/png-clipart/20231005/original/pngtree-cake-shop-building-illustration-in-minimal-style-png-image_13123216.png"></img>
                 </div>
             </div>
