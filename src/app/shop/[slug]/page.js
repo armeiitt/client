@@ -47,10 +47,14 @@ export default function shopPage() {
             <Card
               shadow="sm"
               key={product.id}
-              isPressable
-              onPress={() => push(`/product/${value.attributes?.slug}`)}
-
+              isPressable={false}
+              onPress={() => {
+                if (product.attributes && product.attributes.slug) {
+                  push(`/product/${product.attributes.slug}`);
+                }
+              }}
             >
+
               <CardBody className="overflow-visible p-0">
                 {product.src && (
                   <img

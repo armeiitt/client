@@ -219,6 +219,9 @@ export default function Designed_Cake() {
 			return totalPrice;
 		}, 0);
 	};
+	function showConfirmationMessage() {
+		alert("We have received information about the cake you created");
+	}
 
 	async function saveDesignedProduct() {
 		if (!user) {
@@ -238,6 +241,7 @@ export default function Designed_Cake() {
 			name: cakeName,
 			message: message,
 			price: totalPrice,
+			status: "active",
 		};
 
 		await createDesignedProduct("des_products", designedProduct);
@@ -251,6 +255,7 @@ export default function Designed_Cake() {
 		};
 		await createDesignedProduct("des_prod_details", designedProductDetails);
 		fetchCakes();
+		showConfirmationMessage();
 	};
 
 	async function handleDelete(id) {
@@ -283,115 +288,38 @@ export default function Designed_Cake() {
 						<p className="mt-1 text-lg leading-8 text-gray-600"></p>
 					</div>
 					{/* <form action="#" method="POST" className="mx-auto mt-2 max-w-xl sm:mt-2"> */}
-					<div className="grid grid-cols-3 gap-x-48 gap-y-6 sm:grid-cols-2">
-						<textarea
-							name="message"
-							id="message"
-							rows={4}
-							className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-							value={cakeName}
-							onChange={handleCakeNameChange}
-						/>
-
-						<div className="sm:col-span-2">
-							<label
-								htmlFor="shape"
-								className="title_designed_cake_left block text-sm font-semibold leading-6 text-gray-900"
-							>
-								Shape
-							</label>
-							<div className="mt-2.5">
-								<Dropdown>
-									<DropdownTrigger>
-										<Button variant="bordered" className="capitalize">
-											{selectedShapeValue}
-										</Button>
-									</DropdownTrigger>
-									<DropdownMenu
-										aria-label="Single selection example"
-										variant="flat"
-										disallowEmptySelection
-										selectionMode="single"
-										selectedKeys={selectedShape}
-										onSelectionChange={(key) => {
-											const selected = listShape.find(
-												(each) => each.shape === key.currentKey
-											);
-											setSelectedShape(new Set([selected]));
-										}}
-									>
-										{Array.isArray(listShape) &&
-											listShape.map((each) => (
-												<DropdownItem
-													key={each.shape}
-													data-price={each.price}
-													value={each.shape}
-													textValue={`${each.shape} - ${each.price}`}
-												>
-													{each.shape} - ${each.price}
-												</DropdownItem>
-											))}
-									</DropdownMenu>
-								</Dropdown>
+					<div className="grid grid-cols-3 gap-x-48 gap-y-6 sm:grid-cols-2 creating_des">
+						<div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+							<div className="enter_name_des">
+								<label
+									htmlFor="message"
+									className="title_designed_cake_left block text-sm font-semibold leading-6 text-gray-900"
+								>
+									Let's enter your name
+								</label>
+								<textarea
+									name="message"
+									id="message"
+									rows={2}
+									className="mt-2.5 block w-full h-10 rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+									value={cakeName}
+									onChange={handleCakeNameChange}
+								/>
 							</div>
-						</div>
 
-						<div className="sm:col-span-2">
-							<label
-								htmlFor="size"
-								className="title_designed_cake_left block text-sm font-semibold leading-6 text-gray-900"
-							>
-								Size
-							</label>
-							<div className="mt-2">
-								<Dropdown>
-									<DropdownTrigger>
-										<Button variant="bordered" className="capitalize">
-											{selectedSizeValue}
-										</Button>
-									</DropdownTrigger>
-									<DropdownMenu
-										aria-label="Single selection example"
-										variant="flat"
-										disallowEmptySelection
-										selectionMode="single"
-										selectedKeys={selectedSize}
-										onSelectionChange={(key) => {
-											const selected = listSize.find(
-												(each) => each.size === key.currentKey
-											);
-											setSelectedSize(new Set([selected]));
-										}}
-									>
-										{Array.isArray(listSize) &&
-											listSize.map((each) => (
-												<DropdownItem
-													key={each.size}
-													data-price={each.price}
-													value={each.size}
-													textValue={`${each.size} - ${each.price}`}
-												>
-													{each.size} - ${each.price}
-												</DropdownItem>
-											))}
-									</DropdownMenu>
-								</Dropdown>
-							</div>
-						</div>
 
-						<div className="sm:col-span-2">
-							<label
-								htmlFor="flavour"
-								className="title_designed_cake_left block text-sm font-semibold leading-6 text-gray-900"
-							>
-								Flavour
-							</label>
-							<div className="mt-2.5">
-								<div>
+							<div className="sm:col-span-1 shape_des">
+								<label
+									htmlFor="shape"
+									className="title_designed_cake_left block text-sm font-semibold leading-6 text-gray-900"
+								>
+									Shape
+								</label>
+								<div className="mt-2.5">
 									<Dropdown>
 										<DropdownTrigger>
 											<Button variant="bordered" className="capitalize">
-												{selectedFlavourValue}
+												{selectedShapeValue}
 											</Button>
 										</DropdownTrigger>
 										<DropdownMenu
@@ -399,27 +327,116 @@ export default function Designed_Cake() {
 											variant="flat"
 											disallowEmptySelection
 											selectionMode="single"
-											selectedKeys={selectedFlavour}
+											selectedKeys={selectedShape}
 											onSelectionChange={(key) => {
-												const selected = listFlavour.find(
-													(each) => each.flavour === key.currentKey
+												const selected = listShape.find(
+													(each) => each.shape === key.currentKey
 												);
-												setSelectedFlavour(new Set([selected]));
+												setSelectedShape(new Set([selected]));
 											}}
 										>
-											{Array.isArray(listFlavour) &&
-												listFlavour.map((each) => (
+											{Array.isArray(listShape) &&
+												listShape.map((each) => (
 													<DropdownItem
-														key={each.flavour}
+														key={each.shape}
 														data-price={each.price}
-														value={each.flavour}
+														value={each.shape}
 														textValue={`${each.shape} - ${each.price}`}
 													>
-														{each.flavour} - ${each.price}
+														{each.shape} - ${each.price}
 													</DropdownItem>
 												))}
 										</DropdownMenu>
 									</Dropdown>
+								</div>
+							</div>
+						</div>
+						<div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
+							<div className="sm:col-span-1">
+								<label
+									htmlFor="size"
+									className="title_designed_cake_left block text-sm font-semibold leading-6 text-gray-900"
+								>
+									Size
+								</label>
+								<div className="mt-2">
+									<Dropdown>
+										<DropdownTrigger>
+											<Button variant="bordered" className="capitalize">
+												{selectedSizeValue}
+											</Button>
+										</DropdownTrigger>
+										<DropdownMenu
+											aria-label="Single selection example"
+											variant="flat"
+											disallowEmptySelection
+											selectionMode="single"
+											selectedKeys={selectedSize}
+											onSelectionChange={(key) => {
+												const selected = listSize.find(
+													(each) => each.size === key.currentKey
+												);
+												setSelectedSize(new Set([selected]));
+											}}
+										>
+											{Array.isArray(listSize) &&
+												listSize.map((each) => (
+													<DropdownItem
+														key={each.size}
+														data-price={each.price}
+														value={each.size}
+														textValue={`${each.size} - ${each.price}`}
+													>
+														{each.size} - ${each.price}
+													</DropdownItem>
+												))}
+										</DropdownMenu>
+									</Dropdown>
+								</div>
+							</div>
+
+							<div className="sm:col-span-1">
+								<label
+									htmlFor="flavour"
+									className="title_designed_cake_left block text-sm font-semibold leading-6 text-gray-900"
+								>
+									Flavour
+								</label>
+								<div className="mt-2.5">
+									<div>
+										<Dropdown>
+											<DropdownTrigger>
+												<Button variant="bordered" className="capitalize">
+													{selectedFlavourValue}
+												</Button>
+											</DropdownTrigger>
+											<DropdownMenu
+												aria-label="Single selection example"
+												variant="flat"
+												disallowEmptySelection
+												selectionMode="single"
+												selectedKeys={selectedFlavour}
+												onSelectionChange={(key) => {
+													const selected = listFlavour.find(
+														(each) => each.flavour === key.currentKey
+													);
+													setSelectedFlavour(new Set([selected]));
+												}}
+											>
+												{Array.isArray(listFlavour) &&
+													listFlavour.map((each) => (
+														<DropdownItem
+															key={each.flavour}
+															data-price={each.price}
+															value={each.flavour}
+															textValue={`${each.shape} - ${each.price}`}
+														>
+															{each.flavour} - ${each.price}
+														</DropdownItem>
+													))}
+											</DropdownMenu>
+										</Dropdown>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -556,12 +573,12 @@ export default function Designed_Cake() {
 							>
 								Message
 							</label>
-							<div className="mt-2.5 pb-2">
+							<div className="mt-2.5 pb-7 " style={{ maxWidth: "450px" }}>
 								<textarea
 									name="message"
 									id="message"
-									rows={4}
-									className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+									rows={2}
+									className="block w-full rounded-md border-0 px-3.5 py-1 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
 									value={message}
 									onChange={handleMessageChange}
 								/>
@@ -721,7 +738,7 @@ export default function Designed_Cake() {
 					<div className="body_designed_cake">
 						{" "}
 						<div className="name_designed_cake"> Let's enter text: </div>
-						<div>{cakeName}</div>
+						<div>{message}</div>
 					</div>{" "}
 					<div style={{ borderBottom: "2px solid #000" }}></div>
 				</div>

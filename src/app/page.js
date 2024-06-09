@@ -61,8 +61,13 @@ export default function Home() {
               shadow="sm"
               key={value.id}
               isPressable
-              onPress={() => push(`/product/${value.attributes.slug}`)}
+              onPress={() => {
+                if (value.attributes && value.attributes.slug) {
+                  push(`/product/${value.attributes.slug}`);
+                }
+              }}
             >
+
               <CardBody className="overflow-visible p-0">
                 {/* <img
                                     className="w-full h-auto"
