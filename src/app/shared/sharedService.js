@@ -32,9 +32,10 @@ const apiService = {
             };
             const response = await fetch(url, request);
             console.log("Created Successfully", response);
+            return response;
         } catch (error) {
             console.error(error);
-            throw error;
+            return error;
         }
     },
 
@@ -49,9 +50,10 @@ const apiService = {
             };
             const response = await fetch(url, request);
             console.log("Deleted Successfully", response);
+            return response;
         } catch (error) {
             console.error(error);
-            throw error;
+            return error;
         }
     },
 

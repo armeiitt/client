@@ -120,8 +120,10 @@ export default function Cart() {
 			};
 
 			const response = await apiService.postData("orders", dataJSON);
-			handleSendMail();
-			console.log(response);
+			if (response.ok) {
+				alert("Thank You For Ordering. We will contact you soon.");
+				handleSendMail();
+			};
 		} catch (error) {
 			console.error("Error:", error);
 		}
