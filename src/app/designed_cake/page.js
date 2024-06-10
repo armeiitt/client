@@ -221,8 +221,8 @@ export default function Designed_Cake() {
 			return totalPrice;
 		}, 0);
 	}
-	function showConfirmationMessage() {
-		alert("We have received information about the cake you created");
+	function showConfirmationMessage(message) {
+		alert(message);
 	}
 
 	async function saveDesignedProduct() {
@@ -257,15 +257,14 @@ export default function Designed_Cake() {
 		};
 		await createDesignedProduct("des_prod_details", designedProductDetails);
 		fetchCakes();
-		showConfirmationMessage();
+		showConfirmationMessage("We have received information about the cake you created");
 	}
 
 	async function handleDelete(id) {
 		try {
-			const responseDetail = await apiService.deleteData("des_prod_details", id);
-			console.log(responseDetail);
 			const responseProducts = await apiService.deleteData("des_products", id);
 			console.log(responseProducts);
+			showConfirmationMessage("You have successfully deleted the cake");
 			fetchCakes();
 		} catch (error) {
 			console.error("Error Deleting Data:", error);
