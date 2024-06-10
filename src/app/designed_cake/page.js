@@ -107,10 +107,12 @@ export default function Designed_Cake() {
 			setListFlavour(flavourData.data);
 
 			const [fruits, animals, sex, candles] = ["fruits", "animals", "sex", "candles"].map((type) =>
-				decorData.data.filter((item) => item.type === type).map((item) => ({
-					...item,
-					imageSrc: apiService.getDecorPhotoURL(item.image),
-				}))
+				decorData.data
+					.filter((item) => item.type === type)
+					.map((item) => ({
+						...item,
+						imageSrc: apiService.getDecorPhotoURL(item.image),
+					}))
 			);
 			setListFruit(fruits);
 			setListAnimal(animals);
@@ -141,44 +143,44 @@ export default function Designed_Cake() {
 
 	async function createDesignedProduct(endpoint, data) {
 		try {
-			const response = await apiService.postData(endpoint, data)
+			const response = await apiService.postData(endpoint, data);
 			return response;
 		} catch (error) {
 			throw new Error("Failed To Create: ", error);
 		}
-	};
+	}
 
 	function handleCakeNameChange(event) {
 		setCakeName(event.target.value);
-	};
+	}
 
 	function handleMessageChange(event) {
 		setMessage(event.target.value);
-	};
+	}
 
 	function handleFruitSelectionChange(newSelection) {
 		if (newSelection.length <= 2) {
 			setSelectFruits(newSelection);
 		}
-	};
+	}
 
 	function handleAnimalSelectionChange(newSelection) {
 		if (newSelection.length <= 1) {
 			setSelectAnimals(newSelection);
 		}
-	};
+	}
 
 	function handleSexSelectionChange(newSelection) {
 		if (newSelection.length <= 1) {
 			setSelectSex(newSelection);
 		}
-	};
+	}
 
 	function handleCandleSelectionChange(newSelection) {
 		if (newSelection.length <= 1) {
 			setSelectCandles(newSelection);
 		}
-	};
+	}
 
 	function calculateFruitPrice() {
 		return selectFruits.reduce((totalPrice, each) => {
@@ -188,7 +190,7 @@ export default function Designed_Cake() {
 			}
 			return totalPrice;
 		}, 0);
-	};
+	}
 
 	function calculateAnimalPrice() {
 		return selectAnimals.reduce((totalPrice, each) => {
@@ -198,7 +200,7 @@ export default function Designed_Cake() {
 			}
 			return totalPrice;
 		}, 0);
-	};
+	}
 
 	function calculateSexPrice() {
 		return selectSex.reduce((totalPrice, each) => {
@@ -208,7 +210,7 @@ export default function Designed_Cake() {
 			}
 			return totalPrice;
 		}, 0);
-	};
+	}
 
 	function calculateCandlePrice() {
 		return selectCandles.reduce((totalPrice, each) => {
@@ -218,7 +220,7 @@ export default function Designed_Cake() {
 			}
 			return totalPrice;
 		}, 0);
-	};
+	}
 	function showConfirmationMessage() {
 		alert("We have received information about the cake you created");
 	}
@@ -241,9 +243,9 @@ export default function Designed_Cake() {
 			name: cakeName,
 			message: message,
 			price: totalPrice,
+			originPrice: 1,
 			status: "active",
 		};
-
 		await createDesignedProduct("des_products", designedProduct);
 
 		const lastData = await getLatestDesignedProduct();
@@ -256,7 +258,7 @@ export default function Designed_Cake() {
 		await createDesignedProduct("des_prod_details", designedProductDetails);
 		fetchCakes();
 		showConfirmationMessage();
-	};
+	}
 
 	async function handleDelete(id) {
 		try {
@@ -268,7 +270,7 @@ export default function Designed_Cake() {
 		} catch (error) {
 			console.error("Error Deleting Data:", error);
 		}
-	};
+	}
 
 	return (
 		<div className="main_designed_cake">
@@ -306,7 +308,6 @@ export default function Designed_Cake() {
 									onChange={handleCakeNameChange}
 								/>
 							</div>
-
 
 							<div className="sm:col-span-1 shape_des">
 								<label
@@ -586,44 +587,48 @@ export default function Designed_Cake() {
 							<table className="table_designed_cake">
 								<thead>
 									<tr>
-										<th>Name</th>
-										<th>Total Price</th>
-										<th>Action</th>
-										<th>Delete</th>
+										<th>
+											<div className="text-center">Name</div>
+										</th>
+										<th>
+											<div className="text-center">Total Price</div>
+										</th>
+										<th>
+											<div className="text-center">Actions</div>
+										</th>
 									</tr>
 								</thead>
 								<tbody>
-									{Array.isArray(cakes) && cakes.map((cake) => (
-										<tr key={cake.des_prod_id}>
-											<td>{cake.name}</td>
-											<td>${cake.price}</td>
-											<td>
-												<AddToCartButton
-													variant="bordered"
-													color="#ff0000"
-													data={cake}
-												>
-													Add To Cart
-												</AddToCartButton>
-											</td>
-											<td>
-												<button
-													className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-													onClick={() => handleDelete(cake.des_prod_id)}
-													style={{
-														backgroundColor: "#ff0000",
-														color: "#fff",
-														border: "none",
-														padding: "8px 16px",
-														borderRadius: "4px",
-														cursor: "pointer",
-													}}
-												>
-													Delete
-												</button>
-											</td>
-										</tr>
-									))}
+									{Array.isArray(cakes) &&
+										cakes.map((cake) => (
+											<tr key={cake.des_prod_id}>
+												<td>{cake.name}</td>
+												<td>${cake.price}</td>
+												<td>
+													<AddToCartButton
+														variant="bordered"
+														color="#ff0000"
+														data={cake}
+													>
+														Add To Cart
+													</AddToCartButton>
+													<button
+														className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+														onClick={() => handleDelete(cake.des_prod_id)}
+														style={{
+															backgroundColor: "#ff0000",
+															color: "#fff",
+															border: "none",
+															padding: "8px 16px",
+															borderRadius: "4px",
+															cursor: "pointer",
+														}}
+													>
+														Delete
+													</button>
+												</td>
+											</tr>
+										))}
 								</tbody>
 							</table>
 						</div>
@@ -737,7 +742,7 @@ export default function Designed_Cake() {
 					<div style={{ borderBottom: "2px solid #000" }}></div>
 					<div className="body_designed_cake">
 						{" "}
-						<div className="name_designed_cake"> Let's enter text: </div>
+						<div className="name_designed_cake">Message: </div>
 						<div>{message}</div>
 					</div>{" "}
 					<div style={{ borderBottom: "2px solid #000" }}></div>
@@ -752,7 +757,7 @@ export default function Designed_Cake() {
 
 					<div style={{ borderBottom: "2px solid #000" }}></div>
 					<div className="total_price" id="title_designed_cake_price">
-						<div className="text_title_designed_cake_price">Total Price</div>
+						<div className="text_title_designed_cake_price">Total Price:</div>
 						<div>${totalPrice}</div>
 					</div>
 				</div>
@@ -783,7 +788,6 @@ export default function Designed_Cake() {
 					</center>
 				</div>
 				<ScrollToTopButton />
-
 			</div>
 		</div>
 	);

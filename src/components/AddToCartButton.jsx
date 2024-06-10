@@ -5,7 +5,6 @@ import PropTypes from "prop-types";
 
 export default function AddToCartButton({ children, data, className, size = "medium", variant = "solid", color = "primary", ...props }) {
 	const handleAddToCart = () => {
-		console.log(data);
 		if (data && data.prod_id) {
 			const storedItems = localStorage.getItem("cart");
 			const items = storedItems ? JSON.parse(storedItems) : [];

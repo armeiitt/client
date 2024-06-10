@@ -30,7 +30,6 @@ export default function Page() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log("Form data:", formData);
     alert(
       "We have received your information, the store will contact you later via your phone number. Thank you!"
     );

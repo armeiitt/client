@@ -41,6 +41,49 @@ export default function Cart() {
 	}, [items]);
 
 	async function handleSendMail() {
+		const subjectContent = "Order Confirmation";
+
+		const htmlContent = `
+<body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; background-color: #f9f9f9; padding: 20px">
+    <div style="
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            background-color: #fff;
+        ">
+        <h1 style="color: #27ae60; text-align: center; font-size: 24px; margin-bottom: 20px">
+            Order Confirmation
+        </h1>
+
+        <p style="font-weight: bold; text-align: center">THANKS FOR BUYING AT SWEETIES CAKE</p>
+
+        <p>Hello <b>${user.first_name} ${user.last_name}</b>,</p>
+        <p>Your order has been completed successfully.</p>
+
+        <div style="
+                margin: 20px 0;
+                padding: 15px;
+                background-color: #f3f3f3;
+                border: 1px solid #e1e1e1;
+                border-radius: 5px;
+            ">
+            <p style="margin: 0; font-weight: bold">Payment Address:</p>
+            <p style="margin: 5px 0"><b>Name:</b> ${user.first_name} ${user.last_name}</p>
+            <p style="margin: 5px 0"><b>Address:</b> ${user.address}</p>
+            <p style="margin: 5px 0"><b>Phone:</b> ${user.phone}</p>
+            <p style="margin: 5px 0"><b>Email:</b> ${user.email}</p>
+        </div>
+
+        <p style="margin: 15px 0"><b>Your payment:</b> $${subTotal.toFixed(2)}</p>
+
+        <p style="margin: 15px 0">Thank you for purchasing from us.</p>
+
+        <p style="text-align: center; color: #27ae60; font-weight: bold; margin-top: 30px">Sweeties Cake</p>
+    </div>
+</body>`;
+
 		const response = await fetch("/api/nodemailer", {
 			method: "POST",
 			headers: {
@@ -48,14 +91,14 @@ export default function Cart() {
 			},
 			body: JSON.stringify({
 				to: user.email,
-				subject: "Order Confirm",
-				html: ` <p>THANKS FOR BUYING CAKES</p> <p>Hello <b>${user.first_name} ${user.last_name}</b></p> <p>Your order has been completed.</p> <p>Payment Address</p> <p>Name: ${user.first_name} ${user.last_name}</p> <p>Address: ${user.address}</p> <p>Phone: ${user.phone}</p> <p>Email: ${user.email}</p> <p>Your payment: $${subTotal.toFixed(2)}</p> <p>Thank you for purchasing from us.</p> <p>Sweeties Cake</p>`,
+				subject: subjectContent,
+				html: htmlContent,
 			}),
 		});
 
 		const data = await response.json();
 		if (response.ok) {
-			console.log("Email sent successfully:", data.messageId);
+			console.log("Email sent successfully.");
 		} else {
 			console.error("Failed to send email:", data.error);
 		}
@@ -66,15 +109,16 @@ export default function Cart() {
 			const totalUnit = items.reduce((acc, item) => acc + item.quantity, 0);
 			const totalOriginPrice = items.reduce((acc, item) => acc + item.originPrice * item.quantity, 0);
 			const totalPrice = items.reduce((acc, item) => acc + item.price * item.quantity, 0);
+
 			const dataJSON = {
-				cus_id: 1,
+				cus_id: user.cus_id,
 				delivery_status: "pending",
 				active_status: "active",
 				total_unit: totalUnit,
 				total_origin_price: totalOriginPrice,
 				total_price: totalPrice,
 			};
-			console.log(dataJSON);
+
 			const response = await apiService.postData("orders", dataJSON);
 			handleSendMail();
 			console.log(response);
@@ -100,17 +144,19 @@ export default function Cart() {
 	}
 
 	function decreaseQuantity(itemId) {
-		const updatedItems = items.map((item) => {
-			const id = item?.prod_id || item?.des_prod_id;
-			if (id === itemId) {
-				if (item.quantity > 1) {
-					return { ...item, quantity: item.quantity - 1 };
-				} else {
-					return null;
+		const updatedItems = items
+			.map((item) => {
+				const id = item?.prod_id || item?.des_prod_id;
+				if (id === itemId) {
+					if (item.quantity > 1) {
+						return { ...item, quantity: item.quantity - 1 };
+					} else {
+						return null;
+					}
 				}
-			}
-			return item;
-		}).filter(Boolean);
+				return item;
+			})
+			.filter(Boolean);
 		setItems(updatedItems);
 		updateLocalStorage(updatedItems);
 	}
@@ -222,35 +268,35 @@ export default function Cart() {
 							<div className="button_cart">Quantity</div>
 							<div>Unit Price</div>
 						</div>
-						{Array.isArray(items) && items.map((item, index) => {
-							const id = item?.prod_id || item?.des_prod_id || index;
-							return (
-								<div key={id} className="flex flex-row justify-between mb-2">
-									<div className="w-[40%]">{item.name}</div>
-									<div className="button_cart flex items-center">
-										<Button
-											color="primary"
-											variant="light"
-											onClick={() => decreaseQuantity(id)}
-											className="mr-2"
-										>
-											-
-										</Button>
-										{item.quantity}
-										<Button
-											color="primary"
-											variant="light"
-											onClick={() => increaseQuantity(id)}
-											className="ml-2"
-										>
-											+
-										</Button>
+						{Array.isArray(items) &&
+							items.map((item, index) => {
+								const id = item?.prod_id || item?.des_prod_id || index;
+								return (
+									<div key={id} className="flex flex-row justify-between mb-2">
+										<div className="w-[40%]">{item.name}</div>
+										<div className="button_cart flex items-center">
+											<Button
+												color="primary"
+												variant="light"
+												onClick={() => decreaseQuantity(id)}
+												className="mr-2"
+											>
+												-
+											</Button>
+											{item.quantity}
+											<Button
+												color="primary"
+												variant="light"
+												onClick={() => increaseQuantity(id)}
+												className="ml-2"
+											>
+												+
+											</Button>
+										</div>
+										<div>${item.price}</div>
 									</div>
-									<div>${item.price}</div>
-								</div>
-							);
-						})}
-
+								);
+							})}
 					</div>
 					<div className="order_summary w-[40%]">
 						<div>
@@ -288,72 +334,73 @@ export default function Cart() {
 			<div className="isolate bg-white px-6 py-5 lg:px-8"></div>
 			<div className="form_cart">
 				<div className="form_shipping ">
-					<form onSubmit={handleOrderSubmit}>
-						<div className="cart_title">
-							<center>
-								<span className="bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500">
-									SHIPPING INFORMATION
-								</span>
-							</center>
+					{/* <form onSubmit={handleOrderSubmit}> */}
+					<div className="cart_title">
+						<center>
+							<span className="bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500">
+								SHIPPING INFORMATION
+							</span>
+						</center>
+					</div>
+					<div className="main_shipping_title">
+						<div>
+							<label>First Name:</label>
 						</div>
-						<div className="main_shipping_title">
-							<div>
-								<label>First Name:</label>
-							</div>
-							<div className="infor_ship">{user.first_name}</div>
+						<div className="infor_ship">{user.first_name}</div>
+					</div>
+					<div className="main_shipping_title">
+						<div>
+							<label>Last Name:</label>
 						</div>
-						<div className="main_shipping_title">
-							<div>
-								<label>Last Name:</label>
-							</div>
-							<div className="infor_ship">{user.last_name}</div>
+						<div className="infor_ship">{user.last_name}</div>
+					</div>
+					<div className="main_shipping_title">
+						<div>
+							<label>Email:</label>
 						</div>
-						<div className="main_shipping_title">
-							<div>
-								<label>Email:</label>
-							</div>
-							<div className="infor_ship">{user.email}</div>
+						<div className="infor_ship">{user.email}</div>
+					</div>
+					<div className="main_shipping_title">
+						<div>
+							<label>Phone Number:</label>
 						</div>
-						<div className="main_shipping_title">
-							<div>
-								<label>Phone Number:</label>
-							</div>
-							<div className="infor_ship">{user.phone}</div>
+						<div className="infor_ship">{user.phone}</div>
+					</div>
+					<div className="main_shipping_title">
+						<div>
+							<label>Address:</label>
 						</div>
-						<div className="main_shipping_title">
-							<div>
-								<label>Address:</label>
-							</div>
-							<div className="infor_ship">{user.address}</div>
+						<div className="infor_ship">{user.address}</div>
+					</div>
+					<div className="main_shipping_title">
+						<div>
+							<label>Shipping Method:</label>
 						</div>
-						<div className="main_shipping_title">
-							<div>
-								<label>Shipping Method:</label>
-							</div>
-							<div className="infor_ship">Delivery: Free ship</div>
+						<div className="infor_ship">Delivery: Free ship</div>
+					</div>
+					<div className="main_shipping_title">
+						<div>
+							<label>Payment methods</label>
 						</div>
-						<div className="main_shipping_title">
-							<div>
-								<label>Payment methods</label>
-							</div>
-							<div className="infor_ship">Cash on delivery (COD)</div>
+						<div className="infor_ship">Cash on delivery (COD)</div>
+					</div>
+					<div className="main_shipping_title">
+						<div>
+							<label>Payment</label>
 						</div>
-						<div className="main_shipping_title">
-							<div>
-								<label>Payment</label>
-							</div>
-							<div className="infor_ship">${subTotal}</div>
-						</div>
-						<div className="border-b border-gray-900/10 pb-12"></div>
-						<div className="mt-6 flex items-center justify-end gap-x-6">
-							<button
-								type="submit"
-								className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-							>
-								ORDER
-							</button>
-						</div>
-					</form>
+						<div className="infor_ship">${subTotal}</div>
+					</div>
+					<div className="border-b border-gray-900/10 pb-12"></div>
+					<div className="mt-6 flex items-center justify-end gap-x-6">
+						<button
+							// type="submit"
+							onClick={handleOrderSubmit}
+							className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+						>
+							ORDER
+						</button>
+					</div>
+					{/* </form> */}
 				</div>
 
 				<div className="img_between_forms">
@@ -477,13 +524,14 @@ export default function Cart() {
 								<>
 									<h2>Feedbacks</h2>
 									<ul>
-										{Array.isArray(feedbackList) && feedbackList.map((feedback, index) => (
-											<li key={index}>
-												<p>Product Name: {feedback.productName}</p>
-												<p>Comment: {feedback.comment}</p>
-												<p>Rating: {feedback.rating}</p>
-											</li>
-										))}
+										{Array.isArray(feedbackList) &&
+											feedbackList.map((feedback, index) => (
+												<li key={index}>
+													<p>Product Name: {feedback.productName}</p>
+													<p>Comment: {feedback.comment}</p>
+													<p>Rating: {feedback.rating}</p>
+												</li>
+											))}
 									</ul>
 								</>
 							)}
@@ -491,6 +539,6 @@ export default function Cart() {
 					</form>
 				</div>
 			</div>
-		</div >
+		</div>
 	);
 }
