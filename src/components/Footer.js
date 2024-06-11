@@ -147,7 +147,7 @@ export default function FooterDefault() {
               </svg>
               <span className="sr-only">Twitter page</span>
             </a> */}
-            <a
+            {/* <a
               href="https://github.com/armeiitt/"
               className="text-gray-500 hover:text-gray-900 dark:hover:text-white ms-5"
             >
@@ -164,8 +164,7 @@ export default function FooterDefault() {
                   clipRule="evenodd"
                 />
               </svg>
-              {/* <span className="sr-only">GitHub account</span> */}
-            </a>
+            </a> */}
             {/* <a
               href="#"
               className="text-gray-500 hover:text-gray-900 dark:hover:text-white ms-5"

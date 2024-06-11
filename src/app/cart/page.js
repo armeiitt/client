@@ -335,16 +335,16 @@ export default function Cart() {
 			</div>
 			<div className="isolate bg-white px-6 py-5 lg:px-8"></div>
 			<div className="form_cart">
-				<div className="form_shipping ">
+				<div className="form_shipping pl-20 mr-40">
 					{/* <form onSubmit={handleOrderSubmit}> */}
 					<div className="cart_title">
 						<center>
-							<span className="bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500">
+							<span className=" bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500">
 								SHIPPING INFORMATION
 							</span>
 						</center>
 					</div>
-					<div className="main_shipping_title">
+					<div className="main_shipping_title pt-5">
 						<div>
 							<label>First Name:</label>
 						</div>
@@ -393,7 +393,7 @@ export default function Cart() {
 						<div className="infor_ship">${subTotal}</div>
 					</div>
 					<div className="border-b border-gray-900/10 pb-12"></div>
-					<div className="mt-6 flex items-center justify-end gap-x-6">
+					<div className="mt-2 flex items-center justify-end gap-x-6">
 						<button
 							// type="submit"
 							onClick={handleOrderSubmit}
