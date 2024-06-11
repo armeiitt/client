@@ -28,7 +28,7 @@ export default async function page({ params }) {
         <div>
             <section>
                 <div className="w-full flex justify-center items-center">
-                    <div className="product_detail flex justify-between items-center w-[70%] px-2 py-3">
+                    <div className="flex justify-between items-center w-[70%] px-2 py-3">
                         <div>
                             <img
                                 src={`http://10.30.232.103:3000` + data?.attributes.image.data.attributes.url}

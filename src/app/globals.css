@@ -410,21 +410,21 @@ button {
   padding-bottom: 20px;
 }
 
-/* Product_detail */
-.product_detail {}
-
 /* designed_page */
-.creating_des{
+.creating_des {
   padding-left: 70px;
   padding-right: 70px;
 }
-.enter_name_des{
+
+.enter_name_des {
   padding-right: 20px;
 }
+
 .shape_des {
   padding-top: 15px;
   padding-left: 120px;
 }
+
 .table_designed_cake {
   table {
     width: 100%;

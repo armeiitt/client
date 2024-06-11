@@ -289,26 +289,26 @@ export default function Designed_Cake() {
 						<p className="mt-1 text-lg leading-8 text-gray-600"></p>
 					</div>
 					{/* <form action="#" method="POST" className="mx-auto mt-2 max-w-xl sm:mt-2"> */}
-					<div className="grid grid-cols-3 gap-x-48 gap-y-6 sm:grid-cols-2 creating_des">
-						<div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-							<div className="enter_name_des">
-								<label
-									htmlFor="message"
-									className="title_designed_cake_left block text-sm font-semibold leading-6 text-gray-900"
-								>
-									Let's enter your name
-								</label>
-								<textarea
-									name="message"
-									id="message"
-									rows={2}
-									className="mt-2.5 block w-full h-10 rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-									value={cakeName}
-									onChange={handleCakeNameChange}
-								/>
-							</div>
+					<div className="grid grid-cols-2 gap-y-6 sm:grid-cols-2 px-10">
+						<div className="enter_name_des">
+							<label
+								htmlFor="message"
+								className="title_designed_cake_left block text-sm font-semibold leading-6 text-gray-900"
+							>
+								Let's enter your name
+							</label>
+							<textarea
+								name="message"
+								id="message"
+								rows={2}
+								className="mt-2.5 block w-full h-10 rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+								value={cakeName}
+								onChange={handleCakeNameChange}
+							/>
+						</div>
 
-							<div className="sm:col-span-1 shape_des">
+						<div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-4">
+							<div className="sm:col-span-1 ">
 								<label
 									htmlFor="shape"
 									className="title_designed_cake_left block text-sm font-semibold leading-6 text-gray-900"
@@ -350,8 +350,7 @@ export default function Designed_Cake() {
 									</Dropdown>
 								</div>
 							</div>
-						</div>
-						<div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
+
 							<div className="sm:col-span-1">
 								<label
 									htmlFor="size"
