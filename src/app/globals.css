@@ -144,6 +144,52 @@ h4 {
   font-weight: bolder;
   padding-left: 15px;
 }
+/* Enhanced CSS for the product slide */
+
+.product-slide {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  transition: transform 0.3s ease;
+}
+
+.product-slide:hover {
+  transform: scale(1.05);
+}
+
+.product-info {
+  margin-left: 20px;
+  font-size: 16px;
+  font-family: 'Arial', sans-serif;
+  color: #333;
+}
+
+.product-info p {
+  margin: 5px 0;
+}
+
+.product-info p:first-child {
+  font-weight: bold;
+  font-size: 18px;
+  color: #ff69b4; /* Bright pink color */
+}
+
+.product-info p:last-child {
+  font-weight: 600;
+  color: #6a0dad; /* Dark violet color */
+}
+
+.product-slide img {
+  border-radius: 10px;
+  transition: transform 0.3s ease;
+}
+
+.product-slide:hover img {
+  transform: rotate(5deg);
+}
+
+
 
 .imageContainer {
   position: relative;
@@ -576,7 +622,9 @@ button {
 .cf-title-02 h1 {
   text-transform: capitalize;
 }
-
+.content_policy{
+  padding-left: 20px;
+}
 .cf-title-02 h1 span {
   font-size: 20px;
   font-weight: 500;
@@ -680,3 +728,41 @@ button {
   color: #666;
   margin-bottom: 10px;
 }
+
+
+
+/* styles.css */
+
+/* Product Cards Hover Effects */
+.card-hover {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-hover:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.card-hover img {
+  width: 100%; /* Ensure the image fills the container */
+  height: auto; /* Maintain aspect ratio */
+  border-radius: 10px;
+  transition: transform 0.3s ease;
+}
+
+.card-hover:hover img {
+  transform: rotate(3deg);
+}
+
+.card-footer-hover .add-to-cart {
+  align-self: flex-end;
+  margin-top: 0.5rem;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.card-footer-hover:hover .add-to-cart {
+  background-color: #ff69b4; /* Màu nền khi hover */
+  color: #fff; /* Màu chữ khi hover */
+}
+
+

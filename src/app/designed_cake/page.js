@@ -502,7 +502,7 @@ export default function Designed_Cake() {
 							</div>
 							<div className="relative mt-2.5">
 								<div>
-									<label>Sex</label>
+									<label>Drawing</label>
 								</div>
 								<div>
 									<CheckboxGroup
@@ -714,7 +714,7 @@ export default function Designed_Cake() {
 								);
 							})
 						) : (
-							<div>No Sex</div>
+							<div>No Drawing</div>
 						)}
 					</div>
 					<div>

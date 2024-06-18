@@ -60,6 +60,7 @@ export default function Home() {
 							shadow="sm"
 							key={value.id}
 							isPressable
+							className="card-hover"
 							onPress={() => {
 								if (value.attributes && value.attributes.slug) {
 									push(`/product/${value.attributes.slug}`);
@@ -67,7 +68,7 @@ export default function Home() {
 							}}
 						>
 
-							<CardBody className="overflow-visible p-0">
+							<CardBody className="overflow-visible p-0 imageContainer">
 								{/* <img
                                     className="w-full h-auto"
                                     alt={value.attributes.name}
@@ -75,10 +76,10 @@ export default function Home() {
                                 /> */}
 								{/* Check if value.src exists and render the image */}
 								{value.src && (
-									<img className="w-full h-auto" src={value.src} />
+									<img className="w-full h-auto img-preview" src={value.src} />
 								)}
 							</CardBody>
-							<CardFooter className="text-small flex-col gap-2">
+							<CardFooter className="text-small flex-col gap-2 card-footer-hover">
 								<div className="flex felx-row justify-between gap-2 w-full">
 									<b className="truncate">{value.name}</b>
 									<p className="text-default-500">${value.price}</p>

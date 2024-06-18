@@ -66,68 +66,116 @@ export default ({ params }) => {
           />
         </SwiperSlide> */}
         <SwiperSlide>
-          <Image
-            src="/images/cookie10.jpg"
-            alt="picture"
-            width={200}
-            height={200}
-          />
+          <div className="product-slide">
+            <Image
+              src="/images/cookie10.jpg"
+              alt="Cookie"
+              width={200}
+              height={200}
+            />
+            <div className="product-info">
+              <p>Milk Cookie</p>
+              <p>$5.00</p>
+            </div>
+          </div>
         </SwiperSlide>
         <SwiperSlide>
-          <Image
-            src="/images/cake2.jpg"
-            alt="picture"
-            width={200}
-            height={200}
-          />
+          <div className="product-slide">
+            <Image
+              src="/images/cake2.jpg"
+              alt="Cake"
+              width={200}
+              height={200}
+            />
+            <div className="product-info">
+              <p>Animal Cake</p>
+              <p>$16.00</p>
+            </div>
+          </div>
         </SwiperSlide>
         <SwiperSlide>
-          <Image
-            src="/images/macaron9.jpg"
-            alt="picture"
-            width={200}
-            height={200}
-          />
+          <div className="product-slide">
+            <Image
+              src="/images/macaron9.jpg"
+              alt="Macaron"
+              width={200}
+              height={200}
+            />
+            <div className="product-info">
+              <p>Yello Macaron</p>
+              <p>$6.00</p>
+            </div>
+          </div>
         </SwiperSlide>
         <SwiperSlide>
-          <Image
-            src="/images/cake6.jpg"
-            alt="picture"
-            width={200}
-            height={200}
-          />
+          <div className="product-slide">
+            <Image
+              src="/images/cake6.jpg"
+              alt="Cake"
+              width={200}
+              height={200}
+            />
+            <div className="product-info">
+              <p>Strawberry Cake</p>
+              <p>$9.00</p>
+            </div>
+          </div>
         </SwiperSlide>
         <SwiperSlide>
-          <Image
-            src="/images/macaron2.jpg"
-            alt="picture"
-            width={200}
-            height={200}
-          />
+          <div className="product-slide">
+            <Image
+              src="/images/macaron2.jpg"
+              alt="Macaron"
+              width={200}
+              height={200}
+            />
+            <div className="product-info">
+              <p>Christmas Macaron</p>
+              <p>$6.00</p>
+            </div>
+          </div>
         </SwiperSlide>
         <SwiperSlide>
-          <Image
-            src="/images/cookie4.jpg"
-            alt="picture"
-            width={200}
-            height={200}
-          />
+          <div className="product-slide">
+            <Image
+              src="/images/cookie4.jpg"
+              alt="Cookie"
+              width={200}
+              height={200}
+            />
+            <div className="product-info">
+              <p>Candy Cake</p>
+              <p>$12.00</p>
+            </div>
+          </div>
         </SwiperSlide>
         <SwiperSlide>
-          <Image
-            src="/images/macaron8.jpg"
-            alt="picture"
-            width={200}
-            height={200}
-          />
+          <div className="product-slide">
+            <Image
+              src="/images/macaron8.jpg"
+              alt="Macaron"
+              width={200}
+              height={200}
+            />
+            <div className="product-info">
+              <p>Chicken Macaron</p>
+              <p>$6.00</p>
+            </div>
+          </div>
         </SwiperSlide>
         <SwiperSlide>
-          <Image
-            src="/images/cake13.jpg"
-            alt="picture"
-            width={200}
-            height={200}
-          />
+          <div className="product-slide">
+            <Image
+              src="/images/cake13.jpg"
+              alt="Cake"
+              width={200}
+              height={200}
+            />
+            <div className="product-info">
+              <p>White Dog Cake</p>
+              <p>$27.00</p>
+            </div>
+          </div>
         </SwiperSlide>
       </Swiper>
     </div>

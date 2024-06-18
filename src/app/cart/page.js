@@ -118,6 +118,7 @@ export default function Cart() {
 				total_origin_price: totalOriginPrice,
 				total_price: totalPrice,
 			};
+			console.log(dataJSON);
 
 			const response = await apiService.postData("orders", dataJSON);
 			if (response.ok) {
