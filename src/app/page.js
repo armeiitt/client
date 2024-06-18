@@ -128,7 +128,7 @@ export default function Home() {
 				<Banner2 />
 			</section>
 			<section>
-				<div className="pt-7">
+				<div className="pt-7 pl-3">
 					<Feedback />
 					{/* Hiển thị dữ liệu giỏ hàng
           <h2>Cart Items:</h2>
