@@ -3,7 +3,6 @@
 import { Button } from "@nextui-org/react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import apiService from "../shared/sharedService";
 import StarRating from "../star_rating/page";
 
 export default function Cart() {
@@ -106,25 +105,28 @@ export default function Cart() {
 
 	async function handleOrderSubmit() {
 		try {
-			const totalUnit = items.reduce((acc, item) => acc + item.quantity, 0);
-			const totalOriginPrice = items.reduce((acc, item) => acc + item.originPrice * item.quantity, 0);
-			const totalPrice = items.reduce((acc, item) => acc + item.price * item.quantity, 0);
+			if (user && user.cus_id) {
+				const totalUnit = items.reduce((acc, item) => acc + item.quantity, 0);
+				const totalOriginPrice = items.reduce((acc, item) => acc + item.originPrice * item.quantity, 0);
+				const totalPrice = items.reduce((acc, item) => acc + item.price * item.quantity, 0);
 
-			const dataJSON = {
-				cus_id: user.cus_id,
-				delivery_status: "pending",
-				active_status: "active",
-				total_unit: totalUnit,
-				total_origin_price: totalOriginPrice,
-				total_price: totalPrice,
-			};
-			console.log(dataJSON);
+				const dataJSON = {
+					cus_id: user.cus_id,
+					delivery_status: "pending",
+					active_status: "active",
+					total_unit: totalUnit,
+					total_origin_price: totalOriginPrice,
+					total_price: totalPrice,
+				};
 
-			const response = await apiService.postData("orders", dataJSON);
-			if (response.ok) {
-				alert("Thank You For Ordering. We will contact you soon.");
-				handleSendMail();
-			};
+				const response = await apiService.postData("orders", dataJSON);
+				if (response.ok) {
+					alert("Thank You For Ordering. We will contact you soon.");
+					handleSendMail();
+				};
+			} else {
+				alert("Please Sign In First");
+			}
 		} catch (error) {
 			console.error("Error:", error);
 		}
