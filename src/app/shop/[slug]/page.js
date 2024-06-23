@@ -1,12 +1,16 @@
 "use client";
 import environment from "@/app/environment/environment";
 import AddToCartButton from "@/components/AddToCartButton";
-import { Card, CardBody, CardFooter } from "@nextui-org/react";
+import { Card, CardBody, CardFooter, Pagination, Button } from "@nextui-org/react";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import ScrollToTopButton from "@/components/ScrollToTopButton";
+
+const ITEMS_PER_PAGE = 6;
+
 export default function shopPage() {
   const [data, setData] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
   const pathname = usePathname();
   const { push } = useRouter();
 
@@ -35,6 +39,10 @@ export default function shopPage() {
     fetchData();
   }, [pathname]);
 
+  const totalPages = data ? Math.ceil(data.length / ITEMS_PER_PAGE) : 0;
+  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+  const endIndex = startIndex + ITEMS_PER_PAGE;
+  const paginatedData = data ? data.slice(startIndex, endIndex) : [];
   function getProdPhotoURL(nameImg) {
     return `http://${environment.API_DOMAIN}:${environment.API_PORT}/api/prod_photo/${nameImg}`;
   }
@@ -43,7 +51,7 @@ export default function shopPage() {
     <div>
       <div className="grid grid-cols-3 gap-4 px-2 py-3">
         {data &&
-          data.map((product) => (
+          paginatedData.map((product) => (
             <Card
               shadow="sm"
               key={product.id}
@@ -78,6 +86,32 @@ export default function shopPage() {
               </CardFooter>
             </Card>
           ))}
+      </div>
+      <div className="flex flex-col items-center mt-4 gap-2">
+        <Pagination
+          total={totalPages}
+          color="secondary"
+          page={currentPage}
+          onChange={setCurrentPage}
+        />
+        <div className="flex gap-2">
+          <Button
+            size="sm"
+            variant="flat"
+            color="secondary"
+            onPress={() => setCurrentPage((prev) => (prev > 1 ? prev - 1 : prev))}
+          >
+            Previous
+          </Button>
+          <Button
+            size="sm"
+            variant="flat"
+            color="secondary"
+            onPress={() => setCurrentPage((prev) => (prev < totalPages ? prev + 1 : prev))}
+          >
+            Next
+          </Button>
+        </div>
       </div>
       <ScrollToTopButton />
     </div>
